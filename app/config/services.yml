@@ -1,0 +1,31 @@
+parameters:
+
+
+services:
+    twig.extension.text:
+       class: Twig_Extensions_Extension_Text
+       tags:
+           - { name: twig.extension }
+
+    app.form.registration:
+        class: UserBundle\Form\RegistrationType
+        tags:
+            - { name: form.type, alias: app_user_registration }
+
+    app.form.profile:
+        class: UserBundle\Form\ProfileType
+        tags:
+            - { name: form.type, alias: app_user_profile }
+
+    app.image_uploader:
+        class: AppBundle\Services\FileUploader
+        arguments: ['%uploads_images_directory%']
+
+    app.doctrine_image_listener:
+        class: AppBundle\EventListener\ImageUploadListener
+        arguments:
+            - '@app.image_uploader'
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: postLoad }

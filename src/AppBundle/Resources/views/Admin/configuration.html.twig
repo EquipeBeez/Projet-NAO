@@ -1,0 +1,46 @@
+{% extends "AppBundle::layoutAdmin.html.twig" %}
+
+{% block title %}Configuration{% endblock %}
+
+{% block body %}
+    <h1>Configuration du site</h1>
+    <br>
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+    {{ form_errors(form) }}
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">FrontEnd</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    {{ form_label(form.theme, "Theme du FrontEnd : ", {'label_attr': {'class': 'col-sm-5 control-label'}}) }}
+                    {{ form_errors(form.theme) }}
+                    <div class="col-sm-7">
+                        {{ form_widget(form.theme, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">L'administration</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    {{ form_label(form.themeAdmin, "Theme de l'administration : ", {'label_attr': {'class': 'col-sm-5 control-label'}}) }}
+                    {{ form_errors(form.themeAdmin) }}
+                    <div class="col-sm-7">
+                        {{ form_widget(form.themeAdmin, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div>
+        <input type="submit" value="Valider" class="btn btn-primary" />
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
+{% block javascript %}
+{% endblock %}
+
+

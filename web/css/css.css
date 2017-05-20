@@ -1,0 +1,124 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    padding-top: 70px;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+/* Recharge des fonts de Glyphicons en cas d'utilisation des Themes BootSwatch*/
+@font-face {
+    font-family: 'Glyphicons Halflings';
+
+    src: url('../fonts/glyphicons-halflings-regular.eot');
+    src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+/* Css pour le bouton de retour en haut de page */
+.cRetour {
+    border-radius:3px;
+    padding:10px;
+    font-size:15px;
+    text-align:center;
+    color:#fff;
+    background:rgba(0, 0, 0, 0.25);
+    z-index:99999;
+    transition:all ease-in 0.2s;
+    position: fixed;
+    cursor: pointer;
+    bottom: 2em;
+    right: 20px;
+    display: none;
+}
+.cRetour:before{ content: "\25b2"; }
+.cRetour:hover{
+    background:rgba(0, 0, 0, 1);
+    transition:all ease-in 0.2s;
+}
+
+/* CSS surcharge */
+
+h1 {
+    font-size: x-large;
+    text-align: center;
+}
+h2 {
+    font-size: large;
+}
+.center {
+    text-align: center;
+}
+
+.max_center {
+    width: 100%;
+    text-align: center;
+}
+.navigation {
+    text-align: center;
+}
+.carousel {
+    padding-bottom: 15px;
+}
+.content-block {
+    min-height: 300px;
+}
+.flex {
+    display: flex;
+}
+
+.title {
+    font-weight: bold;
+    padding: 0px;
+    margin: 0px;
+}
+
+.bold_title {
+    font-weight: bold;
+}
+
+h6.panel-title {
+    font-size: 14px;
+}
+.image_obs {
+    width: 200px;
+}
+
+.image_list {
+    width: 80px;
+    height: 80px;
+}
+
+.image_list > img {
+    width: 100%;
+}
+
+.parent_image_list {
+
+}
+
+.image_sidebar {
+    width: 120px;
+}
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
+
+td .btn {
+    float: right;
+}
+
+.link_right {
+    float: right;
+}

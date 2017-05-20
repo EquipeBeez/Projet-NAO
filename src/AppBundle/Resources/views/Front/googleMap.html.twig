@@ -1,0 +1,32 @@
+{% block body %}
+    <div id="map" style="width:100%;height:400px;"></div>
+{% endblock %}
+{% block javascript %}
+    <script>
+        var obs = {{ (listObservations|raw) }};
+        function initMap() {
+            // Create the map.
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: new google.maps.LatLng(46.673564, 1.7),
+                zoom: 5,
+                mapTypeId: 'terrain'
+            });
+            for (var ob in obs) {
+                // Add the circle for this city to the map.
+                var marker = new google.maps.Circle({
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: '#FF0000',
+                    fillOpacity: 0.35,
+                    map: map,
+                    center: {lat: obs[ob].gpsLatitude, lng: obs[ob].gpsLongitude},
+                    radius: 10000
+                });
+            }
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIFTwKU0XQ4Nfvvw4kGW0QFARCbhffu-w&callback=initMap">
+    </script>
+{% endblock %}

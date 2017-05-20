@@ -1,0 +1,45 @@
+{% extends "AppBundle::layout1.html.twig" %}
+{% block title %}Affiche toutes les espèces{% endblock %}
+{% block body %}
+    <h1>Affichage des espèces.</h1>
+    <br>
+    <div class="center">
+        <p>Total d'espèces : {{ pagination.getTotalItemCount }}</p>
+    </div>
+    <br>
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th nowrap>{{ knp_pagination_sortable(pagination, 'Famille' , 'taxrefv10.Famille') }}</th>
+            <th nowrap>{{ knp_pagination_sortable(pagination, 'Nom scientifique', 'taxrefv10.LbNom') }}</th>
+            <th nowrap>{{ knp_pagination_sortable(pagination, 'Nom auteur', 'taxrefv10.LbAuteur') }}</th>
+            <th nowrap>{{ knp_pagination_sortable(pagination, 'Nom Vern. Fr', 'taxrefv10.NomVern') }}</th>
+            <th nowrap></thnowrap>
+        </tr>
+        </thead>
+        <tbody>
+        {% for oiseau in pagination %}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+                <td>{{ oiseau.Famille }}</td>
+                <td>{{ oiseau.LbNom }}</td>
+                <td>{{ oiseau.LbAuteur }}</td>
+                <td>{{ oiseau.NomVern }}</td>
+                <td nowrap>
+                    <a href="{{ path('view_one_species', {'id': oiseau.id}) }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    {% if is_granted("ROLE_USER") %}
+                        <a href="{{ path('create_observation', {'id': oiseau.id}) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    {% endif %}
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}
+
+
+
+

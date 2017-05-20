@@ -1,0 +1,20 @@
+{% extends "AppBundle::layoutAdmin.html.twig" %}
+
+{% block title %}Supprimer un utilisateur{% endblock %}
+
+{% block body %}
+
+
+        <h2>Supprimer un utilisateur</h2>
+
+        <p>
+            Etes-vous certain de vouloir supprimer l'utilisateur : " {{ user.username }}" ?
+        </p>
+
+
+        <form action="{{ path('admin_delete_user', {'username': user.username}) }}" method="post">
+            <a href="{{ path('admin_users') }}" class="btn btn-default">Retour à liste</a>
+            <input type="submit" value="Supprimer" class="btn btn-danger" />
+        </form>
+
+{% endblock %}
