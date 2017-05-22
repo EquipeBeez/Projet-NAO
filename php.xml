@@ -1,35 +1,34 @@
 <application>
   <component name="PhpInterpreters">
     <interpreters>
-      <interpreter home="C:\wamp64\bin\php\php5.6.16\php.exe" id="9501fbd4-31ec-443d-bc5a-de6134cd042f" name="PHP" debugger_id="php.debugger.XDebug" />
+      <interpreter home="C:\wamp64\bin\php\php7.0.0\php.exe" id="9501fbd4-31ec-443d-bc5a-de6134cd042f" name="PHP" debugger_id="php.debugger.XDebug" />
     </interpreters>
   </component>
   <component name="PhpInterpretersPhpInfoCache">
     <phpInfoCache>
       <interpreter name="PHP">
-        <phpinfo binary_type="PHP" php_cgi="C:\wamp64\bin\php\php5.6.16\php-cgi.exe" php_cli="C:\wamp64\bin\php\php5.6.16\php.exe" path_separator=";" remote_host="127.0.0.1" version="5.6.16">
+        <phpinfo binary_type="PHP" php_cgi="C:\wamp64\bin\php\php7.0.0\php-cgi.exe" php_cli="C:\wamp64\bin\php\php7.0.0\php.exe" path_separator=";" version="7.0.0">
           <additional_php_ini />
-          <configuration_file>C:\wamp64\bin\php\php5.6.16\php.ini</configuration_file>
+          <configuration_file>C:\wamp64\bin\php\php7.0.0\php.ini</configuration_file>
           <configuration_options>
             <configuration_option name="SMTP" value="localhost" />
             <configuration_option name="allow_url_fopen" value="1" />
             <configuration_option name="allow_url_include" value="" />
-            <configuration_option name="always_populate_raw_post_data" value="0" />
             <configuration_option name="arg_separator.input" value="&amp;" />
             <configuration_option name="arg_separator.output" value="&amp;" />
-            <configuration_option name="asp_tags" value="" />
             <configuration_option name="assert.active" value="1" />
             <configuration_option name="assert.bail" value="0" />
             <configuration_option name="assert.callback" value="" />
+            <configuration_option name="assert.exception" value="0" />
             <configuration_option name="assert.quiet_eval" value="0" />
             <configuration_option name="assert.warning" value="1" />
             <configuration_option name="auto_append_file" value="" />
             <configuration_option name="auto_detect_line_endings" value="0" />
-            <configuration_option name="auto_globals_jit" value="1" />
+            <configuration_option name="auto_globals_jit" value="" />
             <configuration_option name="auto_prepend_file" value="" />
             <configuration_option name="bcmath.scale" value="0" />
             <configuration_option name="browscap" value="" />
-            <configuration_option name="curl.cainfo" value="" />
+            <configuration_option name="curl.cainfo" value="C:\wamp64\bin\php\php7.0.0\cacert.pem" />
             <configuration_option name="date.default_latitude" value="31.7667" />
             <configuration_option name="date.default_longitude" value="35.2333" />
             <configuration_option name="date.sunrise_zenith" value="90.583333" />
@@ -59,7 +58,7 @@
             <configuration_option name="exif.encode_unicode" value="ISO-8859-15" />
             <configuration_option name="exit_on_timeout" value="0" />
             <configuration_option name="expose_php" value="1" />
-            <configuration_option name="extension_dir" value="C:/wamp64/bin/php/php5.6.16/ext/" />
+            <configuration_option name="extension_dir" value="C:/wamp64/bin/php/php7.0.0/ext/" />
             <configuration_option name="file_uploads" value="1" />
             <configuration_option name="filter.default" value="unsafe_raw" />
             <configuration_option name="filter.default_flags" value="" />
@@ -108,17 +107,6 @@
             <configuration_option name="mcrypt.algorithms_dir" value="" />
             <configuration_option name="mcrypt.modes_dir" value="" />
             <configuration_option name="memory_limit" value="1024M" />
-            <configuration_option name="mysql.allow_local_infile" value="1" />
-            <configuration_option name="mysql.allow_persistent" value="1" />
-            <configuration_option name="mysql.connect_timeout" value="60" />
-            <configuration_option name="mysql.default_host" value="" />
-            <configuration_option name="mysql.default_password" value="" />
-            <configuration_option name="mysql.default_port" value="3306" />
-            <configuration_option name="mysql.default_socket" value="" />
-            <configuration_option name="mysql.default_user" value="" />
-            <configuration_option name="mysql.max_links" value="-1" />
-            <configuration_option name="mysql.max_persistent" value="-1" />
-            <configuration_option name="mysql.trace_mode" value="" />
             <configuration_option name="mysqli.allow_local_infile" value="1" />
             <configuration_option name="mysqli.allow_persistent" value="1" />
             <configuration_option name="mysqli.default_host" value="" />
@@ -141,16 +129,6 @@
             <configuration_option name="mysqlnd.net_read_timeout" value="31536000" />
             <configuration_option name="mysqlnd.sha256_server_public_key" value="" />
             <configuration_option name="mysqlnd.trace_alloc" value="" />
-            <configuration_option name="odbc.allow_persistent" value="1" />
-            <configuration_option name="odbc.check_persistent" value="1" />
-            <configuration_option name="odbc.default_cursortype" value="3" />
-            <configuration_option name="odbc.default_db" value="" />
-            <configuration_option name="odbc.default_pw" value="" />
-            <configuration_option name="odbc.default_user" value="" />
-            <configuration_option name="odbc.defaultbinmode" value="1" />
-            <configuration_option name="odbc.defaultlrl" value="4096" />
-            <configuration_option name="odbc.max_links" value="-1" />
-            <configuration_option name="odbc.max_persistent" value="-1" />
             <configuration_option name="open_basedir" value="" />
             <configuration_option name="openssl.cafile" value="" />
             <configuration_option name="openssl.capath" value="" />
@@ -158,11 +136,12 @@
             <configuration_option name="output_encoding" value="" />
             <configuration_option name="output_handler" value="" />
             <configuration_option name="pcre.backtrack_limit" value="1000000" />
+            <configuration_option name="pcre.jit" value="1" />
             <configuration_option name="pcre.recursion_limit" value="100000" />
             <configuration_option name="phar.cache_list" value="" />
             <configuration_option name="phar.readonly" value="1" />
             <configuration_option name="phar.require_hash" value="1" />
-            <configuration_option name="post_max_size" value="8M" />
+            <configuration_option name="post_max_size" value="200M" />
             <configuration_option name="precision" value="14" />
             <configuration_option name="realpath_cache_size" value="16K" />
             <configuration_option name="realpath_cache_ttl" value="120" />
@@ -188,6 +167,7 @@
             <configuration_option name="session.gc_probability" value="1" />
             <configuration_option name="session.hash_bits_per_character" value="5" />
             <configuration_option name="session.hash_function" value="0" />
+            <configuration_option name="session.lazy_write" value="1" />
             <configuration_option name="session.name" value="PHPSESSID" />
             <configuration_option name="session.referer_check" value="" />
             <configuration_option name="session.save_handler" value="files" />
@@ -226,7 +206,7 @@
             <configuration_option name="windows.show_crt_warning" value="0" />
             <configuration_option name="xmlrpc_error_number" value="0" />
             <configuration_option name="xmlrpc_errors" value="0" />
-            <configuration_option name="xsl.security_prefs" value="44" />
+            <configuration_option name="zend.assertions" value="1" />
             <configuration_option name="zend.detect_unicode" value="1" />
             <configuration_option name="zend.enable_gc" value="1" />
             <configuration_option name="zend.multibyte" value="0" />
@@ -250,11 +230,9 @@
             <extension name="curl" />
             <extension name="date" />
             <extension name="dom" />
-            <extension name="ereg" />
             <extension name="exif" />
             <extension name="fileinfo" />
             <extension name="filter" />
-            <extension name="ftp" />
             <extension name="gd" />
             <extension name="gettext" />
             <extension name="gmp" />
@@ -267,17 +245,13 @@
             <extension name="libxml" />
             <extension name="mbstring" />
             <extension name="mcrypt" />
-            <extension name="mhash" />
-            <extension name="mysql" />
             <extension name="mysqli" />
             <extension name="mysqlnd" />
-            <extension name="odbc" />
             <extension name="openssl" />
             <extension name="pcre" />
             <extension name="pdo_mysql" />
             <extension name="pdo_sqlite" />
             <extension name="session" />
-            <extension name="shmop" />
             <extension name="soap" />
             <extension name="sockets" />
             <extension name="sqlite3" />
