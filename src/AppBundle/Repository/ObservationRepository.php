@@ -12,11 +12,11 @@ class ObservationRepository extends EntityRepository
         return $qb;
     }
 
-    public function getAllValid()
+    public function findObsWithStatus($status)
     {
         $qb = $this->createQueryBuilder('a');
         $qb->where('a.status = :status')
-            ->setParameter('status', 'valid')
+            ->setParameter('status', $status)
             ->orderBy('a.dateObservation', 'DESC')
         ;
         return $qb->getQuery();
@@ -26,7 +26,7 @@ class ObservationRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('a');
         $qb->where('a.status = :status')
-            ->setParameter('status', 'valid')
+            ->setParameter('status', 'validated')
             ->orderBy('a.dateObservation', 'DESC')
             ->setMaxResults($nombre)
         ;

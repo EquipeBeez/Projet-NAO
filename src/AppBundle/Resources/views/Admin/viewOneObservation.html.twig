@@ -25,7 +25,15 @@
                             <tr><td class="bold_title">Date de l'observation</td><td>{{ observation.dateObservation|date("d/m/Y") }}</td></tr>
                             <tr><td class="bold_title">Nom espèce</td><td>{{ observation.espece.lbNom }}</td></tr>
                             <tr><td class="bold_title">Coordonnées GPS</td><td>{{ observation.gpsLatitude }} / {{ observation.gpsLongitude }}</td></tr>
-                            <tr><td class="bold_title">Status</td><td>{{ observation.status }}</td></tr>
+                            <tr><td class="bold_title">Status</td><td>
+                                    {% if observation.status == var_project.status_obs_waiting %}<button class="btn btn-warning btn-xs">En attente</button>{% endif %}
+                                    {% if observation.status == var_project.status_obs_valid %}<button class="btn btn-success btn-xs">Validée</button>{% endif %}
+                                    {% if observation.status == var_project.status_obs_rejeted %}
+                                        <button class="btn btn-danger btn-xs">Rejetée</button>
+                                        </td></tr>
+                                        <tr><td class="bold_title">Description du rejet</td><td>{{ observation.rejectMessage }}
+                                    {% endif %}
+                                </td></tr>
                             <tr><td class="bold_title">Commentaires</td><td>{{ observation.description }}</td></tr>
                         </table>
                     </div>
@@ -45,7 +53,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         Données INPN pour l'espèce "{{ observation.espece.lbNom }}"
-                        <a class="link_right" href="{{ path('admin_view_one_species', {'id': observation.espece.id}) }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                        <a class="link_right" href="{{ path('admin_view_one_species', {'id': observation.espece.id}) }}"><i class="fa fa-eye fright" aria-hidden="true"></i></a>
                     </h3>
                 </div>
                 <div class="panel-body">
@@ -62,7 +70,23 @@
             </div>
         </div>
     </div>
-    <a class="btn btn-primary btn-sm" href="{{ path('admin_edit_observation', {'id': observation.id}) }}">Editer</a>
+    {% if is_granted("ROLE_SUPER_ADMIN") %}
+        <a class="btn btn-primary btn-sm" href="{{ path('admin_edit_observation', {'id': observation.id}) }}">Editer</a>
+    {% endif %}
+
+    {% if is_granted("ROLE_USERNAT") %}
+        {% if observation.status == var_project.status_obs_waiting %}
+            <a class="btn btn-success btn-sm" href="{{ path('admin_valid_observation', {'id': observation.id}) }}">Valider</a>
+            <a class="btn btn-warning btn-sm" href="{{ path('admin_reject_observation', {'id': observation.id}) }}">Rejeter</a>
+        {% endif %}
+        {% if observation.status == var_project.status_obs_valid %}
+
+        {% endif %}
+        {% if observation.status == var_project.status_obs_rejeted %}
+            <a class="btn btn-success btn-sm" href="{{ path('admin_valid_observation', {'id': observation.id}) }}">Valider</a>
+        {% endif %}
+
+    {% endif %}
 
 
 
