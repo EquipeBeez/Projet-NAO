@@ -12,14 +12,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use AppBundle\Form\ContactType;
-
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 
 class DefaultController extends Controller
 {
     /**
+     *
      * @Route("/", name="homepage")
+     * @Method({"GET"})
+     *
      */
     public function indexAction()
     {
@@ -32,9 +35,12 @@ class DefaultController extends Controller
     }
 
     /**
+     *
      * @Route("/viewallspecies/{page}", name="view_all_species")
      * @param $page
      * @return \Symfony\Component\HttpFoundation\Response
+     * @Method({"GET"})
+     *
      */
     public function viewAllSpeciesAction($page)
     {
@@ -51,9 +57,12 @@ class DefaultController extends Controller
     }
 
     /**
+     *
      * @Route("/viewallobservations/{page}", name="view_all_observations")
      * @param $page
      * @return \Symfony\Component\HttpFoundation\Response
+     * @Method({"GET"})
+     *
      */
     public function viewAllObservationsAction($page)
     {
@@ -70,9 +79,12 @@ class DefaultController extends Controller
     }
 
     /**
+     *
      * @Route("/viewonespecies/{id}", name="view_one_species")
      * @param $taxrefv10
      * @return \Symfony\Component\HttpFoundation\Response
+     * @Method({"GET"})
+     *
      */
     public function viewOneSpeciesAction(Taxrefv10 $taxrefv10)
     {
@@ -85,9 +97,12 @@ class DefaultController extends Controller
     }
 
     /**
+     *
      * @Route("/viewoneobservation/{id}", name="view_one_observation")
      * @param $observation
      * @return \Symfony\Component\HttpFoundation\Response
+     * @Method({"GET"})
+     *
      */
     public function viewOneObservationAction(Observation $observation)
     {
@@ -97,9 +112,13 @@ class DefaultController extends Controller
     }
 
     /**
+     *
      * @Route("/createobservation/{id}", name="create_observation")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @Security("has_role('ROLE_USER')")
+     * @Method({"GET", "POST"})
+     *
      */
     public function createObservationAction(Request $request, $id = null)
     {
@@ -124,23 +143,26 @@ class DefaultController extends Controller
             'form' => $form->createView(),
             'observation' => $observation,
         ));
-
     }
 
-
-
-
     /**
+     *
      * @Route("/learnmore", name="learn_more")
      * @return \Symfony\Component\HttpFoundation\Response
+     * @Method({"GET"})
+     *
      */
     public function learnMoreAction()
     {
         return $this->render('AppBundle:Front:learnMore.html.twig');
     }
+
     /**
+     *
      * @Route("/landing", name="landing")
      * @return \Symfony\Component\HttpFoundation\Response
+     * @Method({"GET"})
+     *
      */
     public function landingAction()
     {
@@ -149,9 +171,12 @@ class DefaultController extends Controller
 
 
     /**
+     *
      * @Route("/contact", name="modal_contact")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+     * @Method({"GET", "POST"})
+     *
      */
     public function modalContactAction(Request $request)
     {
@@ -183,8 +208,11 @@ class DefaultController extends Controller
     }
 
     /**
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/sidebarsearch", name="side_bar_search")
+     * @Method({"GET"})
+     *
      */
     public function sideBarSearchAction()
     {
@@ -192,8 +220,11 @@ class DefaultController extends Controller
     }
 
     /**
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/sidebarnewsletter", name="side_bar_newsletter")
+     * @Method({"GET"})
+     *
      */
     public function sideBarNewsletterAction()
     {
@@ -201,8 +232,11 @@ class DefaultController extends Controller
     }
 
     /**
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/sidebarlast", name="side_bar_last")
+     * @Method({"GET"})
+     *
      */
     public function sideBarLastAction()
     {
@@ -214,8 +248,11 @@ class DefaultController extends Controller
     }
 
     /**
+     * @param $listobs
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/googlemap/{listobs}", name="google_map")
+     * @Method({"GET"})
+     *
      */
     public function googleMapAction($listobs)
     {
