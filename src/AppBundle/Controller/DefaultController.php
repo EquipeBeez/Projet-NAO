@@ -138,6 +138,14 @@ class DefaultController extends Controller
     {
         return $this->render('AppBundle:Front:learnMore.html.twig');
     }
+    /**
+     * @Route("/landing", name="landing")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function landingAction()
+    {
+        return $this->render('AppBundle:Landing:index.html.twig');
+    }
 
 
     /**

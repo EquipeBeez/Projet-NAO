@@ -318,6 +318,7 @@ class FrontControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', 'viewallobservations/1');
 
+        $linkFiche = $crawler->filter('a.lienVoirObservation')->eq('0');
         $crawler = $client->click($linkFiche->link());
 
         $client->followRedirects();
