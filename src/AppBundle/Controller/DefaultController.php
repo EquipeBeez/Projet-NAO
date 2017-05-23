@@ -147,6 +147,26 @@ class DefaultController extends Controller
         return $this->render('AppBundle:Landing:index.html.twig');
     }
 
+    /**
+     * @Route("/viewmyobservation", name="view_my_observation")
+     * @return Response
+     */
+    public function viewMyObservationAction()
+    {
+        // On récupère l'utilisateur courant
+        $user = $this->getUser();
+
+        $em = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:Observation');
+
+        $listObs = $em->findByAuthor($user);
+
+        return $this->render('AppBundle:Front:viewMyObservation.html.twig',array(
+            'listObs' => $listObs));
+    }
+
 
     /**
      * @Route("/contact", name="modal_contact")

@@ -1,0 +1,15 @@
+{% extends "AppBundle::layout.html.twig" %}
+{% block title %}Mes Observation{% endblock %}
+{% block body %}
+    <h1>Mes Observation</h1><hr>
+    <br>
+        {% for observation in listObs %}
+            {{ observation.title }}<br>
+        {% endfor %}
+
+    {#<div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>#}
+
+
+{% endblock %}
