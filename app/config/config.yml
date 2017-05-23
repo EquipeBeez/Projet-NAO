@@ -42,7 +42,9 @@ twig:
     form_themes:
         - 'bootstrap_3_layout.html.twig'
     globals:
-            config: '@services.loadconfig'
+        config: '@services.loadconfig'
+        dashboard: '@services.loaddashboard'
+        var_project: %var_project%
 
 # Doctrine Configuration
 doctrine:

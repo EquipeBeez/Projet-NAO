@@ -60,7 +60,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $em->getRepository('AppBundle:Observation')->getAllValid(), /* query NOT result */
+            $em->getRepository('AppBundle:Observation')->findObsWithStatus($this->getParameter('var_project')['status_obs_valid']), /* query NOT result */
             $page/*page number*/,
             25/*limit per page*/
         );
@@ -112,15 +112,12 @@ class DefaultController extends Controller
         }
         $observation->setStatus('waiting');
         $observation->setAuthor($this->getUser());
-
         $form   = $this->get('form.factory')->create(ObservationFrontType::class, $observation);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->persist($observation);
             $em->flush();
             $request->getSession()->getFlashBag()->add('success', 'Observation bien enregistrée.');
-
             return $this->redirectToRoute('view_one_observation', array('id' => $observation->getId()));
         }
         return $this->render('AppBundle:Front:createObservation.html.twig', array(
@@ -140,17 +137,6 @@ class DefaultController extends Controller
     public function learnMoreAction()
     {
         return $this->render('AppBundle:Front:learnMore.html.twig');
-    }
-
-    /**
-     * @Route("/landing", name="landing")
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function landingAction()
-    {
-
-        return $this->render('AppBundle:Landing:index.html.twig');
-
     }
 
 

@@ -103,10 +103,17 @@ class Observation
     /**
      * @var string
      *
-     * @ORM\Column(name="image", type="text", nullable=true)
+     * @ORM\Column(name="image", type="string", nullable=true)
      */
     private $image;
 
+
+    /**
+     * @var text
+     *
+     * @ORM\Column(name="rejectMessage", type="text", nullable=true)
+     */
+    private $rejectMessage;
 
 
     /**
@@ -382,4 +389,29 @@ class Observation
     {
         return $this->author;
     }
+
+    /**
+     * Set rejectMessage
+     *
+     * @param string $rejectMessage
+     *
+     * @return Observation
+     */
+    public function setRejectMessage($rejectMessage)
+    {
+        $this->rejectMessage = $rejectMessage;
+
+        return $this;
+    }
+
+    /**
+     * Get rejectMessage
+     *
+     * @return string
+     */
+    public function getRejectMessage()
+    {
+        return $this->rejectMessage;
+    }
 }
+

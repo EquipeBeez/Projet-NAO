@@ -91,7 +91,9 @@ h2 {
 h6.panel-title {
     font-size: 14px;
 }
+
 .image_obs {
+    max-width: 90%;
     width: 200px;
 }
 
@@ -104,21 +106,16 @@ h6.panel-title {
     width: 100%;
 }
 
-.parent_image_list {
-
-}
-
-.image_sidebar {
-    width: 120px;
-}
 .table > tbody > tr > td {
     vertical-align: middle;
 }
 
-td .btn {
+.fright {
     float: right;
 }
-
-.link_right {
-    float: right;
+.fleft {
+    float: left;
+}
+.fcenter {
+    text-align: center;
 }
