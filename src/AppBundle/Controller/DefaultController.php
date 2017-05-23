@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use AppBundle\Form\ContactType;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
 
@@ -148,25 +149,102 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/viewmyobservation", name="view_my_observation")
+     * @Route("/viewmyobservation/{page}", name="view_my_observation")
+     * @param $page
      * @return Response
      */
-    public function viewMyObservationAction()
+    public function viewMyObservationAction($page)
+    {
+        // On récupère l'utilisateur courant
+        $user = $this->getUser();
+        if ($user !== null) {
+
+            $em = $this->getDoctrine()->getManager();
+            $paginator  = $this->get('knp_paginator');
+            $pagination = $paginator->paginate(
+                $em->getRepository('AppBundle:Observation')->findByAuthor($user), /* query NOT result */
+                $page/*page number*/,
+                25/*limit per page*/
+            );
+            return $this->render('AppBundle:Front:viewMyObservation.html.twig', array(
+                'page' => $page,
+                'pagination' => $pagination));
+        }
+        else {
+                throw new NotFoundHttpException("La page demandée n'existe pas");
+        }
+
+    }
+
+    /**
+     * @Route("/deleteobservation/{id}", name="delete_my_observation")
+     * @param Observation $observation
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
+    public function deleteMyObservationAction(Observation $observation, Request $request)
     {
         // On récupère l'utilisateur courant
         $user = $this->getUser();
 
-        $em = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('AppBundle:Observation');
+        // On vérifie que l'utilisateur courant est bien l'auteur de l'observation
+        if ($user == $observation->getAuthor()) {
+            $em = $this->getDoctrine()->getManager();
+            $form = $this->get('form.factory')->create();
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em->remove($observation);
+                $em->flush();
+                $request->getSession()->getFlashBag()->add('success', "L'observation a bien été supprimée.");
+                return $this->redirectToRoute('view_my_observation', array('page' => 1 ));
+            }
 
-        $listObs = $em->findByAuthor($user);
-
-        return $this->render('AppBundle:Front:viewMyObservation.html.twig',array(
-            'listObs' => $listObs));
+            return $this->render('AppBundle:Front:confirmDelObservation.html.twig', array(
+                'observation' => $observation,
+                'form' => $form->createView(),
+            ));
+        }
+        else {
+            throw new NotFoundHttpException("La page demandée n'existe pas");
+        }
     }
 
+    /**
+     * @Route("/editmyobservation/{id}", name="edit_my_observation")
+     * @param Observation $observation
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
+    public function editMyObservationAction(Observation $observation, Request $request)
+    {
+        // On récupère l'utilisateur courant
+        $user = $this->getUser();
+
+        // On vérifie que l'utilisateur courant est bien l'auteur de l'observation
+        if ($user == $observation->getAuthor()) {
+            $em = $this->getDoctrine()->getManager();
+            $form = $this->get('form.factory')->create(ObservationFrontType::class, $observation);
+            $oldImage = $observation->getImage();
+            $form->handleRequest($request);
+            if (null === $observation->getImage()) {
+                $observation->setImage($oldImage->getFilename());
+            }
+            if ($form->isSubmitted() && $form->isValid()) {
+                $observation->setStatus($this->getParameter('var_project')['status_obs_waiting']);
+                $observation->setRejectMessage(null);
+                $em->flush();
+                $request->getSession()->getFlashBag()->add('success', "L'observation a bien été modifiée, elle sera ré-étudiée afin d'être validée .");
+                return $this->redirectToRoute('view_my_observation', array('page' => 1 ));
+            }
+            return $this->render('AppBundle:Front:editMyObservation.html.twig', array(
+                'observation' => $observation,
+                'form' => $form->createView(),
+            ));
+        }
+        else {
+            throw new NotFoundHttpException("La page demandée n'existe pas");
+        }
+    }
 
     /**
      * @Route("/contact", name="modal_contact")

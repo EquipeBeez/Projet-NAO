@@ -25,7 +25,10 @@
                                 <tr><td class="bold_title">Nom espèce</td><td>{{ observation.espece.lbNom }}</td></tr>
                                 <tr><td class="bold_title">Coordonnées GPS</td><td>{{ observation.gpsLatitude }} / {{ observation.gpsLongitude }}</td></tr>
                                 <tr><td class="bold_title">Commentaires</td><td>{{ observation.description }}</td></tr>
-                            </table>
+                            </table><br>
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <a href="{{ path('view_my_observation', { 'page' : 1 }) }}" class="btn btn-primary btn-sm">Mes observations</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

@@ -26,7 +26,7 @@
                             <li><a href="{{ path('fos_user_profile_edit') }}">Mon profil</a></li>
                             <hr>
                             <li><a href="{{ path('create_observation') }}">Saisir une observation</a></li>
-                            <li><a href="{{ path('view_my_observation') }}">Mes Observation</a></li>
+                            <li><a href="{{ path('view_my_observation', { 'page' : 1 }) }}">Mes Observation</a></li>
                             <hr>
                             <li><a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
                         </ul>
