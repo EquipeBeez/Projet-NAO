@@ -1,0 +1,18 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block title %}Supprimer une observation{% endblock %}
+
+{% block body %}
+    <h2 class="center">Supprimer une observation</h2><hr>
+    <div class="container">
+        <div class="well">
+            <p>
+                Etes-vous certain de vouloir supprimer votre observation :<strong> {{ observation.title }} </strong>?
+            </p>
+            {{ form_start(form) }}
+                <a href="{{ path('view_my_observation', { 'page' : 1 }) }}" class="btn btn-default">Retour à mes observations</a>
+                <input type="submit" value="Supprimer" class="btn btn-danger" />
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
