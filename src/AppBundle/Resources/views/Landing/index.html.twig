@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<!--
+	Spectral by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+    <title>Participez à l'observation des oiseaux | Nos Amis les Oiseaux</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="Passionné ou simple curieux, observez les oiseaux et contribuez à notre enquêtre participative en nous envoyant vos observations." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{{ asset('css/main.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/animate-custom.css')}}" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="{{ asset('css/ie8.css')}}" /><![endif]-->
+    <!--[if lte IE 9]><link rel="stylesheet" href="{{ asset('css/ie9.css')}}" /><![endif]-->
+</head>
+<body class="landing">
+
+<!--fenetre_modale /><![endif]-->
+<div id="masque" class="well">
+    <div id="wrapper">
+        <div id="register" class="animate form">
+            <p><a href="#nowhere"><img src="{{ asset('images/croix.png')}}" class="fermeture"/></a></p>
+
+            <form name="fos_user_registration_form" method="post" action="{{ path('fos_user_registration_register') }}" class="fos_user_registration_register">
+                <H2>INSCRIVEZ-VOUS</H2>
+                <div id="fos_user_registration_form">
+                    <div class="form-group">
+                        <label class="control-label required" for="fos_user_registration_form_name">Votre nom</label>
+                        <input type="text" id="fos_user_registration_form_name" name="fos_user_registration_form[name]" required="required" maxlength="255" pattern=".{3,}" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label required" for="fos_user_registration_form_username">Nom d&#039;utilisateur</label>
+                        <input type="text" id="fos_user_registration_form_username" name="fos_user_registration_form[username]" required="required" maxlength="180" pattern=".{2,}" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label required" for="fos_user_registration_form_email">Adresse e-mail</label>
+                        <input type="email" id="fos_user_registration_form_email" name="fos_user_registration_form[email]" required="required" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label required" for="fos_user_registration_form_plainPassword_first">Mot de passe</label>
+                        <input type="password" id="fos_user_registration_form_plainPassword_first" name="fos_user_registration_form[plainPassword][first]" required="required" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label required" for="fos_user_registration_form_plainPassword_second">Répéter le mot de passe</label>
+                        <input type="password" id="fos_user_registration_form_plainPassword_second" name="fos_user_registration_form[plainPassword][second]" required="required" class="form-control" />
+                    </div>
+
+                    {#<input type="hidden" id="fos_user_registration_form__token" name="fos_user_registration_form[_token]" value="au1p64krjBxB9nN6mAb08n7BYXEMdq-CzNmLvxHFYOA" />#}
+                </div>
+
+                <div>
+                    <input class="btn btn-sm btn-primary" type="submit" value="Créer un compte" />
+                </div>
+                <!--<p class="change_link">	Déjà membre ?
+                    <a href="#masquelog"> Connexion </a>
+                </p>-->
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="masquelog" class="well">
+    <div id="wrapper">
+        <div id="register" class="animate form">
+            <p><a href="#nowhere"><img src="{{ asset('images/croix.png')}}" class="fermeture"/></a></p>
+            <form class="form-signin" action="/login_check" method="post">
+                <h2 class="form-signin-heading">Identification</h2>
+                <div class="form-group">
+                    <input type="hidden" name="_csrf_token" value="NGN7zHipyYCoPN5omdcTUDmX2S95zkTxtspYADdlEeU">
+                    <label for="username" class="sr-only">Nom d'utilisateur</label>
+                    <input type="text" id="username" class="form-control" name="_username" value="" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="password" class="sr-only">Mot de passe</label>
+                    <input type="password" id="password" class="form-control" name="_password" required="required">
+                </div>
+                <div>
+                    <input class="btn btn-sm btn-primary" type="submit" id="_submit" name="_submit" value="Connexion">
+                </div>
+                <p class="change_link">Pas encore membre ?
+                    <a href="#masque">Rejoignez-nous</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+    <!-- Header -->
+    <header id="header" class="alt">
+        <h2><a>Nos Amis les Oiseaux</a></h2>
+        <nav id="nav">
+            <ul class="actions">
+                <a href="#masque" class="button fit special">Devenez membre</a>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Banner -->
+    <section id="banner">
+        <div class="inner">
+            <h1>Prenez part à l'observation des oiseaux</h1>
+            <p>programme de sciences participatives <br /> de l'Association Nos Amis Les Oiseaux
+            </p>
+            <ul class="actions">
+                <a href="{{ path('fos_user_registration_register') }}" class="button special">Rejoignez-nous</a>
+            </ul>
+        </div>
+        <a href="#one" class="more scrolly">Participez à l'aventure</a>
+    </section>
+
+    <!-- One -->
+    <section id="one" class="container special">
+        <section class="container">
+            <header class="major">
+                <h2>Pourquoi Observer les oiseaux ?</h2>
+            </header>
+        </section>
+    </section>
+
+    <!-- Two -->
+    <section id="two" class="wrapper alt style2">
+        <section class="spotlight">
+            <div class="image"><img src="{{ asset('images/oiseaux.jpg')}}" alt="Projet Sciences citoyennes" /></div>
+            <div class="content">
+                <h2>Devenez citoyen scientifique</h2>
+                <p>Aidez les chercheurs à étudier les effets du climat, de l’urbanisation et de l’agriculture sur la biodiversité ! </p>
+                <div class="features">
+                    <li class="icon fa-database"  aria-hidden="true">Récoltez des données pour l'étude des oiseaux</li>
+                    <li class="icon fa-universal-access"  aria-hidden="true">Contribuez à l'amélioration des connaissances sur la nature</li>
+                    <li class="icon fa-thumbs-o-up"  aria-hidden="true">Suivez les avancées scientifiques réalisées grâce à votre participation</li>
+                </div>
+            </div>
+        </section>
+        <section class="spotlight">
+            <div class="image"><img src="{{ asset('images/oiseaux_app_fin.jpg')}}" alt="photographier les oiseaux" /></div>
+            <div class="content">
+                <h2>Elargissez vos connaissances</h2>
+                <p>Passionné ou simple curieux, en ville ou à la campagne, partez à la découverte de la faune aviaire locale</p>
+                <div class="features">
+                    <li class="icon fa-question-circle-o"  aria-hidden="true">Apprenez à reconnaître et identifier les oiseaux</li>
+                    <li class="icon fa-binoculars"  aria-hidden="true">Découvrez les espèces présentes dans votre région</li>
+                    <li class="icon fa-camera"  aria-hidden="true">Diffusez vos photos d'oiseaux</li>
+                    <li class="icon fa-comments-o"  aria-hidden="true">Echangez avec des passionnés d'oiseaux</li>
+                </div>
+            </div>
+        </section>
+        <section class="spotlight">
+            <div class="image"><img src="{{ asset('images/oiseaux.jpg')}}" alt="application oiseaux" /></div>
+            <div class="content">
+                <h2>Votre assistant en ligne</h2>
+                <p>Disposez d'un carnet de bord pour vous assister à la préparation de vos sorties et à la saisie de vos observations</p>
+                <div class="features">
+                    <li class="icon fa-wifi"  aria-hidden="true">Notez sur le terrain ou de chez vous vos observations </li>
+                    <li class="icon fa-map-marker"  aria-hidden="true">Consultez la carte interactive des espèces observées</li>
+                    <li class="icon fa-share"  aria-hidden="true">Partagez vos observations ornithologiques</li>
+                    <li class="icon fa-paper-plane-o"  aria-hidden="true">Effectuez vos relevés avec le référenciel TAXREF</li>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <section id="tree" class="wrapper style4 special">
+        <div class="inner">
+            <header class="major">
+                <h3>Comment ça marche :</h3>
+            </header>
+        </div>
+        <div class="gallery">
+            <img src="{{ asset('images/work1.png')}}" alt="observer les oiseaux" title="Observez les oiseaux" />
+            <img src="{{ asset('images/work2.png')}}" alt="enregistrez en ligne vos observations" title="Enregistrez vos données" />
+            <img src="{{ asset('images/work3.png')}}" alt="Validation par un naturaliste" title="Un professionnel valide votre observation" />
+
+        </div>
+    </section>
+
+    <section id="four" class="wrapper style6 special">
+        <div class="inner">
+            <header class="major">
+                <h3>Découvrez l'interface :</h3>
+            </header>
+        </div>
+    </section>
+
+    <!-- Carousel -->
+    <section id="carousel" class="carousel">
+        <div class="reel">
+            <a href="#" class="image featured"><img src="{{ asset('images/pic07.jpg')}}" alt="Page site observation oiseaux" /></a>
+            <a href="#" class="image featured"><img src="{{ asset('images/pic07.jpg')}}" alt="Page présentation association ornithologie" /></a>
+            <a href="#" class="image featured"><img src="{{ asset('images/pic07.jpg')}}" alt="Page Liste des oiseaux" /></a>
+            <a href="#" class="image featured"><img src="{{ asset('images/pic07.jpg')}}" alt="Fiche Présentation d'une espèce d'oiseau" /></a>
+            <a href="#" class="image featured"><img src="{{ asset('images/pic07.jpg')}}" alt="Page Saisir votre observation" /></a>
+            <a href="#" class="image featured"><img src="{{ asset('images/pic07.jpg')}}" alt="Page mes observations" /></a>
+            <a href="#" class="image featured"><img src="{{ asset('images/pic07.jpg')}}" alt="Page Valider les observations" /></a>
+            <a href="#" class="image featured"><img src="{{ asset('images/pic07.jpg')}}" alt="Page carte interactive" /></a>
+            <a href="#" class="image featured"><img src="{{ asset('images/pic07.jpg')}}" alt="Photo oiseaux" /></a>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="cta" class="wrapper style4">
+        <div class="inner">
+            <header>
+                <h3>Agissez pour la planète, Envoyez-nous vos observations d'oiseaux ! </h3>
+            </header>
+            <ul class="actions vertical">
+                <a href="#masque" class="button fit special">Lancez-vous</a>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <ul class="copyright">
+            <li>&copy; 2017</li><li>Association Nos Amis Les Oiseaux</li><br>
+            8 bd de l'église 75125 PARIS - Tél. 01 02 03 04 06 - contact@asso-nao.fr
+        </ul>
+    </footer>
+
+</div>
+
+<!-- Scripts -->
+<!--[if lte IE 8]><script src="{{ asset('js/ie/html5shiv.js') }}"></script><![endif]-->
+<script src="{{ asset('js/jquery.min.js')}}"></script>
+<script src="{{ asset('js/jquery.scrollex.min.js')}}"></script>
+<script src="{{ asset('js/jquery.dropotron.min.js')}}"></script>
+<script src="{{ asset('js/jquery.scrolly.min.js')}}"></script>
+<script src="{{ asset('js/jquery.onvisible.min.js')}}"></script>
+<script src="{{ asset('js/skel.min.js')}}"></script>
+<script src="{{ asset('js/util.js')}}"></script>
+<!--[if lte IE 8]><script src="{{ asset('js/ie/respond.min.js')}}"></script><![endif]-->
+<script src="{{ asset('js/main.js')}}"></script>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+{% extends "AppBundle::layout1.html.twig" %}
+
+{% block title %}Fiche Observation{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+        <div class="row">
+            <div class="col-lg-7 col-md-12 col-sm-12">
+                <div class="panel panel-primary panel-height">
+                    <div class="panel-heading">Observation #{{ observation.id }}</div>
+                    <div class="panel-body">
+                        <div class="max_center">
+                            {% if observation.image != null  %}
+                                <img class="image_obs" src="{{ asset('uploads/images/' ~ observation.image.filename) }}" title="{{ observation.espece.lbNom }}" alt="{{ observation.espece.lbNom }}" />
+                            {% else %}
+                                <img class="image_obs" src="{{ asset('uploads/images/imgDefaut.png') }}" title="Image par defaut" alt="Image par defaut" />
+                            {% endif %}
+                        </div>
+                        <hr>
+                        <div>
+                            <table style="width: 100%">
+                                <tr><td class="bold_title">Titre</td><td>{{ observation.title }}</td></tr>
+                                <tr><td class="bold_title">Date de l'observation</td><td>{{ observation.dateObservation|date("d/m/Y") }}</td></tr>
+                                <tr><td class="bold_title">Nom espèce</td><td>{{ observation.espece.lbNom }}</td></tr>
+                                <tr><td class="bold_title">Coordonnées GPS</td><td>{{ observation.gpsLatitude }} / {{ observation.gpsLongitude }}</td></tr>
+                                <tr><td class="bold_title">Commentaires</td><td>{{ observation.description }}</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-12 col-sm-12">
+                <div class="panel panel-primary panel-height">
+                    <div class="panel-heading">Carte</div>
+                    <div class="panel-body">
+                        {{ render(controller('AppBundle:Default:googleMap', {'listobs': observation})) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-sm-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">
+                            Données INPN pour l'espèce "{{ observation.espece.lbNom }}"
+                            <a class="link_right" href="{{ path('view_one_species', {'id': observation.espece.id}) }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                        </h6>
+                    </div>
+                    <div class="panel-body">
+                        <table style="width: 100%">
+                            <tr><td class="bold_title">Famille</td><td>{{ observation.espece.famille }}</td></tr>
+                            <tr><td class="bold_title">Nom de l'espèce</td><td>{{ observation.espece.lbNom }}</td></tr>
+                            <tr><td class="bold_title">Nom de l'auteur</td><td>{{ observation.espece.lbAuteur }}</td></tr>
+                            <tr><td class="bold_title">Nom vernaculaire français</td><td>{{ observation.espece.nomVern }}</td></tr>
+                            <tr><td class="bold_title">Nom vernaculaire anglais</td><td>{{ observation.espece.nomVernEng }}</td></tr>
+                            <tr><td class="bold_title">Url INPN</td><td><a href="{{ observation.espece.url }}">Lien vers INPN</a></td></tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
+{% block javascript %}
+
+    <script>
+        boxes = $('.panel-height');
+        maxHeight = Math.max.apply(
+                Math, boxes.map(function() {
+                    return $(this).height();
+                }).get());
+        boxes.height(maxHeight);
+    </script>
+{% endblock %}

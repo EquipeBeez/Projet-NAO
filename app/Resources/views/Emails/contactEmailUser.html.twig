@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+<body>
+    <div class="well">
+        <h3>Message du Formulaire de contact de NAO</h3>
+        <p>Date : {{ contact.date|date('d/m/Y') }}</p>
+    </div>
+    <div class="well">
+        <p>
+            Bonjour {{ contact.name }}, Votre message à bien été envoyé à notre Administrateur.</br></br>
+            Votre message : </br>
+            Nom : {{ contact.name }} </br>
+            Email : {{ contact.email }} </br>
+            Object : {{ contact.object }} </br>
+            Message : {{ contact.content }} </br>
+        </p>
+    </div>
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

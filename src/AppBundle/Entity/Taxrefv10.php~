@@ -1,0 +1,70 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Taxrefv10
+ *
+ * @ORM\Table(name="taxrefv10")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Taxrefv10Repository")
+ */
+class Taxrefv10
+{
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="famille", type="string", length=255, nullable=true)
+     */
+    private $Famille;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lb_nom", type="string", length=255, nullable=true)
+     */
+    private $LbNom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lb_auteur", type="string", length=255, nullable=true)
+     */
+    private $LbAuteur;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom_vern", type="string", length=255, nullable=true)
+     */
+    private $NomVern;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom_vern_eng", type="string", length=255, nullable=true)
+     */
+    private $NomVernEng;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url", type="string", length=255, nullable=true)
+     */
+    private $Url;
+
+
+}

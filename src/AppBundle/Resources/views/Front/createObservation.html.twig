@@ -1,0 +1,38 @@
+{% extends "AppBundle::layout.html.twig" %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" />
+{% endblock %}
+{% block title %}Saisir une observation{% endblock %}
+
+{% block body %}
+
+    {% if observation.espece == null %}
+        {{ include("AppBundle:Front:incFormCreateObservationWithOutSpecies.html.twig") }}
+    {% else %}
+        {{ include("AppBundle:Front:incFormCreateObservationWithSpecies.html.twig") }}
+    {% endif %}
+
+
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        boxes = $('.panel-height');
+        maxHeight = Math.max.apply(
+                Math, boxes.map(function() {
+                    return $(this).height();
+                }).get());
+        boxes.height(maxHeight);
+    </script>
+
+    <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.input-group.date').datetimepicker({
+                locale: "{{ app.request.locale }}",
+                format: 'DD/MM/YYYY'
+            });
+        });
+    </script>
+{% endblock %}

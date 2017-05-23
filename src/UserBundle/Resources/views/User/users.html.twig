@@ -1,0 +1,56 @@
+{% extends "AppBundle::layoutAdmin.html.twig" %}
+{% block title %}Gestion utilisateurs{% endblock %}
+{% block body %}
+    <h1>Gestion utilisateurs</h1>
+    <br />
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>Nom utilisateur</th>
+            <th>Nom</th>
+            <th>Dernière connexion</th>
+            <th>Actif</th>
+            <th>Role</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr {% if loop.index is odd %}class="color"{% endif %}>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.lastlogin|date("d/m/Y") }}</td>
+                    <td>
+                        {% if  user.enabled == 0 %}
+                            <a href="{{ path('admin_activate_user', {'username': user.username}) }}" class="lienEnable" data-toggle="tooltip" title="Activer"><i class="fa fa-toggle-off" aria-hidden="true"></i></a>
+                        {% else %}
+                            <a href="{{ path('admin_activate_user', {'username': user.username}) }}" class="lienDisable" data-toggle="tooltip" title="Désactiver"><i class="fa fa-toggle-on" aria-hidden="true"></i></a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% for role in user.roles %}
+                            {{ role }},
+                        {% endfor %}
+                    </td>
+                    <td></td>
+                    <td>
+                        <p>
+                            <a href="{{ path('admin_edit_user', {'id': user.id}) }}" class="editionUser" ><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="{{ path('admin_delete_user', {'username': user.username}) }}" class="deleteUser"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </p>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
+
+
+
+

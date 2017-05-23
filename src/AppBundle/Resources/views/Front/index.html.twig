@@ -1,0 +1,88 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="well">
+            <h3>Les dernières observations</h3>
+            <div class="row">
+            {% for listLastObservation in listLastObservations %}
+
+                <div class="col-sm-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h6 class="panel-title">{{ listLastObservation.title | truncate(40, false, '...') }}</h6>
+                        </div>
+                        <div class="panel-body">
+                            <div class="media">
+                                <div class="media-left parent_image_list">
+                                    <div class="image_list">
+
+                                        <img class="media-object" src="{{ asset('uploads/images/' ~ listLastObservation.image.filename) }}" title="{{ listLastObservation.espece.lbNom }}" alt="{{ listLastObservation.espece.lbNom }}" />
+                                    </div>
+                                </div>
+                                <div class="media-body">
+                                    <p>Nom scien. : {{ listLastObservation.espece.lbNom }}<br>
+                                    Nom vern. : {{ listLastObservation.espece.nomVern }}<br>
+                                    Date : {{ listLastObservation.dateObservation|date("d/m/Y") }}</p>
+                                </div>
+                            </div>
+                            <a class="btn btn-primary btn-xs" href="{{ path('view_one_observation', {'id': listLastObservation.id}) }}">Voir la fiche</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="well content-block">
+                    <h3>L'association NAO</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce augue augue, blandit rutrum massa eu, molestie scelerisque magna. Duis ut mi id nisl convallis semper eget et magna. Donec finibus interdum odio, vel viverra neque porttitor ut. Aenean vitae diam sit amet nunc ultricies commodo. Pellentesque vitae augue suscipit, hendrerit massa vitae, pharetra nulla. Nullam nisl nisi, vehicula nec consequat sit amet, tempor maximus nisi. Aenean in sollicitudin dui. </p>
+                    <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#modalContact" >Contactez nous !</a>
+                    <a class="btn btn-primary btn-sm" href="{{ path('learn_more') }}">En savoir plus</a>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="well content-block">
+                    <h3>La Newsletter</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce augue augue, blandit rutrum massa eu, molestie scelerisque magna. Duis ut mi id nisl convallis semper eget et magna. Donec finibus interdum odio, vel viverra neque porttitor ut. </p>
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label for="exampleInputEmail2">Indiquer votre Email</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="exampleInputAmount" placeholder="email@email.com">
+                                <div class="input-group-addon">Ok</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="well content-block">
+                    <h3>Particuliers / Passionnés</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce augue augue, blandit rutrum massa eu, molestie scelerisque magna. Duis ut mi id nisl convallis semper eget et magna. Donec finibus interdum odio, vel viverra neque porttitor ut. </p>
+                    <a class="btn btn-primary btn-sm" href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="well content-block">
+                    <h3>Professionnels / Naturalistes</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce augue augue, blandit rutrum massa eu, molestie scelerisque magna. Duis ut mi id nisl convallis semper eget et magna. Donec finibus interdum odio, vel viverra neque porttitor ut. </p>
+                    <a class="btn btn-primary btn-sm" href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

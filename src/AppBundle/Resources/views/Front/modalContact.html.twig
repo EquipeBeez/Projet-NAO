@@ -1,0 +1,24 @@
+<!-- Modal -->
+<div class="modal fade" id="modalContact" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Formulaire de contact</h4>
+            </div>
+            <div class="modal-body">
+                {{ form_start(form, {'action': path('modal_contact')}) }}
+                {{ form_errors(form) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.object) }}
+                {{ form_row(form.content) }}
+                <input type="submit" id="boutonEnvoieFormContact" value="Envoyer" class="btn btn-success btn-sm" />
+                {{ form_end(form) }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
