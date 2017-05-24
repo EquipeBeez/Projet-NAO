@@ -9,7 +9,7 @@
 
 
 <div class="row">
-    <div class="col-lg-7 col-md-12 col-sm-12">
+    <div class="col-lg-6 col-md-12 col-sm-12">
         <div class="panel panel-primary panel-height">
             <div class="panel-heading">Données INPN pour l'espèce "{{ taxrefv10.lbNom }}"</div>
             <div class="panel-body">
@@ -26,11 +26,11 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-5 col-md-12 col-sm-12">
+    <div class="col-lg-6 col-md-12 col-sm-12">
         <div class="panel panel-primary panel-height">
             <div class="panel-heading">Carte</div>
             <div class="panel-body">
-                {{ render(controller('AppBundle:Default:googleMap', {'listobs': taxrefv10})) }}
+                {{ render(controller('AppBundle:GoogleMap:googleMapView', {'listobs': taxrefv10})) }}
             </div>
         </div>
     </div>

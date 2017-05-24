@@ -345,29 +345,5 @@ class DefaultController extends Controller
         ));
     }
 
-    /**
-     * @param $listobs
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/googlemap/{listobs}", name="google_map")
-     * @Method({"GET"})
-     *
-     */
-    public function googleMapAction($listobs)
-    {
-        $em = $this->getDoctrine()->getManager();
-        if ($listobs instanceof Observation)
-        {
-            $query = $em->createQuery('SELECT c FROM AppBundle:Observation c WHERE c.id = ?1');
-            $query->setParameter(1, $listobs->getId());
-        }
-        elseif ($listobs instanceof Taxrefv10)
-        {
-            $query = $em->createQuery('SELECT o, t FROM AppBundle:Observation o JOIN o.espece t WHERE t.id = ?1');
-            $query->setParameter(1, $listobs->getId());
-        }
-        $listObservations = $query->getArrayResult();
-        return $this->render('AppBundle:Front:googleMap.html.twig', array(
-            'listObservations' => json_encode($listObservations, JSON_UNESCAPED_UNICODE)
-        ));
-    }
+
 }
