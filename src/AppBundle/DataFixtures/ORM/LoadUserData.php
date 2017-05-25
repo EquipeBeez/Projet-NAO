@@ -6,7 +6,6 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use FOS\UserBundle\Model\GroupableInterface;
 
 class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
@@ -51,7 +50,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $userManager->updateUser($user);
 
         $user = $userManager->createUser();
-        $user->setEmail('test1@example.com');
+        $user->setEmail('info@trukotop.com');
         $user->setUsername('Jeannot');
         $user->setName('Jean Voye');
         $user->setPlainPassword('jeannot');
@@ -60,7 +59,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $userManager->updateUser($user);
 
         $user = $userManager->createUser();
-        $user->setEmail('test2@example.com');
+        $user->setEmail('info@truknet.com');
         $user->setUsername('Nathalie');
         $user->setName('Nathalie Sync');
         $user->setPlainPassword('nathalie');

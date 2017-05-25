@@ -6,7 +6,7 @@
 
 {% block body %}
         <div class="row">
-            <div class="col-lg-7 col-md-12 col-sm-12">
+            <div class="col-lg-6 col-md-12 col-sm-12">
                 <div class="panel panel-primary panel-height">
                     <div class="panel-heading">Observation #{{ observation.id }}</div>
                     <div class="panel-body">
@@ -25,16 +25,19 @@
                                 <tr><td class="bold_title">Nom espèce</td><td>{{ observation.espece.lbNom }}</td></tr>
                                 <tr><td class="bold_title">Coordonnées GPS</td><td>{{ observation.gpsLatitude }} / {{ observation.gpsLongitude }}</td></tr>
                                 <tr><td class="bold_title">Commentaires</td><td>{{ observation.description }}</td></tr>
-                            </table>
+                            </table><br>
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <a href="{{ path('view_my_observation', { 'page' : 1 }) }}" class="btn btn-primary btn-sm">Mes observations</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-5 col-md-12 col-sm-12">
+            <div class="col-lg-6 col-md-12 col-sm-12">
                 <div class="panel panel-primary panel-height">
                     <div class="panel-heading">Carte</div>
                     <div class="panel-body">
-                        {{ render(controller('AppBundle:Default:googleMap', {'listobs': observation})) }}
+                        {{ render(controller('AppBundle:GoogleMap:googleMapView', {'listobs': observation})) }}
                     </div>
                 </div>
             </div>
@@ -43,7 +46,7 @@
                     <div class="panel-heading">
                         <h6 class="panel-title">
                             Données INPN pour l'espèce "{{ observation.espece.lbNom }}"
-                            <a class="link_right" href="{{ path('view_one_species', {'id': observation.espece.id}) }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a class="link_right" href="{{ path('view_one_species', {'id': observation.espece.id}) }}"><i class="fa fa-eye fright" aria-hidden="true"></i></a>
                         </h6>
                     </div>
                     <div class="panel-body">
