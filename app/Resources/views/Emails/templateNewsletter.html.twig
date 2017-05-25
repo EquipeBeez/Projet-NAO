@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+<body>
+<img class="img-responsive" style="height: 200px" src="{{ absolute_url(asset('images/imageNewsletter.jpg')) }}" alt="Image d'oiseau">
+<div class="well">
+    <h3>Votre Newsletter</h3>
+</div>
+<div class="well">
+    <p>
+        {{ titre }}
+        <br>
+        <br><hr>
+
+        {{ contenu }}
+        L'équipe NAO.<br><hr>
+        <a href="http://www.projet005.trukotop.com/">Vers le site</a>
+        <a href="http://www.projet005.trukotop.com/desinscription/{{ emailCrypter }}">Vers le site</a>
+
+    </p>
+</div>
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -21,7 +21,6 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     *
      * @Assert\NotBlank(message="Please enter your name.")
      * @Assert\Length(
      *     min=3,
@@ -32,12 +31,44 @@ class User extends BaseUser
      */
     protected $name;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="newsletter", type="boolean")
+     */
+    protected $newsletter;
+
 
 
     public function __construct()
     {
         parent::__construct();
+        $this->newsletter= false;
     }
 
 
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return User
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 }

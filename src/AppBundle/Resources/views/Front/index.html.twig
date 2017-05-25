@@ -54,15 +54,19 @@
                 <div class="well content-block">
                     <h3>La Newsletter</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce augue augue, blandit rutrum massa eu, molestie scelerisque magna. Duis ut mi id nisl convallis semper eget et magna. Donec finibus interdum odio, vel viverra neque porttitor ut. </p>
-                    <form class="form-inline">
-                        <div class="form-group">
-                            <label for="exampleInputEmail2">Indiquer votre Email</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="exampleInputAmount" placeholder="email@email.com">
-                                <div class="input-group-addon">Ok</div>
-                            </div>
-                        </div>
-                    </form>
+                    {{ form_start(formNews, {'action': path('inscription_newsletter')}) }}
+
+                    {{ form_label(formNews.email, "Indiquez votre adresse e-mail", {'label_attr':{'class':''}}) }}
+                    {{ form_errors(formNews.email) }}
+                    <div class="input-group">
+                        {{ form_widget(formNews.email, {'attr': {'placeholder': 'email@email.com', 'class': '', 'type': ''}}) }}
+                        <span class="input-group-btn">
+                        <input type="submit" value="Ok" class="btn btn-primary" />
+                    </span>
+                    </div>
+
+                    {{ form_end(formNews) }}
+
                 </div>
             </div>
         </div>
