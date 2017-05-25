@@ -3,6 +3,8 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Contact;
+use AppBundle\Entity\Observation;
+use UserBundle\Entity\User;
 use Symfony\Component\Templating\EngineInterface;
 
 class SendEmail
@@ -53,6 +55,28 @@ class SendEmail
             )
         ;
         $this->mailer->send($message);
+    }
 
+
+    /**
+     * @param Observation $observation
+     */
+    public function sendEmailReject(Observation $observation)
+    {
+
+
+        // Envoie de l'email à l'auteur
+        $message = \Swift_Message::newInstance()
+            ->setSubject("Message de NAO - Rejet d'une observation")
+            ->setFrom(array('info@nao.com' => 'Association NAO'))
+            ->setTo($observation->getAuthor()->getEmail())
+            ->setCharset('utf-8')
+            ->setContentType('text/html')
+            ->setBody(
+                $this->templating->render('Emails/rejectEmailAuthor.html.twig', array('observation' => $observation)),
+                'text/html'
+            )
+        ;
+        $this->mailer->send($message);
     }
 }

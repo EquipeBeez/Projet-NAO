@@ -5,8 +5,7 @@ security:
 
     role_hierarchy:
         ROLE_USERNAT:     ROLE_USER
-        ROLE_MODERATEUR:  ROLE_USERNAT
-        ROLE_SUPER_ADMIN: ROLE_MODERATEUR
+        ROLE_SUPER_ADMIN: [ROLE_MODERATEUR, ROLE_USERNAT]
 
     providers:
         fos_userbundle:

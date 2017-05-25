@@ -1,0 +1,144 @@
+{% block body %}
+    <div id="mapView" style="width:100%;height:400px;"></div>
+{% endblock %}
+{% block javascript %}
+    <script>
+        var obs = {{ (listObservations|raw) }};
+        function initMap() {
+
+            var latlng = new google.maps.LatLng(46.52863469527167, 2.43896484375);
+            var map = new google.maps.Map(document.getElementById('mapView'), {
+                center: latlng,
+                zoom: 5,
+                matTypeId: google.maps.MapTypeId.ROADMAP,
+                streetViewControl: false,
+                mapTypeControl: false,
+
+                {% if is_granted("ROLE_SUPER_ADMIN", "ROLE_USERNAT") %}
+                draggable:true,
+                zoomControl: true,
+                mapTypeControl: true,
+                scrollwheel: true,
+
+                {% else %}
+                draggable:false,
+
+                zoomControl: false,
+                mapTypeControl: false,
+                scrollwheel: false,
+
+                {% endif %}
+
+                styles: [
+                    {
+                        "featureType": "administrative",
+                        "elementType": "all",
+                        "stylers": [  {  "saturation": "-100" } ]
+                    },
+                    {
+                        "featureType": "administrative.province",
+                        "elementType": "all",
+                        "stylers": [ {  "visibility": "off" }  ]
+                    },
+                    {
+                        "featureType": "landscape",
+                        "elementType": "all",
+                        "stylers": [  {  "saturation": -100  }, { "lightness": 65 }, { "visibility": "on" } ]
+                    },
+                    {
+                        "featureType": "poi",
+                        "elementType": "all",
+                        "stylers": [ { "saturation": -100  },   { "lightness": "50" },  {"visibility": "simplified" } ]
+                    },
+                    {
+                        "featureType": "road",
+                        "elementType": "all",
+                        "stylers": [ { "saturation": "-100"  }  ]
+                    },
+                    {
+                        "featureType": "road.highway",
+                        "elementType": "all", "stylers": [  { "visibility": "simplified" }  ]
+                    },
+                    {
+                        "featureType": "road.arterial",
+                        "elementType": "all",
+                        "stylers": [  {   "lightness": "30" } ]
+                    },
+                    {
+                        "featureType": "road.local",
+                        "elementType": "all",
+                        "stylers": [ { "lightness": "40" }]
+                    },
+                    {
+                        "featureType": "transit",
+                        "elementType": "all",
+                        "stylers": [ {"saturation": -100 },  { "visibility": "simplified" } ]
+                    },
+                    {
+                        "featureType": "water",
+                        "elementType": "geometry",
+                        "stylers": [ {   "hue": "#ffff00"  }, {   "lightness": -25  },  { "saturation": -97 } ]
+                    },
+                    {
+                        "featureType": "water",
+                        "elementType": "labels",
+                        "stylers": [ {"lightness": -25 },  { "saturation": -100 } ]
+                    }
+                ]
+            });
+            for (var ob in obs) {
+                var oms = new OverlappingMarkerSpiderfier(map);
+                var image = '{{ asset('images/gmap/map_marker.gif') }}'
+                var markers = [];
+                for (var i = 0; i < obs.length; i++) {
+                    var markerOptions = {
+                        optimized: false,
+                        icon: image,
+                        position: {lat: obs[ob].gpsLatitude, lng: obs[ob].gpsLongitude},
+                        title:obs[ob].title,
+
+                    };
+
+                    var contentString = 	'<h1>'+this.obs[ob].title+'</h1>' +
+                        '<p><strong>Latitude: </strong> : '+this.obs[ob].gpsLatitude+'</p>' +
+                        '<p><strong>Longitude: </strong> : '+this.obs[ob].gpsLongitude+'</p>' +
+                        '<p><strong>Description</strong> : '+this.obs[ob].description+'</p>' ;
+
+
+                    var infowindow = new google.maps.InfoWindow({
+                        content: contentString
+                    });
+
+
+
+                    var marker = new google.maps.Marker(markerOptions);
+                    markers.push(marker);
+                    oms.addMarker(marker);
+                }
+                marker.addListener('click', function() {
+                    infowindow.open(map, marker);
+                });
+
+                var markerClusterer = new MarkerClusterer(map, markers, {
+                    maxZoom: 8, // maxZoom set when clustering will stop
+                    imagePath: '{{ asset('images/gmap/m') }}'
+                });
+
+                google.maps.event.addListener(markerClusterer, 'clusterclick', function(cluster) {
+                    map.fitBounds(cluster.getBounds());
+                    if (map.getZoom() > 10) {
+                        map.setZoom(10);
+                    }
+                });
+
+            }
+        }
+    </script>
+    <script src="{{ asset('js/gmap/oms.min.js') }}"></script>
+
+    <script src="{{ asset('js/gmap/markerclusterer.js') }}"></script>
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIFTwKU0XQ4Nfvvw4kGW0QFARCbhffu-w&callback=initMap">
+    </script>
+{% endblock %}

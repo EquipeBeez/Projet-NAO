@@ -157,7 +157,7 @@ class AdminControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/admin');
 
-        $linkObservation = $crawler->filter('a:contains("Observations")');
+        $linkObservation = $crawler->filter('a:contains("Liste complete")');
 
         $crawler = $client->click($linkObservation->link());
 
@@ -536,7 +536,7 @@ class AdminControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/admin');
 
-        $linkObservations = $crawler->filter('a:contains("Observations")');
+        $linkObservations = $crawler->filter('a:contains("Liste complete")');
 
         $crawler = $client->click($linkObservations->link());
 

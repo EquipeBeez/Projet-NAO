@@ -8,3 +8,5 @@ composer.lock
 /app/config/parameters.yml.serveur
 
 /web/uploads/images/Thumbs.db
+/web/images/Thumbs.db
+*.php~

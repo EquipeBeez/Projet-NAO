@@ -1,11 +1,10 @@
 {% extends "AppBundle::layoutAdmin.html.twig" %}
 {% block title %}Affiche toutes les observations{% endblock %}
 {% block body %}
-    <h1>Affichage de toutes les observations.</h1>
+    <h2>Affichage de toutes les observations.</h2>
     <br>
     <div class="center">
         <p>Total observations : {{ pagination.getTotalItemCount }}</p>
-
         <form class="form-inline">
             <div class="form-group">
                 <div class="input-group">
@@ -17,13 +16,14 @@
     </div>
 
     <br>
-    <table class="table table-striped">
+    <table class="table table-striped table-hover">
         <thead>
-        <tr>
+        <tr class="fcenter">
             <th nowrap>{{ knp_pagination_sortable(pagination, 'Titre' , 'observation.title') }}</th>
             <th nowrap>{{ knp_pagination_sortable(pagination, 'Date', 'observation.dateObservation') }}</th>
             <th nowrap>{{ knp_pagination_sortable(pagination, 'Espece', 'observation.espece.lbNom') }}</th>
             <th nowrap>{{ knp_pagination_sortable(pagination, 'Status', 'observation.status') }}</th>
+            <th nowrap>{{ knp_pagination_sortable(pagination, 'Auteur', 'observation.author.username') }}</th>
             <th nowrap></th>
         </tr>
         </thead>
@@ -33,11 +33,18 @@
                 <td>{{ observation.title }}</td>
                 <td>{{ observation.dateObservation|date("d/m/Y") }}</td>
                 <td>{{ observation.espece.lbNom }}</td>
-                <td>{{ observation.status }}</td>
                 <td>
-                    <a class="btn btn-primary btn-xs" href="{{ path('admin_view_one_observation', {'id': observation.id}) }}">Voir</a>
-                    <a class="btn btn-primary btn-xs" href="{{ path('admin_del_observation', {'id': observation.id}) }}">Supprimer</a>
-                    <a class="btn btn-primary btn-xs" href="{{ path('admin_edit_observation', {'id': observation.id}) }}">Editer</a>
+                    {% if observation.status == var_project.status_obs_waiting %}<button class="btn btn-warning btn-xs">En attente</button>{% endif %}
+                    {% if observation.status == var_project.status_obs_valid %}<button class="btn btn-success btn-xs">Validée</button>{% endif %}
+                    {% if observation.status == var_project.status_obs_rejeted %}<button class="btn btn-danger btn-xs">Rejetée</button>{% endif %}
+                </td>
+                <td>{{ observation.author.username }}</td>
+                <td>
+                    <a class="fright btn btn-primary btn-xs" href="{{ path('admin_view_one_observation', {'id': observation.id}) }}">Voir</a>
+                    {% if is_granted("ROLE_SUPER_ADMIN") %}
+                        <a class="fright btn btn-primary btn-xs" href="{{ path('admin_del_observation', {'id': observation.id}) }}">Supprimer</a>
+                        <a class="fright btn btn-primary btn-xs" href="{{ path('admin_edit_observation', {'id': observation.id}) }}">Editer</a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

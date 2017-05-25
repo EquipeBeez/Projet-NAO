@@ -6,10 +6,10 @@ namespace tests\AppBundle\Controller;
 
 
 
-    use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 
-class DefaultControllerTest extends WebTestCase
+class FrontControllerTest extends WebTestCase
 {
 
     public function testIndex()
@@ -318,7 +318,7 @@ class DefaultControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', 'viewallobservations/1');
 
-        $linkFiche = $crawler->filter('a:contains("Voir la fiche")');
+        $linkFiche = $crawler->filter('a.lienVoirObservation')->eq('0');
         $crawler = $client->click($linkFiche->link());
 
         $client->followRedirects();
