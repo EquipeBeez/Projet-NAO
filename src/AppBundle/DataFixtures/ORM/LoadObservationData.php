@@ -130,6 +130,7 @@ class LoadObservationData extends AbstractFixture implements OrderedFixtureInter
         $observation->setEspece($espece);
         $observation->setAuthor($author);
         $observation->setApprouvedBy($approuvedBy);
+        $observation->setRejectMessage("Un motif de rejet quelconque");
 
         $manager->persist($observation);
         $manager->flush();

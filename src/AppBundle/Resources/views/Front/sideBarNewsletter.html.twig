@@ -3,14 +3,22 @@
         <h3 class="panel-title">Newsletter</h3>
     </div>
     <div class="panel-body">
-        <form class="form-inline">
-            <div class="form-group">
-                <label for="exampleInputEmail2">Indiquer votre Email</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" id="exampleInputAmount" placeholder="email@email.com">
-                    <div class="input-group-addon">Ok</div>
-                </div>
-            </div>
-        </form>
+
+                    {{ form_start(formNews, {'action': path('inscription_newsletter')}) }}
+
+                    {{ form_errors(formNews.email) }}
+                    {{ form_label(formNews.email, "Indiquez votre adresse e-mail", {'label_attr':{'class':''}}) }}
+                    <div class="input-group">
+                    {{ form_widget(formNews.email, {'attr': {'placeholder': 'email@email.com', 'class': '', 'type': ''}}) }}
+                    <span class="input-group-btn">
+                        <input type="submit" value="Ok" class="btn btn-primary" />
+                    </span>
+                    </div>
+
+                    {{ form_end(formNews) }}
+
+
     </div>
-</div>
+
+    </div>
+

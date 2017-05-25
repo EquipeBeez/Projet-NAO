@@ -1,0 +1,28 @@
+{% extends "AppBundle::layoutAdmin.html.twig" %}
+
+{% block title %}Rédaction Newsletter{% endblock %}
+
+{% block body %}
+<h2 class="center">Rédaction Newsletter</h2><hr>
+    <div class="well">
+    {{ form_start(form, {'action': path('admin_newsletter')}) }}
+    {{ form_errors(form) }}
+
+    <div class="form-group">
+        {{ form_label(form.title, "Titre", {'label_attr': {'class': ''}}) }}
+        {{ form_errors(form.title) }}
+        <div class="">
+            {{ form_widget(form.title, {'attr': {'class': ''}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.content, "Contenu", {'label_attr': {'class': ''}}) }}
+        {{ form_errors(form.content) }}
+        <div class="">
+            {{ form_widget(form.content, {'attr': {'class': 'tinymce'}}) }}
+        </div>
+    </div>
+        <input type="submit" value="Envoyer" class="btn btn-primary">
+    {{ form_end(form) }}
+    </div>
+{% endblock %}
