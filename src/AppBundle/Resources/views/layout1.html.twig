@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %} - NAO</title>
+    <link rel="stylesheet" href="{{ asset(''~ config.loadConfig.theme ) }}" />
+    <link rel="stylesheet" href="{{ asset('css/font-awesome-4.7.0/css/font-awesome.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/css.css') }}" />
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+{% block navbar %}{{ include("AppBundle:Front:navbar.html.twig") }}{% endblock %}
+<div class="container">
+    {{ include("AppBundle:Front:carrousel.html.twig") }}
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9">
+
+                {# On affiche tous les messages flash #}
+                {% for key, messages in app.session.flashbag.all() %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ key }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% block body %}{% endblock %}
+            </div>
+
+            <div class="col-sm-3">
+                {# Affichage du panel Recherche dans la sidebar de droite #}
+                {{ render(controller('AppBundle:Default:sideBarSearch')) }}
+                {# Affichage du panel Newsletter dans la sidebar de droite #}
+                {{ render(controller('AppBundle:Default:sideBarNewsletter')) }}
+                {# Affichage du panel des dernières Observations dans la sidebar de droite #}
+                {{ render(controller('AppBundle:Default:sideBarLast')) }}
+            </div>
+        </div>
+
+
+
+    </div>
+    {{ render(controller('AppBundle:Default:modalContact')) }}
+    {{ include("AppBundle:Front:footer.html.twig") }}
+
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/button_retour.js') }}"></script>
+
+    {% block javascript %}{% endblock %}
+</body>
+</html>

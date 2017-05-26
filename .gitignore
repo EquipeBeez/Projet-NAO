@@ -1,0 +1,10 @@
+/var/*
+/vendor/
+/web/bundles/
+/.idea/
+composer.phar
+composer.lock
+/app/config/parameters.yml
+/app/config/parameters.yml.serveur
+
+/web/uploads/images/Thumbs.db

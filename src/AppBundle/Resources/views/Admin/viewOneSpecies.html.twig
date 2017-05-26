@@ -1,0 +1,84 @@
+{% extends "AppBundle::layoutAdmin.html.twig" %}
+
+{% block title %}Fiche Oiseaux{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-7 col-md-12 col-sm-12">
+            <div class="panel panel-primary panel-height">
+                <div class="panel-heading">Données INPN pour l'espèce "{{ taxrefv10.lbNom }}"</div>
+                <div class="panel-body">
+
+                    <table style="width: 100%">
+                        <tr><td>Famille</td><td>{{ taxrefv10.famille }}</td></tr>
+                        <tr><td>Nom scientifique</td><td>{{ taxrefv10.LbNom }}</td></tr>
+                        <tr><td>Autorité (Auteur, année)</td><td>{{ taxrefv10.LbAuteur }}</td></tr>
+                        <tr><td>Nom Français</td><td>{{ taxrefv10.NomVern }}</td></tr>
+                        <tr><td>Nom Anglais</td><td>{{ taxrefv10.NomVernEng }}</td></tr>
+                        <tr><td>URL INPN</td><td><a href="{{ taxrefv10.Url }}" target="_blank">Lien vers INPN</a></td></tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 col-md-12 col-sm-12">
+            <div class="panel panel-primary panel-height">
+                <div class="panel-heading">Carte</div>
+                <div class="panel-body">
+                    {{ render(controller('AppBundle:Default:googleMap', {'listobs': taxrefv10})) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-sm-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Observations pour cette espèce
+                        {% if is_granted("ROLE_USER") %}
+                            <a class="link_right" href="{{ path('create_observation', {'id': taxrefv10.id}) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        {% endif %}
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        {% if listObservations|length == 0 %}
+                            <li>Aucune observation</li>
+                        {% endif %}
+                        {% for listObservation in listObservations %}
+                            <li>
+                                <a href="{{ path('admin_view_one_observation', {'id': listObservation.id}) }}">
+                                    {{ listObservation.dateObservation|date("d/m/Y") }} -
+                                    {{ listObservation.title | truncate(50, false, '...') }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}
+{% block javascript %}
+
+    <script>
+        boxes = $('.panel-height');
+        maxHeight = Math.max.apply(
+            Math, boxes.map(function() {
+                return $(this).height();
+            }).get());
+        boxes.height(maxHeight);
+    </script>
+{% endblock %}
+
+
+
+
+
+

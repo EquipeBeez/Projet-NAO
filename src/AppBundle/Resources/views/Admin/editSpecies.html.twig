@@ -1,0 +1,59 @@
+{% extends "AppBundle::layoutAdmin.html.twig" %}
+
+{% block title %}Editer une fiche{% endblock %}
+
+{% block body %}
+<h2>Editer une fiche</h2>
+
+    <div class="well">
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_errors(form) }}
+
+        <div class="form-group">
+            {{ form_label(form.Famille, "Famille", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            {{ form_errors(form.Famille) }}
+            <div class="col-sm-10">
+                {{ form_widget(form.Famille, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.LbNom, "Nom Scientifique", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            {{ form_errors(form.LbNom) }}
+            <div class="col-sm-10">
+                {{ form_widget(form.LbNom, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.LbAuteur, "Auteur", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            {{ form_errors(form.LbAuteur) }}
+            <div class="col-sm-10">
+                {{ form_widget(form.LbAuteur, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.NomVern, "Nom vernaculaire Fr", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            {{ form_errors(form.NomVern) }}
+            <div class="col-sm-10">
+                {{ form_widget(form.NomVern, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.NomVernEng, "Nom vernaculaire En", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            {{ form_errors(form.NomVernEng) }}
+            <div class="col-sm-10">
+                {{ form_widget(form.NomVernEng, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.Url, "Url INPN", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            {{ form_errors(form.Url) }}
+            <div class="col-sm-10">
+                {{ form_widget(form.Url, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+
+        <a href="{{ path('admin') }}" class="btn btn-default">Retour au tableau de bord</a>
+        <input type="submit" value="Valider" class="btn btn-danger" />
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "AppBundle::layout1.html.twig" %}
+{% block title %}Affiche toutes les observations{% endblock %}
+{% block body %}
+    <h1>Affichage des observations.</h1>
+    <br>
+    <div class="center">
+        <p>Total d'observations : {{ pagination.getTotalItemCount }}</p>
+    </div>
+    <br>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th nowrap>Image</th>
+            <th nowrap>{{ knp_pagination_sortable(pagination, 'Titre' , 'observation.Title') }}</th>
+            <th nowrap>{{ knp_pagination_sortable(pagination, 'Date Obs.', 'observation.dateObservation') }}</th>
+            <th nowrap>{{ knp_pagination_sortable(pagination, 'Nom auteur', 'observation.espece.LbNom') }}</th>
+            <th nowrap>{{ knp_pagination_sortable(pagination, 'Nom Vern. Fr', 'observation.espece.NomVern') }}</th>
+            <th nowrap></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for observation in pagination %}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+                <td><img class="image_list" src="{{ asset('uploads/images/' ~ observation.image.filename) }}" title="{{ observation.espece.LbNom }}" alt="{{ observation.espece.LbNom }}" /></td>
+                <td class="mid">{{ observation.Title }}</td>
+                <td class="mid">{{ observation.dateObservation|date("d/m/Y") }}</td>
+                <td class="mid">{{ observation.espece.LbNom }}</td>
+                <td class="mid">{{ observation.espece.NomVern }}</td>
+                <td><a class="btn btn-primary btn-xs" href="{{ path('view_one_observation', {'id': observation.id}) }}">Voir la fiche</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
+
+{% endblock %}
+
+
+

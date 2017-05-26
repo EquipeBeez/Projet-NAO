@@ -1,0 +1,104 @@
+
+<h1 class="page-header">Tableau de bord</h1>
+
+<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+    <div class="alert alert-success">
+        <div class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img class="media-object" src="{{ asset('images/img-users.png') }}" alt="icone membre" style="height: 110px">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4>Statistiques Membres</h4>
+                <table style="background-color: transparent">
+                    <tr>
+                        <td>Membres Particuliers :</td>
+                        <td>{{ dashboard.member_user }}</td>
+                    </tr>
+                    <tr>
+                        <td>Membres Naturalistes :</td>
+                        <td>{{ dashboard.member_user_nat }}</td>
+                    </tr>
+                    <tr>
+                        <td>Membres Modérateurs :</td>
+                        <td>{{ dashboard.member_moderator }}</td>
+                    </tr>
+                    <tr>
+                        <td>Membres Admin :</td>
+                        <td>{{ dashboard.member_admin }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+    <div class="alert alert-warning">
+        <div class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img class="media-object" src="{{ asset('images/img-binocular.png') }}" alt="icone jumelles" style="height: 110px">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">Statistiques Observations</h4>
+                <table style="background-color: transparent">
+                    <tr>
+                        <td>Nombre total d'observations :</td>
+                        <td>{{ dashboard.count_observation }}</td>
+                    </tr>
+                    <tr>
+                        <td>Observations validées :</td>
+                        <td>{{ dashboard.count_observation_valid }}</td>
+                    </tr>
+                    <tr>
+                        <td>Observations en attentes :</td>
+                        <td>{{ dashboard.count_observation_waiting }}</td>
+                    </tr>
+                    <tr>
+                        <td>Observations rejetées :</td>
+                        <td>{{ dashboard.count_observation_reject }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+    <div class="alert alert-info">
+        <div class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img class="media-object" src="{{ asset('images/img-bird.png') }}" alt="icone oiseau" style="height: 110px">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4>Statistiques espèces</h4>
+                <table style="background-color: transparent">
+                    <tr>
+                        <td>Nombre d'espèce : </td>
+                        <td>{{ dashboard.count_species }}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

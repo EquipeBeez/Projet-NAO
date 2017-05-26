@@ -1,0 +1,52 @@
+{% extends "AppBundle::layoutAdmin.html.twig" %}
+{% block title %}Affiche toutes les observations{% endblock %}
+{% block body %}
+    <h1>Affichage de toutes les observations.</h1>
+    <br>
+    <div class="center">
+        <p>Total observations : {{ pagination.getTotalItemCount }}</p>
+
+        <form class="form-inline">
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="exampleInputAmount" placeholder="Recherche">
+                    <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <br>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th nowrap>{{ knp_pagination_sortable(pagination, 'Titre' , 'observation.title') }}</th>
+            <th nowrap>{{ knp_pagination_sortable(pagination, 'Date', 'observation.dateObservation') }}</th>
+            <th nowrap>{{ knp_pagination_sortable(pagination, 'Espece', 'observation.espece.lbNom') }}</th>
+            <th nowrap>{{ knp_pagination_sortable(pagination, 'Status', 'observation.status') }}</th>
+            <th nowrap></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for observation in pagination %}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+                <td>{{ observation.title }}</td>
+                <td>{{ observation.dateObservation|date("d/m/Y") }}</td>
+                <td>{{ observation.espece.lbNom }}</td>
+                <td>{{ observation.status }}</td>
+                <td>
+                    <a class="btn btn-primary btn-xs" href="{{ path('admin_view_one_observation', {'id': observation.id}) }}">Voir</a>
+                    <a class="btn btn-primary btn-xs" href="{{ path('admin_del_observation', {'id': observation.id}) }}">Supprimer</a>
+                    <a class="btn btn-primary btn-xs" href="{{ path('admin_edit_observation', {'id': observation.id}) }}">Editer</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}
+
+
+
