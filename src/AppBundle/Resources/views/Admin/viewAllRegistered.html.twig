@@ -1,0 +1,39 @@
+{% extends "AppBundle::layoutAdmin.html.twig" %}
+{% block title %}Affiche touts les Inscrits{% endblock %}
+{% block body %}
+    <h2 class="center">Affichage de touts les inscrits à la newsletter.</h2><hr>
+    <br>
+    <div class="center">
+        <p>Total Inscrit(s) : {{ pagination.getTotalItemCount }}</p>
+    </div>
+
+    <br>
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr class="fcenter">
+            <th>Adresse E-mail</th>
+            <th>Adresse E-mail Cryptée</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for emailNewsletter in pagination %}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+                <td>{{ emailNewsletter.email }}</td>
+                <td>{{ emailNewsletter.emailCrypter }}</td>
+                {#<td>
+                    <a class="fright btn btn-primary btn-xs" href="{{ path('admin_view_one_observation', {'id': observation.id}) }}">Voir</a>
+                    {% if is_granted("ROLE_SUPER_ADMIN") %}
+                        <a class="fright btn btn-primary btn-xs" href="{{ path('admin_del_observation', {'id': observation.id}) }}">Supprimer</a>
+                        <a class="fright btn btn-primary btn-xs" href="{{ path('admin_edit_observation', {'id': observation.id}) }}">Editer</a>
+                    {% endif %}
+
+                </td>#}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}

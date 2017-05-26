@@ -328,48 +328,4 @@ class AdminController extends Controller
         ));
     }
 
-    /**
-     * @param Request $request
-     * @Route("/admin/newsletter", name="admin_newsletter")
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function newsletterAction(Request $request){
-
-        $newsletter = new Newsletter();
-        // On crée le formulaire
-        $form = $this->createForm(NewsletterType::class, $newsletter);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Affichage d'un message flash
-            $request->getSession()->getFlashBag()->add('success', 'Newsletter publiée');
-
-            $contenu = $newsletter->getContent();
-            $titre = $newsletter->getTitle();
-            // Sauvegarder en Base de données
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($newsletter);
-            $em->flush();
-
-            // Envoi de la Newsletter
-            $em = $this->getDoctrine()->getManager();
-            $listEmail = $em->getRepository('AppBundle:EmailNewsletter')->findAll();
-            foreach ($listEmail as $item) {
-
-                $email = $item->getEmail();
-                $emailCrypter = $item->getEmailCrypter();
-                $this->container->get('app.sendEmail')->sendNewsletter($email, $contenu, $titre, $emailCrypter);
-
-            }
-
-            // Retour à la page newsletter
-            return $this->redirectToRoute('admin_newsletter');
-        }
-
-        return $this->render('AppBundle:Admin:newsletter.html.twig', array(
-            'form' => $form->createView()
-        ));
-
-    }
-
 }

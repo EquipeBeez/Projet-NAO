@@ -18,12 +18,12 @@
 <body class="landing">
 
 <!--fenetre_modale /><![endif]-->
-<div id="masque" class="well">
+<div id="masque" class=" well">
     <div id="wrapper">
         <div id="register" class="animate form">
             <p><a href="#nowhere"><img src="{{ asset('images/croix.png')}}" class="fermeture"/></a></p>
 
-            <form name="fos_user_registration_form" method="post" action="{{ path('fos_user_registration_register') }}" class="fos_user_registration_register">
+            {#<form name="fos_user_registration_form" method="post" action="{{ path('fos_user_registration_register') }}" class="fos_user_registration_register">
                 <H2>INSCRIVEZ-VOUS</H2>
                 <div id="fos_user_registration_form">
                     <div class="form-group">
@@ -51,7 +51,7 @@
                         <input type="password" id="fos_user_registration_form_plainPassword_second" name="fos_user_registration_form[plainPassword][second]" required="required" class="form-control" />
                     </div>
 
-                    {#<input type="hidden" id="fos_user_registration_form__token" name="fos_user_registration_form[_token]" value="au1p64krjBxB9nN6mAb08n7BYXEMdq-CzNmLvxHFYOA" />#}
+                    <input type="hidden" id="fos_user_registration_form__token" name="fos_user_registration_form[_token]" value="au1p64krjBxB9nN6mAb08n7BYXEMdq-CzNmLvxHFYOA" />
                 </div>
 
                 <div>
@@ -60,7 +60,16 @@
                 <!--<p class="change_link">	Déjà membre ?
                     <a href="#masquelog"> Connexion </a>
                 </p>-->
-            </form>
+            </form>#}
+            {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+
+            {{ form_widget(form) }}
+
+            <div>
+                <input class="btn btn-sm btn-primary" type="submit" id="boutonInscription" value="Créer votre compte" />
+            </div>
+
+            {{ form_end(form) }}
         </div>
     </div>
 </div>
@@ -112,7 +121,7 @@
             <p>programme de sciences participatives <br /> de l'Association Nos Amis Les Oiseaux
             </p>
             <ul class="actions">
-                <a href="{{ path('fos_user_registration_register') }}" class="button special">Rejoignez-nous</a>
+                <a href="#masque" class="button special">Rejoignez-nous</a>
             </ul>
         </div>
         <a href="#one" class="more scrolly">Participez à l'aventure</a>

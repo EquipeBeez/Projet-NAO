@@ -38,6 +38,19 @@ class Newsletter
      */
     private $content;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="datePublished", type="datetime")
+     * @Assert\DateTime()
+     */
+    private $datePublished;
+
+    public function __construct()
+    {
+
+        $this->datePublished = new \DateTime();
+    }
 
     /**
      * Get id
@@ -96,5 +109,28 @@ class Newsletter
     {
         return $this->content;
     }
-}
 
+    /**
+     * Set datePublished
+     *
+     * @param \DateTime $datePublished
+     *
+     * @return Newsletter
+     */
+    public function setDatePublished($datePublished)
+    {
+        $this->datePublished = $datePublished;
+
+        return $this;
+    }
+
+    /**
+     * Get datePublished
+     *
+     * @return \DateTime
+     */
+    public function getDatePublished()
+    {
+        return $this->datePublished;
+    }
+}

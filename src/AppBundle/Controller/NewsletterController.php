@@ -5,8 +5,12 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Entity\EmailNewsletter;
+use AppBundle\Entity\Newsletter;
 use AppBundle\Form\EmailNewsletterType;
+use AppBundle\Form\NewsletterType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -20,7 +24,7 @@ class NewsletterController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @param Request $request
      * @Route("/inscriptionnewsletter", name="inscription_newsletter")
-     *
+     * @Method({"GET", "POST"})
      */
     public function inscriptionNewsletterAction(Request $request)
     {
@@ -82,6 +86,7 @@ class NewsletterController extends Controller
      * @param $emailCrypter
      * @Route("/desinscription/{emailCrypter}", name="desinscription_newsletter")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Method({"POST"})
      */
     public function desinscriptionNewsletter(Request $request, $emailCrypter)
     {
@@ -121,6 +126,97 @@ class NewsletterController extends Controller
         {
             throw new NotFoundHttpException("La page demandée n'existe pas");
         }
+    }
+    /**
+     * @param Request $request
+     * @Route("/admin/newsletter", name="admin_newsletter")
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Security("has_role('ROLE_MODERATEUR')")
+     * @Method({"GET", "POST"})
+     */
+    public function newsletterAction(Request $request){
+
+        $newsletter = new Newsletter();
+        // On crée le formulaire
+        $form = $this->createForm(NewsletterType::class, $newsletter);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $contenu = $newsletter->getContent();
+            $titre = $newsletter->getTitle();
+            // Sauvegarder en Base de données
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($newsletter);
+            $em->flush();
+
+            // Envoi de la Newsletter
+            $em = $this->getDoctrine()->getManager();
+            $listEmail = $em->getRepository('AppBundle:EmailNewsletter')->findAll();
+            foreach ($listEmail as $item) {
+
+                $email = $item->getEmail();
+                $emailCrypter = $item->getEmailCrypter();
+                $this->container->get('app.sendEmail')->sendNewsletter($email, $contenu, $titre, $emailCrypter);
+
+            }
+
+            // Affichage d'un message flash
+            $request->getSession()->getFlashBag()->add('success', 'Newsletter publiée');
+            // Retour à la page newsletter
+            //return $this->redirectToRoute('admin_newsletter');
+            return $this->render('AppBundle:Admin:newsletter.html.twig', array(
+                'form' => $form->createView()));
+        }
+
+        return $this->render('AppBundle:Admin:newsletter.html.twig', array(
+            'form' => $form->createView()
+        ));
+
+    }
+    /**
+     *
+     * @Route("/admin/viewallnewsletter/{page}", name="view_all_newsletter")
+     * @param $page
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Security("has_role('ROLE_MODERATEUR')")
+     * @Method({"GET"})
+     *
+     */
+    public function viewAllNewsletterAction($page)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $em->getRepository('AppBundle:Newsletter')->findAll(), /* query NOT result */
+            $page/*page number*/,
+            5/*limit per page*/
+        );
+        return $this->render('AppBundle:Admin:viewAllNewsletter.html.twig', array(
+            'pagination' => $pagination,
+        ));
+    }
+    /**
+     *
+     * @Route("/admin/viewallregistered/{page}", name="view_all_registered")
+     * @param $page
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Security("has_role('ROLE_SUPER_ADMIN')")
+     * @Method({"GET"})
+     *
+     */
+    public function viewAllRegisteredAction($page)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $em->getRepository('AppBundle:EmailNewsletter')->findAll(), /* query NOT result */
+            $page/*page number*/,
+            25/*limit per page*/
+        );
+        return $this->render('AppBundle:Admin:viewAllRegistered.html.twig', array(
+            'pagination' => $pagination,
+        ));
     }
 
 }
