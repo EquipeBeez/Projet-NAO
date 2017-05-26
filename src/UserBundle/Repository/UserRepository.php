@@ -33,4 +33,17 @@ class UserRepository extends EntityRepository
             ->setParameter('roles4', '%"ROLE_SUPER_ADMIN"%' );
         return $qb->getQuery()->getResult();
     }
+
+    public function findUserByLike($term)
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('u')
+            ->from('UserBundle:User', 'u')
+            ->Where('u.username LIKE :terms')
+            ->orWhere('u.email LIKE :terms')
+            ->setParameter('terms', '%' . $term .'%' );
+        return $qb->getQuery()->getResult();
+    }
+
+
 }
