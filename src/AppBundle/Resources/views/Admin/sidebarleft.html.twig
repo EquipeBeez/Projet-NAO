@@ -27,7 +27,7 @@
             {% endif %}
 
             {% if is_granted("ROLE_MODERATEUR") %}
-                <li><a href="#">Newsletter</a></li>
+                <li><a href="{{ path('admin_newsletter') }}">Newsletter</a></li>
             {% endif %}
 
             <li><hr></li>

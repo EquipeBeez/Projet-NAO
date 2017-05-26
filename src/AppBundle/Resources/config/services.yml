@@ -15,3 +15,6 @@ services:
         arguments:
             - "@templating"
             - "@mailer"
+
+    app.saltRandom:
+            class: AppBundle\Services\SaltRandom

@@ -4,8 +4,10 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Entity\Contact;
+use AppBundle\Entity\EmailNewsletter;
 use AppBundle\Entity\Taxrefv10;
 use AppBundle\Entity\Observation;
+use AppBundle\Form\EmailNewsletterType;
 use AppBundle\Form\ObservationFrontType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,18 +22,21 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class DefaultController extends Controller
 {
     /**
-     *
      * @Route("/", name="homepage")
-     * @Method({"GET"})
-     *
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
         $listLastObservations = $em->getRepository('AppBundle:Observation')->findLastObservations(3);
 
+        $emailNewsletter = new EmailNewsletter();
+        // On crée le formulaire
+        $formNewsletter = $this->createForm(EmailNewsletterType::class, $emailNewsletter);
+
+
         return $this->render('AppBundle:Front:index.html.twig', array(
-            'listLastObservations' => $listLastObservations
+            'listLastObservations' => $listLastObservations,
+            'formNews' => $formNewsletter->createView()
         ));
     }
 
@@ -320,13 +325,39 @@ class DefaultController extends Controller
     /**
      *
      * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
      * @Route("/sidebarnewsletter", name="side_bar_newsletter")
-     * @Method({"GET"})
      *
      */
-    public function sideBarNewsletterAction()
+    public function sideBarNewsletterAction(Request $request)
     {
-        return $this->render('AppBundle:Front:sideBarNewsletter.html.twig');
+        $emailNewsletter = new EmailNewsletter();
+        // On crée le formulaire
+        $form = $this->createForm(EmailNewsletterType::class, $emailNewsletter);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Affichage d'un message flash
+
+            $request->getSession()->getFlashBag()->add('success', 'Vous êtes désormais inscrit à notre Newsletter');
+
+            // Sauvegarder en Base de données
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($emailNewsletter);
+            $em->flush();
+
+            // Retour à la page d'accueil
+            $em = $this->getDoctrine()->getManager();
+            $listLastObservations = $em->getRepository('AppBundle:Observation')->findLastObservations(3);
+
+            return $this->render('AppBundle:Front:index.html.twig', array(
+                'listLastObservations' => $listLastObservations,
+                'form' => $form->createView()
+            ));
+        }
+        /*return $this->render('AppBundle:Front:sideBarNewsletter.html.twig', array(
+            'form' => $form->createView(),
+        ));*/
     }
 
     /**

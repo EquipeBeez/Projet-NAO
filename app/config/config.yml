@@ -96,19 +96,19 @@ fos_user:
 stfalcon_tinymce:
         include_jquery: true
         tinymce_jquery: true
-        selector: ".tinymce"
-        # Get current language from the parameters.ini
-        language: "%locale%"
         theme:
-            simple:
-                theme: "modern"
-            # Advanced theme with almost all enabled plugins
-            advanced:
-                 plugins:
-                     - "advlist autolink lists link image charmap print preview hr anchor pagebreak"
-                     - "searchreplace wordcount visualblocks visualchars code fullscreen"
-                     - "insertdatetime media nonbreaking save table contextmenu directionality"
-                     - "emoticons template paste textcolor"
+                    # Simple theme: same as default theme
+                    simple:
+                        height: '400'
+                        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | fontsizeselect | fontselect"
+                        fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt'
+                        font_formats: 'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n'
+
+                    # BBCode tag compatible theme (see http://www.bbcode.org/reference.php)
+                    bbcode:
+                        plugins: ["bbcode, code, link, preview"]
+                        menubar: false
+                        toolbar1: "bold,italic,underline,undo,redo,link,unlink,removeformat,cleanup,code,preview"
 
 knp_paginator:
     default_options:
