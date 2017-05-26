@@ -86,7 +86,7 @@ class NewsletterController extends Controller
      * @param $emailCrypter
      * @Route("/desinscription/{emailCrypter}", name="desinscription_newsletter")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @Method({"POST"})
+     * @Method({"GET", "POST"})
      */
     public function desinscriptionNewsletter(Request $request, $emailCrypter)
     {
@@ -217,6 +217,55 @@ class NewsletterController extends Controller
         return $this->render('AppBundle:Admin:viewAllRegistered.html.twig', array(
             'pagination' => $pagination,
         ));
+    }
+    /**
+     * @param Request $request
+     * @param $emailCrypter
+     * @Route("/admin/desinscription/{emailCrypter}", name="admin_desinscription_newsletter")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Security("has_role('ROLE_SUPER_ADMIN')")
+     * @Method({"GET", "POST"})
+     */
+    public function adminDesinscriptionNewsletter(Request $request, $emailCrypter)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $emailNewsletter = $em->getRepository('AppBundle:EmailNewsletter')->findByEmailCrypter($emailCrypter);
+
+        if ($emailNewsletter != null) {
+            // Affichage d'un message flash
+            $request->getSession()->getFlashBag()->add('success', 'L\'utilisateur est bien désinscrit de notre Newsletter');
+
+            foreach ($emailNewsletter as $value) {
+                $email= $value->getEmail();
+            }
+
+
+            $em = $this->getDoctrine()->getManager();
+            $user = $em->getRepository('UserBundle:User')->findByEmail($email);
+            if ($user != null) {
+                foreach ($user as $value) {
+                    $value->setNewsletter(false);
+                }
+
+            }
+            // Sauvegarder en Base de données
+            $em = $this->getDoctrine()->getManager();
+            foreach ($emailNewsletter as $value) {
+                $em->remove($value);
+            }
+
+            $em->flush();
+
+            // Retour à la liste des inscrits
+            return $this->redirectToRoute('view_all_registered', array(
+                'page' => 1
+            ));
+        }
+        else
+        {
+            throw new NotFoundHttpException("La page demandée n'existe pas");
+        }
     }
 
 }

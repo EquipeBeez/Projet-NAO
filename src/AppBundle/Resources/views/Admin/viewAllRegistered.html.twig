@@ -13,6 +13,7 @@
         <tr class="fcenter">
             <th>Adresse E-mail</th>
             <th>Adresse E-mail Cryptée</th>
+            <th>Action</th>
 
         </tr>
         </thead>
@@ -21,14 +22,9 @@
             <tr {% if loop.index is odd %}class="color"{% endif %}>
                 <td>{{ emailNewsletter.email }}</td>
                 <td>{{ emailNewsletter.emailCrypter }}</td>
-                {#<td>
-                    <a class="fright btn btn-primary btn-xs" href="{{ path('admin_view_one_observation', {'id': observation.id}) }}">Voir</a>
-                    {% if is_granted("ROLE_SUPER_ADMIN") %}
-                        <a class="fright btn btn-primary btn-xs" href="{{ path('admin_del_observation', {'id': observation.id}) }}">Supprimer</a>
-                        <a class="fright btn btn-primary btn-xs" href="{{ path('admin_edit_observation', {'id': observation.id}) }}">Editer</a>
-                    {% endif %}
-
-                </td>#}
+                <td>
+                    <a class="btn btn-primary" href="{{ path('admin_desinscription_newsletter', {'emailCrypter': emailNewsletter.emailCrypter}) }}">Désinscription</a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
