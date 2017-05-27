@@ -71,6 +71,7 @@ class Contact
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank(message="Indiquez votre demande.")
      */
     private $content;
 

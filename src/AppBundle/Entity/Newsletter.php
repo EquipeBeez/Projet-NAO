@@ -26,7 +26,7 @@ class Newsletter
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Votre Newsletter doit contenir un titre")
      */
     private $title;
 
@@ -34,10 +34,23 @@ class Newsletter
      * @var string
      *
      * @ORM\Column(name="content", type="text")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Votre Newsletter doir avoir un contenu")
      */
     private $content;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="datePublished", type="datetime")
+     * @Assert\DateTime()
+     */
+    private $datePublished;
+
+    public function __construct()
+    {
+
+        $this->datePublished = new \DateTime();
+    }
 
     /**
      * Get id
@@ -96,5 +109,28 @@ class Newsletter
     {
         return $this->content;
     }
-}
 
+    /**
+     * Set datePublished
+     *
+     * @param \DateTime $datePublished
+     *
+     * @return Newsletter
+     */
+    public function setDatePublished($datePublished)
+    {
+        $this->datePublished = $datePublished;
+
+        return $this;
+    }
+
+    /**
+     * Get datePublished
+     *
+     * @return \DateTime
+     */
+    public function getDatePublished()
+    {
+        return $this->datePublished;
+    }
+}

@@ -1,99 +1,52 @@
 
 <h2 class="center">Tableau de bord</h2><hr>
 
-<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+<div class="">
     <div class="alert alert-success">
-        <div class="media">
-            <div class="media-left">
-                <a href="#">
+        <div class="">
+            <div class="pull-left">
                     <img class="media-object" src="{{ asset('images/img-users.gif') }}" alt="icone membre" style="height: 110px">
-                </a>
             </div>
-            <div class="media-body">
+            <div class="">
                 <h4>Statistiques Membres</h4>
-                <table style="background-color: transparent">
-                    <tr>
-                        <td>Membres Particuliers :</td>
-                        <td>{{ dashboard.loadDashboard.member_user }}</td>
-                    </tr>
-                    <tr>
-                        <td>Membres Naturalistes :</td>
-                        <td>{{ dashboard.loadDashboard.member_user_nat }}</td>
-                    </tr>
-                    <tr>
-                        <td>Membres Modérateurs :</td>
-                        <td>{{ dashboard.loadDashboard.member_moderator }}</td>
-                    </tr>
-                    <tr>
-                        <td>Membres Admin :</td>
-                        <td>{{ dashboard.loadDashboard.member_admin }}</td>
-                    </tr>
-                </table>
+                Membres Particuliers : {{ dashboard.loadDashboard.member_user }}<br>
+                Membres Naturalistes : {{ dashboard.loadDashboard.member_user_nat }}<br>
+                Membres Modérateurs : {{ dashboard.loadDashboard.member_moderator }}<br>
+                Membres Admin : {{ dashboard.loadDashboard.member_admin }}<br>
             </div>
         </div>
     </div>
 </div>
 
-<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+<div class="">
     <div class="alert alert-warning">
-        <div class="media">
-            <div class="media-left">
-                <a href="#">
+        <div class="">
+            <div class="pull-left">
+
                     <img class="media-object" src="{{ asset('images/img-binocular.gif') }}" alt="icone jumelles" style="height: 110px">
-                </a>
+
             </div>
-            <div class="media-body">
-                <h4 class="media-heading">Statistiques Observations</h4>
-                <table style="background-color: transparent">
-                    <tr>
-                        <td>Nombre total d'observations :</td>
-                        <td>{{ dashboard.loadDashboard.count_observation }}</td>
-                    </tr>
-                    <tr>
-                        <td>Observations validées :</td>
-                        <td>{{ dashboard.loadDashboard.count_observation_valid }}</td>
-                    </tr>
-                    <tr>
-                        <td>Observations en attentes :</td>
-                        <td>{{ dashboard.loadDashboard.count_observation_waiting }}</td>
-                    </tr>
-                    <tr>
-                        <td>Observations rejetées :</td>
-                        <td>{{ dashboard.loadDashboard.count_observation_reject }}</td>
-                    </tr>
-                </table>
+            <div class="">
+                <h4 class="">Statistiques Observations</h4>
+                Nombre total d'observations : {{ dashboard.loadDashboard.count_observation }}<br>
+                Observations validées : {{ dashboard.loadDashboard.count_observation_valid }}<br>
+                Observations en attentes : {{ dashboard.loadDashboard.count_observation_waiting }}<br>
+                Observations rejetées : {{ dashboard.loadDashboard.count_observation_reject }}<br>
             </div>
         </div>
     </div>
 </div>
-<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+<div class="">
     <div class="alert alert-info">
-        <div class="media">
-            <div class="media-left">
-                <a href="#">
+        <div class="">
+            <div class="pull-left">
+
                     <img class="media-object" src="{{ asset('images/img-bird.gif') }}" alt="icone oiseau" style="height: 110px">
-                </a>
+
             </div>
-            <div class="media-body">
+            <div class="">
                 <h4>Statistiques espèces</h4>
-                <table style="background-color: transparent">
-                    <tr>
-                        <td>Nombre d'espèce : </td>
-                        <td>{{ dashboard.loadDashboard.count_species }}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </table>
+                Nombre d'espèce : {{ dashboard.loadDashboard.count_species }}<br><br><br><br>
             </div>
         </div>
     </div>

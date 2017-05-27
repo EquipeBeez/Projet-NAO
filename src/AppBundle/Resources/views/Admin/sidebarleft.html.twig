@@ -27,7 +27,17 @@
             {% endif %}
 
             {% if is_granted("ROLE_MODERATEUR") %}
-                <li><a href="{{ path('admin_newsletter') }}">Newsletter</a></li>
+                <li>
+                    <a href="#" class="boutonmenu" type="button" data-toggle="collapse" data-target="#target2" >Newsletter <i class="fa fa-caret-down pull-right" aria-hidden="true"></i></a>
+
+                </li>
+            <ul class="nav collapse menuli" data-parent="#comment" id="target2">
+                <li><a href="{{ path('admin_newsletter') }}"><span style="padding-left: 25px;">Rédaction Newsletter</span></a></li>
+                <li><a href="{{ path('view_all_newsletter', { 'page': 1 }) }}"><span style="padding-left: 25px;">Liste Newsletter(s)</span></a></li>
+                {% if is_granted("ROLE_SUPER_ADMIN") %}
+                    <li><a href="{{ path('view_all_registered', { 'page': 1 }) }}"><span style="padding-left: 25px;">Liste Inscrit(s)</span></a></li>
+                {% endif %}
+            </ul>
             {% endif %}
 
             <li><hr></li>

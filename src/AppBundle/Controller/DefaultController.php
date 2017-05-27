@@ -9,7 +9,10 @@ use AppBundle\Entity\Taxrefv10;
 use AppBundle\Entity\Observation;
 use AppBundle\Form\EmailNewsletterType;
 use AppBundle\Form\ObservationFrontType;
+use FOS\UserBundle\Event\GetResponseUserEvent;
+use FOS\UserBundle\FOSUserEvents;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -170,9 +173,27 @@ class DefaultController extends Controller
      * @Method({"GET"})
      *
      */
-    public function landingAction()
+    public function landingAction(Request $request)
     {
-        return $this->render('AppBundle:Landing:index.html.twig');
+        $formFactory = $this->get('fos_user.registration.form.factory');
+        $userManager = $this->get('fos_user.user_manager');
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
+
+        $user = $userManager->createUser();
+        $user->setEnabled(true);
+
+        $event = new GetResponseUserEvent($user, $request);
+        $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
+
+        if (null !== $event->getResponse()) {
+            return $event->getResponse();
+        }
+
+        $form = $formFactory->createForm();
+        $form->setData($user);
+        return $this->render('AppBundle:Landing:index.html.twig', array (
+            'form' => $form->createView()));
     }
 
     /**
