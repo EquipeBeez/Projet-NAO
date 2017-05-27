@@ -2,24 +2,43 @@
             <li><a href="{{ path('homepage') }}"><i class="fa fa-home"></i> Retour au site <span class="sr-only">(current)</span></a></li>
             <li><hr></li>
             <li><a href="{{ path('admin') }}">Tableau de bord</a></li>
-
             {% if is_granted("ROLE_SUPER_ADMIN") %}
-                <li><a href="{{ path('admin_users') }}">Utilisateurs</a></li>
+                <li><a href="{{ path('admin_users', {'page': 1}) }}">Utilisateurs</a></li>
                 <li><a href="{{ path('admin_configuration') }}">Configuration</a></li>
                 <li><a href="{{ path('admin_view_all_species', {'page': 1}) }}">Les espèces</a></li>
-
             {% endif %}
 
             {% if is_granted("ROLE_USERNAT") %}
-                <li><a href="{{ path('admin_view_all_observations', {'page': 1}) }}">Observations</a></li>
+                <li>
+                    <a href="#" class="boutonmenu" type="button" data-toggle="collapse" data-target="#target1" data-parent="#comment">
+                        Observations
+                        <span style="padding-left: 10px;" class="fa fa-caret-down fright" aria-hidden="true"></span>
+                        <span class="label label-danger fright">{{ dashboard.loadDashboard.count_observation_reject }}</span>
+                        <span class="label label-warning fright">{{ dashboard.loadDashboard.count_observation_waiting }}</span>
+                        <span class="label label-success fright">{{ dashboard.loadDashboard.count_observation_valid }}</span>
+                    </a>
+                </li>
+                    <ul class="nav collapse menuli" data-parent="#comment" id="target1">
+                        <li><a href="{{ path('admin_view_all_observations', {'page': 1}) }}"><span style="padding-left: 25px;">Liste complete</span><span class="label label-primary fright">{{ dashboard.loadDashboard.count_observation }}</span></a></li>
+                        <li><a href="{{ path('admin_view_all_observations', {'page': 1, 'status': var_project.status_obs_valid}) }}"><span style="padding-left: 25px;">Validées</span><span class="label label-success fright">{{ dashboard.loadDashboard.count_observation_valid }}</span></a></li>
+                        <li><a href="{{ path('admin_view_all_observations', {'page': 1, 'status': var_project.status_obs_waiting}) }}"><span style="padding-left: 25px;">En attente</span><span class="label label-warning fright">{{ dashboard.loadDashboard.count_observation_waiting }}</span></a></li>
+                        <li><a href="{{ path('admin_view_all_observations', {'page': 1, 'status': var_project.status_obs_rejeted}) }}"><span style="padding-left: 25px;">Rejetées</span><span class="label label-danger fright">{{ dashboard.loadDashboard.count_observation_reject }}</span></a></li>
+                    </ul>
             {% endif %}
 
             {% if is_granted("ROLE_MODERATEUR") %}
-                <li><a href="#">Newsletter</a></li>
+                <li>
+                    <a href="#" class="boutonmenu" type="button" data-toggle="collapse" data-target="#target2" >Newsletter <i class="fa fa-caret-down pull-right" aria-hidden="true"></i></a>
+
+                </li>
+            <ul class="nav collapse menuli" data-parent="#comment" id="target2">
+                <li><a href="{{ path('admin_newsletter') }}"><span style="padding-left: 25px;">Rédaction Newsletter</span></a></li>
+                <li><a href="{{ path('view_all_newsletter', { 'page': 1 }) }}"><span style="padding-left: 25px;">Liste Newsletter(s)</span></a></li>
+                {% if is_granted("ROLE_SUPER_ADMIN") %}
+                    <li><a href="{{ path('view_all_registered', { 'page': 1 }) }}"><span style="padding-left: 25px;">Liste Inscrit(s)</span></a></li>
+                {% endif %}
+            </ul>
             {% endif %}
-
-
-
 
             <li><hr></li>
 
@@ -33,3 +52,15 @@
                 {% endif %}
             </li>
         </ul>
+
+
+
+
+
+
+
+
+
+
+
+

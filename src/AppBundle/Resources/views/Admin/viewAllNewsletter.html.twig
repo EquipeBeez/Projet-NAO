@@ -1,0 +1,30 @@
+{% extends "AppBundle::layoutAdmin.html.twig" %}
+{% block title %}Affiche toutes les Newsletters publiées{% endblock %}
+{% block body %}
+    <h2 class="center">Affichage de toutes les Newsletters publiées</h2><hr>
+    <br>
+    <div class="center">
+        <p>Total Newsletter(s) : {{ pagination.getTotalItemCount }}</p>
+    </div>
+
+    <br>
+
+        {% for newsletter in pagination %}
+            <div class="well">
+                <strong>Date de publication : </strong>
+                {{ newsletter.datePublished|date("d/m/Y") }}
+                <br>
+                <br>
+                <strong>Titre : </strong><br>
+                {{ newsletter.title }}
+                <br>
+                <br>
+                <strong>Contenu : </strong><br>
+                {{ newsletter.content | raw}}
+            </div>
+        {% endfor %}
+
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}

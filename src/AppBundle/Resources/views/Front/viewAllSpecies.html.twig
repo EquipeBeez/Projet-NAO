@@ -1,7 +1,7 @@
 {% extends "AppBundle::layout1.html.twig" %}
 {% block title %}Affiche toutes les espèces{% endblock %}
 {% block body %}
-    <h1>Affichage des espèces.</h1>
+    <h2 class="center">Affichage des espèces.</h2>
     <br>
     <div class="center">
         <p>Total d'espèces : {{ pagination.getTotalItemCount }}</p>
@@ -14,7 +14,7 @@
             <th nowrap>{{ knp_pagination_sortable(pagination, 'Nom scientifique', 'taxrefv10.LbNom') }}</th>
             <th nowrap>{{ knp_pagination_sortable(pagination, 'Nom auteur', 'taxrefv10.LbAuteur') }}</th>
             <th nowrap>{{ knp_pagination_sortable(pagination, 'Nom Vern. Fr', 'taxrefv10.NomVern') }}</th>
-            <th nowrap></thnowrap>
+            <th nowrap></th>
         </tr>
         </thead>
         <tbody>

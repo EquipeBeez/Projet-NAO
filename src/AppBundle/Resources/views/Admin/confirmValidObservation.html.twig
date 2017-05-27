@@ -1,0 +1,14 @@
+{% extends "AppBundle::layoutAdmin.html.twig" %}
+
+{% block title %}Valider une observation{% endblock %}
+
+{% block body %}
+<h2 class="center">Valider une observation</h2><hr>
+<p>
+    Etes-vous certain de vouloir valider cette observation "#{{ observation.id }} - {{ observation.title }}" ?
+</p>
+{{ form_start(form) }}
+<a href="{{ path('admin') }}" class="btn btn-default">Retour au tableau de bord</a>
+<input type="submit" value="Valider" class="btn btn-danger" />
+{{ form_end(form) }}
+{% endblock %}

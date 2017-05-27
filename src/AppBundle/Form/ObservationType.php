@@ -43,8 +43,8 @@ class ObservationType extends AbstractType
             ->add('status', ChoiceType::class, array(
                 'choices' => array(
                     'En attente' => 'waiting',
-                    'Validée' => 'valid',
-                    'Rejetée' => 'reject',
+                    'Validée' => 'validated',
+                    'Rejetée' => 'rejected',
                 ),
                 'label' => 'Status',
                 'expanded' => true,
@@ -52,6 +52,7 @@ class ObservationType extends AbstractType
                 'required' => true,
             ))
             ->add('description')
+            ->add('rejectMessage')
             ->add('image', FileType::class, array(
                 'label' => 'Votre image : ',
                 'required' => false,

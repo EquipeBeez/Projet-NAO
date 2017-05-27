@@ -6,10 +6,10 @@ namespace tests\AppBundle\Controller;
 
 
 
-    use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 
-class DefaultControllerTest extends WebTestCase
+class FrontControllerTest extends WebTestCase
 {
 
     public function testIndex()
@@ -318,7 +318,7 @@ class DefaultControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', 'viewallobservations/1');
 
-        $linkFiche = $crawler->filter('a:contains("Voir la fiche")');
+        $linkFiche = $crawler->filter('a.lienVoirObservation')->eq('0');
         $crawler = $client->click($linkFiche->link());
 
         $client->followRedirects();
@@ -370,6 +370,86 @@ class DefaultControllerTest extends WebTestCase
 
         $this->assertEquals(1,$crawler->filter('p:contains("Nom d\'utilisateur: admin")')->count());
 
+    }
+    public function testInscriptionNewsletterPuisDesinscription()
+    {
+
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/');
+
+        $form = $crawler->selectButton('Ok')->form();
+
+        $form['appbundle_emailnewsletter[email]']       = 'testemail@test.com';
+
+        $client->submit($form);
+
+        $client->followRedirects();
+
+        $this->assertEquals(1, $crawler->filter('h1:contains("Nos Amis les Oiseaux")')->count());
+
+        $linkConnexion = $crawler->filter('a:contains("Connexion")');
+
+        $crawler = $client->click($linkConnexion->link());
+
+        $form = $crawler->selectButton('_submit')->form();
+
+        $form['_username'] = 'admin';
+        $form['_password'] = 'admin';
+
+        $client->submit($form);
+
+        $crawler = $client->request('GET', '/admin/viewallregistered/1');
+
+        $this->assertEquals(1, $crawler->filter('h2:contains("Affichage de touts les inscrits à la newsletter.")')->count());
+
+        $linkDesinscription = $crawler->filter('a:contains("Désinscription")')->eq(2);
+
+        $crawler = $client->click($linkDesinscription->link());
+
+        $this->assertEquals(1, $crawler->filter('h2:contains("Affichage de touts les inscrits à la newsletter.")')->count());
+
+
+    }
+    public function testMesObservationsVoirObsEtVoirFiche()
+    {
+
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/');
+
+        $client->followRedirects();
+
+        $linkConnexion = $crawler->filter('a:contains("Connexion")');
+
+        $crawler = $client->click($linkConnexion->link());
+
+        $form = $crawler->selectButton('_submit')->form();
+
+        $form['_username'] = 'nathalie';
+        $form['_password'] = 'nathalie';
+
+        $client->submit($form);
+
+        $crawler = $client->request('GET', '/viewmyobservation/1');
+
+        $this->assertEquals(1, $crawler->filter('h2:contains("Mes Observations")')->count());
+
+        $linkVoirObs = $crawler->filter('a:contains("Voir l\'observation")')->eq(0);
+
+        $crawler = $client->click($linkVoirObs->link());
+
+        $this->assertEquals(1, $crawler->filter('td:contains("Scolopacidae")')->count());
+
+        $crawler = $client->request('GET', '/viewmyobservation/1');
+
+        $this->assertEquals(1, $crawler->filter('h2:contains("Mes Observations")')->count());
+
+        $linkvoirFiche = $crawler->filter('a:contains("Voir la fiche de l\'espèce")')->eq(0);
+
+        $crawler = $client->click($linkvoirFiche->link());
+
+        $this->assertEquals(1, $crawler->filter('td:contains("Scolopacidae")')->count());
 
 
     }

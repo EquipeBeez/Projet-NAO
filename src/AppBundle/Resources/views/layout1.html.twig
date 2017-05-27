@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="{{ asset(''~ config.loadConfig.theme ) }}" />
     <link rel="stylesheet" href="{{ asset('css/font-awesome-4.7.0/css/font-awesome.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/css.css') }}" />
+    <link rel="icon" type="image/x-icon" href="{{asset ('images/favicon.ico')}}" />
+    <!--[if IE]><link rel="shortcut icon" type="image/x-icon" href="/{{asset ('images/favicon.ico')}}" /><![endif]-->
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
@@ -34,7 +36,7 @@
                 {# Affichage du panel Recherche dans la sidebar de droite #}
                 {{ render(controller('AppBundle:Default:sideBarSearch')) }}
                 {# Affichage du panel Newsletter dans la sidebar de droite #}
-                {{ render(controller('AppBundle:Default:sideBarNewsletter')) }}
+                {{ render(controller('AppBundle:Newsletter:affichageNewsletterSideBar')) }}
                 {# Affichage du panel des dernières Observations dans la sidebar de droite #}
                 {{ render(controller('AppBundle:Default:sideBarLast')) }}
             </div>

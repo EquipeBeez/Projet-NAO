@@ -1,0 +1,56 @@
+{% extends "AppBundle::layout.html.twig" %}
+{% block title %}Mes Observations{% endblock %}
+{% block body %}
+    <h2 class="center">Mes Observations</h2><hr>
+    <br>
+    <div class="container">
+        {% if pagination is empty %}
+            <div class="well center">
+                <strong>Aucune Observation</strong>
+            </div>
+        {% else %}
+        {% for observation in pagination %}
+            <div class="row well">
+                <div class="col-md-2">
+            <img class="image_list" src="{{ asset('uploads/images/' ~ observation.image.filename) }}" title="{{ observation.espece.LbNom }}" alt="{{ observation.espece.LbNom }}" />
+                </div>
+
+                <div class="col-md-4 ">
+                    <strong>{{ observation.Title }}</strong><br>
+                    Date d'observation : {{ observation.dateObservation|date("d/m/Y") }}<br>
+                    Nom de l'espèce observée : {{ observation.espece.NomVern }}<br><br>
+                </div>
+                <div class="col-md-3">
+                    {% if observation.status == var_project.status_obs_waiting %}<button class="btn btn-warning btn-xs ">En attente</button><br><br>{% endif %}
+                    {% if observation.status == var_project.status_obs_valid %}<button class="btn btn-success btn-xs">Validée</button><br><br>{% endif %}
+                    {% if observation.status == var_project.status_obs_rejeted %}<button class="btn btn-danger btn-xs">Rejetée</button><br><br>
+                        <strong>Motif de Rejet : </strong>{{ observation.rejectMessage }}<br>
+                        <em>( Vous pouvez éditer votre observation afin qu'elle soit ré-étudiée )</em><br>
+                    {% endif %}
+                </div>
+                <div class="col-md-offset-1 col-md-2">
+                    <div class="btn-group ">
+                        <a href="{{ path('view_one_observation', {'id': observation.id}) }}" class="lienVoirObservation btn btn-primary btn-sm">Voir l'observation</a>
+                        <a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a data-backdrop="false"  href="{{ path('view_one_species', {'id': observation.espece.id}) }}">Voir la fiche de l'espèce</a></li>
+                            {% if observation.status == var_project.status_obs_rejeted %}
+                                <li><a  data-backdrop="false" href="{{ path('edit_my_observation', {'id': observation.id}) }}" >Editer l'observation</a></li>
+                            {% endif %}
+                            <li><a  data-backdrop="false" href="{{ path('delete_my_observation', {'id': observation.id}) }}" >Supprimer l'observation</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <br>
+                {% endfor %}
+            {% endif %}
+    </div>
+
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
+
+{% endblock %}
