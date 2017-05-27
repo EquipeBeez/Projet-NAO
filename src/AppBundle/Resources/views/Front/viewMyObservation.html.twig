@@ -24,8 +24,8 @@
                     {% if observation.status == var_project.status_obs_waiting %}<button class="btn btn-warning btn-xs ">En attente</button><br><br>{% endif %}
                     {% if observation.status == var_project.status_obs_valid %}<button class="btn btn-success btn-xs">Validée</button><br><br>{% endif %}
                     {% if observation.status == var_project.status_obs_rejeted %}<button class="btn btn-danger btn-xs">Rejetée</button><br><br>
-                        <strong>Motif de Rejet : </strong>{{ observation.rejectMessage }}
-                        <br>
+                        <strong>Motif de Rejet : </strong>{{ observation.rejectMessage }}<br>
+                        <em>( Vous pouvez éditer votre observation afin qu'elle soit ré-étudiée )</em><br>
                     {% endif %}
                 </div>
                 <div class="col-md-offset-1 col-md-2">

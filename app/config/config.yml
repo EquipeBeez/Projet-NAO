@@ -96,6 +96,8 @@ fos_user:
 stfalcon_tinymce:
         include_jquery: true
         tinymce_jquery: true
+        selector: ".tinymce"
+        language: %locale%
         theme:
                     # Simple theme: same as default theme
                     simple:

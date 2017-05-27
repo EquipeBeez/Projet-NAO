@@ -23,7 +23,7 @@
                 <td>{{ emailNewsletter.email }}</td>
                 <td>{{ emailNewsletter.emailCrypter }}</td>
                 <td>
-                    <a class="btn btn-primary" href="{{ path('admin_desinscription_newsletter', {'emailCrypter': emailNewsletter.emailCrypter}) }}">Désinscription</a>
+                    <a class="btn btn-primary boutonDesinscription" href="{{ path('admin_desinscription_newsletter', {'emailCrypter': emailNewsletter.emailCrypter}) }}">Désinscription</a>
                 </td>
             </tr>
         {% endfor %}

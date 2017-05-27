@@ -54,7 +54,7 @@ class NewsletterController extends Controller
             }
 
         // Sinon render page d'accueil afin de conserver les messages d'erreurs des Assert
-        $request->getSession()->getFlashBag()->add('info', 'Adresse e-mail incorrect ou déjà enregistrée');
+        $request->getSession()->getFlashBag()->add('warning', 'Adresse e-mail incorrect ou déjà enregistrée');
         $em = $this->getDoctrine()->getManager();
         $listLastObservations = $em->getRepository('AppBundle:Observation')->findLastObservations(3);
 

@@ -26,7 +26,7 @@ class Newsletter
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Votre Newsletter doit contenir un titre")
      */
     private $title;
 
@@ -34,7 +34,7 @@ class Newsletter
      * @var string
      *
      * @ORM\Column(name="content", type="text")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Votre Newsletter doir avoir un contenu")
      */
     private $content;
 
