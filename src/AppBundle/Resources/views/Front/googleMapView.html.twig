@@ -10,11 +10,11 @@
             var map = new google.maps.Map(document.getElementById('mapView'), {
                 center: latlng,
                 zoom: 5,
-                matTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeId: 'terrain',
                 streetViewControl: false,
                 mapTypeControl: false,
 
-                {% if is_granted("ROLE_SUPER_ADMIN", "ROLE_USERNAT") %}
+                {% if is_granted("ROLE_SUPER_ADMIN", "ROLE_USER") %}
                 draggable:true,
                 zoomControl: true,
                 mapTypeControl: true,
@@ -31,60 +31,59 @@
 
                 styles: [
                     {
-                        "featureType": "administrative",
-                        "elementType": "all",
-                        "stylers": [  {  "saturation": "-100" } ]
-                    },
-                    {
-                        "featureType": "administrative.province",
-                        "elementType": "all",
-                        "stylers": [ {  "visibility": "off" }  ]
-                    },
-                    {
                         "featureType": "landscape",
-                        "elementType": "all",
-                        "stylers": [  {  "saturation": -100  }, { "lightness": 65 }, { "visibility": "on" } ]
+                        "stylers": [
+                            {
+                                "hue": "#FFBB00"
+                            },
+                            {
+                                "saturation": 43.400000000000006
+                            },
+                            {
+                                "lightness": 37.599999999999994
+                            },
+                            {
+                                "gamma": 1
+                            }
+                        ]
+                    },
+
+                    {
+                        "featureType": "water",
+                        "stylers": [
+                            {
+                                "hue": "#0078FF"
+                            },
+                            {
+                                "saturation": -13.200000000000003
+                            },
+                            {
+                                "lightness": 2.4000000000000057
+                            },
+                            {
+                                "gamma": 1
+                            }
+                        ]
                     },
                     {
                         "featureType": "poi",
-                        "elementType": "all",
-                        "stylers": [ { "saturation": -100  },   { "lightness": "50" },  {"visibility": "simplified" } ]
-                    },
-                    {
-                        "featureType": "road",
-                        "elementType": "all",
-                        "stylers": [ { "saturation": "-100"  }  ]
-                    },
-                    {
-                        "featureType": "road.highway",
-                        "elementType": "all", "stylers": [  { "visibility": "simplified" }  ]
-                    },
-                    {
-                        "featureType": "road.arterial",
-                        "elementType": "all",
-                        "stylers": [  {   "lightness": "30" } ]
-                    },
-                    {
-                        "featureType": "road.local",
-                        "elementType": "all",
-                        "stylers": [ { "lightness": "40" }]
-                    },
-                    {
-                        "featureType": "transit",
-                        "elementType": "all",
-                        "stylers": [ {"saturation": -100 },  { "visibility": "simplified" } ]
-                    },
-                    {
-                        "featureType": "water",
-                        "elementType": "geometry",
-                        "stylers": [ {   "hue": "#ffff00"  }, {   "lightness": -25  },  { "saturation": -97 } ]
-                    },
-                    {
-                        "featureType": "water",
-                        "elementType": "labels",
-                        "stylers": [ {"lightness": -25 },  { "saturation": -100 } ]
+                        "stylers": [
+                            {
+                                "hue": "#00FF6A"
+                            },
+                            {
+                                "saturation": -1.0989010989011234
+                            },
+                            {
+                                "lightness": 11.200000000000017
+                            },
+                            {
+                                "gamma": 1
+                            }
+                        ]
                     }
                 ]
+
             });
             for (var ob in obs) {
                 var oms = new OverlappingMarkerSpiderfier(map);
@@ -99,10 +98,11 @@
 
                     };
 
-                    var contentString = 	'<h1>'+this.obs[ob].title+'</h1>' +
+                    var contentString = 	'<p><strong>'+this.obs[ob].title+'</strong></p>' +
                         '<p><strong>Latitude: </strong> : '+this.obs[ob].gpsLatitude+'</p>' +
                         '<p><strong>Longitude: </strong> : '+this.obs[ob].gpsLongitude+'</p>' +
-                        '<p><strong>Description</strong> : '+this.obs[ob].description+'</p>' ;
+                        '<p><strong>Nom scient.: </strong> : '+this.obs[ob].espece.LbNom+'</p>' +
+                    '<p><strong>Description</strong> : '+this.obs[ob].description+'</p>' ;
 
 
                     var infowindow = new google.maps.InfoWindow({
@@ -124,12 +124,23 @@
                     imagePath: '{{ asset('images/gmap/m') }}'
                 });
 
+                {% if is_granted("ROLE_SUPER_ADMIN", "ROLE_USER") %}
+
+
                 google.maps.event.addListener(markerClusterer, 'clusterclick', function(cluster) {
                     map.fitBounds(cluster.getBounds());
                     if (map.getZoom() > 10) {
                         map.setZoom(10);
                     }
                 });
+                {% else %}
+                google.maps.event.addListener(markerClusterer, 'clusterclick', function(cluster) {
+                    map.fitBounds(cluster.getBounds());
+                    if (map.getZoom() > 5) {
+                        map.setZoom(5);
+                    }
+                });
+                {% endif %}
 
             }
         }
