@@ -121,6 +121,58 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/choicespecies", name="choice_species")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @Security("has_role('ROLE_USER')")
+     * @Method({"GET", "POST"})
+     *
+     */
+    public function choiceSpeciesAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository('AppBundle:Taxrefv10')->getAll();
+        $listSpecies = $query->getArrayResult();
+        $arraySpecies = array();
+        foreach ($listSpecies as $listSpecie)
+        {
+            $arrayTmp = array('id' => $listSpecie['id'] , 'value' => $listSpecie['LbNom']. ", " .$listSpecie['NomVern'] , 'lbnom' => $listSpecie['LbNom']);
+            $arraySpecies[] = $arrayTmp;
+        }
+        $form = $this->createFormBuilder()
+            ->add('species', TextType::class)
+            ->add('id', HiddenType::class)
+            ->getForm();
+
+        return $this->render('AppBundle:Front:choiceSpecies.html.twig', array(
+            'arraySpecies' => json_encode($arraySpecies, JSON_UNESCAPED_UNICODE),
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/validchoicespecies", name="valid_choice_species")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @Security("has_role('ROLE_USER')")
+     * @Method({"GET", "POST"})
+     *
+     */
+    public function validChoiceSpecies(Request $request)
+    {
+        if ($request->getMethod() == 'POST')
+        {
+            if ($request->request->get('form')['id'])
+            {
+                $id = $request->request->get('form')['id'];
+                return $this->redirectToRoute('create_observation', array('id' => $id ));
+            }
+        }
+        $request->getSession()->getFlashBag()->add('warning', 'Veuillez choisir une espèce valide !');
+        return $this->redirectToRoute('choice_species');
+    }
+
+    /**
      *
      * @Route("/createobservation/{id}", name="create_observation")
      * @param Request $request
@@ -133,7 +185,7 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $observation = new Observation();
-        if ($id !== null)
+        if ($id != null)
         {
             $species = $em->getRepository('AppBundle:Taxrefv10')->findOneById($id);
             $observation->setEspece($species);
