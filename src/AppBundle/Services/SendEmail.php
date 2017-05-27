@@ -3,6 +3,7 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Contact;
+use AppBundle\Entity\EmailNewsletter;
 use AppBundle\Entity\Observation;
 use UserBundle\Entity\User;
 use Symfony\Component\Templating\EngineInterface;
@@ -74,6 +75,28 @@ class SendEmail
             ->setContentType('text/html')
             ->setBody(
                 $this->templating->render('Emails/rejectEmailAuthor.html.twig', array('observation' => $observation)),
+                'text/html'
+            )
+        ;
+        $this->mailer->send($message);
+    }
+
+    public function sendNewsletter($email, $contenu, $titre, $emailCrypter)
+    {
+
+
+        // Envoie de la newsletter
+        $message = \Swift_Message::newInstance()
+            ->setSubject("Votre Newsletter NAO")
+            ->setFrom(array('info@nao.com' => 'Association NAO'))
+            ->setTo($email)
+            ->setCharset('utf-8')
+            ->setContentType('text/html')
+            ->setBody(
+                $this->templating->render('Emails/templateNewsletter.html.twig', array(
+                    'contenu' => $contenu,
+                    'titre' => $titre,
+                    'emailCrypter' => $emailCrypter)),
                 'text/html'
             )
         ;

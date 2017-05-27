@@ -1,11 +1,10 @@
 {% extends "AppBundle::layoutAdmin.html.twig" %}
 {% block title %}Affiche toutes les observations{% endblock %}
 {% block body %}
-    <h2>Affichage de toutes les observations.</h2>
+    <h2 class="center">Affichage de toutes les observations.</h2><hr>
     <br>
     <div class="center">
         <p>Total observations : {{ pagination.getTotalItemCount }}</p>
-
         <form class="form-inline">
             <div class="form-group">
                 <div class="input-group">
@@ -24,6 +23,7 @@
             <th nowrap>{{ knp_pagination_sortable(pagination, 'Date', 'observation.dateObservation') }}</th>
             <th nowrap>{{ knp_pagination_sortable(pagination, 'Espece', 'observation.espece.lbNom') }}</th>
             <th nowrap>{{ knp_pagination_sortable(pagination, 'Status', 'observation.status') }}</th>
+            <th nowrap>{{ knp_pagination_sortable(pagination, 'Auteur', 'observation.author.username') }}</th>
             <th nowrap></th>
         </tr>
         </thead>
@@ -38,13 +38,13 @@
                     {% if observation.status == var_project.status_obs_valid %}<button class="btn btn-success btn-xs">Validée</button>{% endif %}
                     {% if observation.status == var_project.status_obs_rejeted %}<button class="btn btn-danger btn-xs">Rejetée</button>{% endif %}
                 </td>
+                <td>{{ observation.author.username }}</td>
                 <td>
                     <a class="fright btn btn-primary btn-xs" href="{{ path('admin_view_one_observation', {'id': observation.id}) }}">Voir</a>
                     {% if is_granted("ROLE_SUPER_ADMIN") %}
                         <a class="fright btn btn-primary btn-xs" href="{{ path('admin_del_observation', {'id': observation.id}) }}">Supprimer</a>
                         <a class="fright btn btn-primary btn-xs" href="{{ path('admin_edit_observation', {'id': observation.id}) }}">Editer</a>
                     {% endif %}
-
                 </td>
             </tr>
         {% endfor %}

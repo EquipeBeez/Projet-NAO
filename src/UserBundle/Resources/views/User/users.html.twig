@@ -1,8 +1,11 @@
 {% extends "AppBundle::layoutAdmin.html.twig" %}
 {% block title %}Gestion utilisateurs{% endblock %}
 {% block body %}
-    <h1>Gestion utilisateurs</h1>
-    <br />
+
+    <h2>Gestion utilisateurs</h2>
+    <br>
+    {{ render(controller('UserBundle:User:searchUserForm')) }}
+    <br>
     <table class="table table-striped table-hover">
         <thead>
         <tr>
@@ -17,7 +20,7 @@
         </tr>
         </thead>
         <tbody>
-            {% for user in users %}
+            {% for user in pagination %}
                 <tr {% if loop.index is odd %}class="color"{% endif %}>
                     <td>{{ user.id }}</td>
                     <td>{{ user.email }}</td>
@@ -47,6 +50,9 @@
             {% endfor %}
         </tbody>
     </table>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 
 
 {% endblock %}

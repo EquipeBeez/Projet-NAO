@@ -3,7 +3,7 @@
             <li><hr></li>
             <li><a href="{{ path('admin') }}">Tableau de bord</a></li>
             {% if is_granted("ROLE_SUPER_ADMIN") %}
-                <li><a href="{{ path('admin_users') }}">Utilisateurs</a></li>
+                <li><a href="{{ path('admin_users', {'page': 1}) }}">Utilisateurs</a></li>
                 <li><a href="{{ path('admin_configuration') }}">Configuration</a></li>
                 <li><a href="{{ path('admin_view_all_species', {'page': 1}) }}">Les espèces</a></li>
             {% endif %}
@@ -27,7 +27,7 @@
             {% endif %}
 
             {% if is_granted("ROLE_MODERATEUR") %}
-                <li><a href="#">Newsletter</a></li>
+                <li><a href="{{ path('admin_newsletter') }}">Newsletter</a></li>
             {% endif %}
 
             <li><hr></li>
