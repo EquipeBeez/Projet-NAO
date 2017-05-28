@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -34,7 +35,9 @@ class ObservationFrontType extends AbstractType
             ->add('gpsLongitude', NumberType::class, array(
                 'scale' => 6,
             ))
-            ->add('description')
+            ->add('description', TextareaType::class, array(
+                'attr' => array('style' => 'resize: none'),
+            ))
             ->add('image', FileType::class, array(
                 'label' => 'Votre image : ',
                 'required' => false,
