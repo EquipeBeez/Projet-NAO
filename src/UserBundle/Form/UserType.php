@@ -17,6 +17,7 @@ class UserType extends AbstractType
             ->add('username', null, array('label' => "Nom d'utilisateur"))
             ->add('email', null, array('required' => false, 'label' => 'E-mail'))
             ->add('enabled', null, array('label' => 'Actif/Inactif'))
+            ->add('newsletter', null, array('label' => 'Inscrit à la Newsletter'))
             ->add('roles', ChoiceType::class, array(
                 'attr'  =>  array('class' => 'form-control',
                     'style' => 'margin:5px 0;'),
