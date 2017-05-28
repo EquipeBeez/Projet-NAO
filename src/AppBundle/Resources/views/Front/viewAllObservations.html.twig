@@ -26,7 +26,7 @@
                 <td class="mid">{{ observation.dateObservation|date("d/m/Y") }}</td>
                 <td class="mid">{{ observation.espece.LbNom }}</td>
                 <td class="mid">{{ observation.espece.NomVern }}</td>
-                <td><a href="{{ path('view_one_observation', {'id': observation.id}) }}" class="lienVoirObservation"><i class="fa fa-eye fright" aria-hidden="true"></i></a></td>
+                <td><a href="{{ path('view_one_observation', {'id': observation.id}) }}" class="lienVoirObservation"><i class="fa fa-eye fright" aria-hidden="true" data-placement="bottom" data-toggle="tooltip" title="Voir l'observation"></i></a></td>
             </tr>
         {% endfor %}
         </tbody>

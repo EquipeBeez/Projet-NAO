@@ -21,18 +21,18 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.username }} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             {% if is_granted("ROLE_USERNAT") %}
-                                <li><a href="{{ path('admin') }}">Administration</a></li>
+                                <li><a href="{{ path('admin') }}"><i class="fa fa-cogs" aria-hidden="true"></i>&nbsp Administration</a></li>
                             {% endif %}
-                            <li><a href="{{ path('fos_user_profile_edit') }}">Mon profil</a></li>
+                            <li><a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-user" aria-hidden="true"></i>&nbsp Mon profil</a></li>
                             <hr>
-                            <li><a href="{{ path('choice_species') }}">Saisir une observation</a></li>
-                            <li><a href="{{ path('view_my_observation', { 'page' : 1 }) }}">Mes Observations</a></li>
+                            <li><a href="{{ path('choice_species') }}"><i class="fa fa-binoculars" aria-hidden="true"></i>&nbsp Saisir une observation</a></li>
+                            <li><a href="{{ path('view_my_observation', { 'page' : 1 }) }}"><i class="fa fa-list" aria-hidden="true"></i>&nbsp Mes Observations</a></li>
                             <hr>
-                            <li><a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+                            <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
                         </ul>
                     </li>
                 {% else %}
-                    <li><a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
+                    <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp {{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
                 {% endif %}
 
             </ul>
