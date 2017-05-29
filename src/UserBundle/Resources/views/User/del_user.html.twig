@@ -13,7 +13,7 @@
 
 
         <form action="{{ path('admin_delete_user', {'username': user.username}) }}" method="post">
-            <a href="{{ path('admin_users') }}" class="btn btn-default">Retour à liste</a>
+            <a href="{{ path('admin_users', {'page': 1}) }}" class="btn btn-default">Retour à liste</a>
             <input type="submit" value="Supprimer" class="btn btn-danger" />
         </form>
 
