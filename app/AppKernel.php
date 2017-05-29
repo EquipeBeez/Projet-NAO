@@ -21,7 +21,6 @@ class AppKernel extends Kernel
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
-            new PUGX\AutocompleterBundle\PUGXAutocompleterBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
