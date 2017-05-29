@@ -123,6 +123,7 @@
         $(function () {
             $('.input-group.date').datetimepicker({
                 locale: "{{ app.request.locale }}",
+                maxDate: moment(),
                 format: 'DD/MM/YYYY'
             });
         });
