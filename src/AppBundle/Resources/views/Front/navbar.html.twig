@@ -14,7 +14,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="{{ path('homepage') }}"><i class="fa fa-home" aria-hidden="true"></i>&nbsp; Accueil</a></li>
-                <li><a href=""><i class="fa fa-commenting" aria-hidden="true"></i> Blog</a></li>
+                <li><a href="#"><i class="fa fa-commenting" aria-hidden="true"></i> Blog</a></li>
                 <li><a href="{{ path('view_all_species', {'page': 1}) }}"><i class="fa fa-list" aria-hidden="true"></i>&nbsp; Espèces</a></li>
                 <li><a href="{{ path('view_all_observations', {'page': 1}) }}"><i class="fa fa-list" aria-hidden="true"></i>&nbsp; Observations</a></li>
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}

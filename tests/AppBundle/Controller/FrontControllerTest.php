@@ -350,7 +350,6 @@ class FrontControllerTest extends WebTestCase
 
         $formEdit = $crawler->selectButton('Mettre à jour')->form();
 
-        $formEdit['fos_user_profile_form[current_password]'] = 'admin';
         $formEdit['fos_user_profile_form[name]'] = 'Pierre Admin';
 
         $crawler = $client->submit($formEdit);
@@ -363,7 +362,6 @@ class FrontControllerTest extends WebTestCase
 
         $formEdit = $crawler->selectButton('Mettre à jour')->form();
 
-        $formEdit['fos_user_profile_form[current_password]'] = 'admin';
         $formEdit['fos_user_profile_form[name]'] = 'Pierre Admino';
 
         $crawler = $client->submit($formEdit);
