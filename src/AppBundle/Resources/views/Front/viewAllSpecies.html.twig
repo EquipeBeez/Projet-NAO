@@ -25,9 +25,9 @@
                 <td>{{ oiseau.LbAuteur }}</td>
                 <td>{{ oiseau.NomVern }}</td>
                 <td nowrap>
-                    <a href="{{ path('view_one_species', {'id': oiseau.id}) }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <a href="{{ path('view_one_species', {'id': oiseau.id}) }}"><i class="fa fa-eye" aria-hidden="true" data-placement="bottom" data-toggle="tooltip" title="Voir fiche espèce"></i></a>
                     {% if is_granted("ROLE_USER") %}
-                        <a href="{{ path('create_observation', {'id': oiseau.id}) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        <a href="{{ path('create_observation', {'id': oiseau.id}) }}"><i class="fa fa-pencil" aria-hidden="true" data-placement="bottom" data-toggle="tooltip" title="Saisir une observation" ></i></a>
                     {% endif %}
 
                 </td>

@@ -56,9 +56,11 @@ class DefaultController extends Controller
     public function viewAllSpeciesAction($page)
     {
         $em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository('AppBundle:Taxrefv10')->getAll();
+
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $em->getRepository('AppBundle:Taxrefv10')->getAll(), /* query NOT result */
+            $query, /* query NOT result */
             $page/*page number*/,
             25/*limit per page*/
         );
@@ -78,9 +80,11 @@ class DefaultController extends Controller
     public function viewAllObservationsAction($page)
     {
         $em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository('AppBundle:Observation')->findObsWithStatus($this->getParameter('var_project')['status_obs_valid']);
+
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $em->getRepository('AppBundle:Observation')->findObsWithStatus($this->getParameter('var_project')['status_obs_valid']), /* query NOT result */
+            $query, /* query NOT result */
             $page/*page number*/,
             25/*limit per page*/
         );

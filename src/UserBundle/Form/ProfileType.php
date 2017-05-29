@@ -10,8 +10,11 @@ class ProfileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', null, array(
+        $builder
+            ->add('name', null, array(
             'label' => 'Votre nom'))
+            ->remove('current_password') // suppression champ mdp actuel
+
             ->add('newsletter', CheckboxType::class, array(
                 'label'    => 'Souhaitez-vous recevoir la newsletter ?',
                 'required' => false,

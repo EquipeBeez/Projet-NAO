@@ -10,10 +10,12 @@
     <table class="table table-striped table-hover">
         <thead>
         <tr>
+
             <th nowrap class="hidden-xs hidden-sm">Image</th>
-            <th nowrap>{{ knp_pagination_sortable(pagination, 'Titre' , 'observation.Title') }}</th>
+            <th nowrap>{{ knp_pagination_sortable(pagination, 'Titre' , 'observation.title') }}</th>
+
             <th nowrap>{{ knp_pagination_sortable(pagination, 'Date Obs.', 'observation.dateObservation') }}</th>
-            <th nowrap>{{ knp_pagination_sortable(pagination, 'Nom auteur', 'observation.espece.LbNom') }}</th>
+            <th nowrap>{{ knp_pagination_sortable(pagination, 'Espèce', 'observation.espece.LbNom') }}</th>
             <th nowrap>{{ knp_pagination_sortable(pagination, 'Nom Vern. Fr', 'observation.espece.NomVern') }}</th>
             <th nowrap></th>
         </tr>
@@ -26,7 +28,7 @@
                 <td class="mid">{{ observation.dateObservation|date("d/m/Y") }}</td>
                 <td class="mid">{{ observation.espece.LbNom }}</td>
                 <td class="mid">{{ observation.espece.NomVern }}</td>
-                <td><a href="{{ path('view_one_observation', {'id': observation.id}) }}" class="lienVoirObservation"><i class="fa fa-eye fright" aria-hidden="true"></i></a></td>
+                <td><a href="{{ path('view_one_observation', {'id': observation.id}) }}" class="lienVoirObservation"><i class="fa fa-eye fright" aria-hidden="true" data-placement="bottom" data-toggle="tooltip" title="Voir l'observation"></i></a></td>
             </tr>
         {% endfor %}
         </tbody>

@@ -23,7 +23,7 @@ class Observation
     private $approuvedBy;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Taxrefv10")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Taxrefv10", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
     private $espece;

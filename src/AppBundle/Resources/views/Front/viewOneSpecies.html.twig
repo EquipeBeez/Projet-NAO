@@ -21,7 +21,11 @@
                         <tr><td>Autorité (Auteur, année)</td><td>{{ taxrefv10.LbAuteur }}</td></tr>
                         <tr><td>Nom Français</td><td>{{ taxrefv10.NomVern }}</td></tr>
                         <tr><td>Nom Anglais</td><td>{{ taxrefv10.NomVernEng }}</td></tr>
-                        <tr><td>URL INPN</td><td><a href="{{ taxrefv10.Url }}" target="_blank">Lien vers INPN</a></td></tr>
+                        {% if taxrefv10.Url ==  NULL %}
+                            <tr><td>URL INPN</td><td>Pas d'Url pour cette espèce</td></tr>
+                        {% else %}
+                            <tr><td>URL INPN</td><td><a href="{{ taxrefv10.Url }}" target="_blank">Lien vers INPN</a></td></tr>
+                        {% endif %}
                     </table>
 
             </div>
@@ -41,7 +45,7 @@
                 <h3 class="panel-title">
                     Observations pour cette espèce
                     {% if is_granted("ROLE_USER") %}
-                        <a class="link_right" href="{{ path('create_observation', {'id': taxrefv10.id}) }}"><i class="fa fa-pencil fright" aria-hidden="true"></i></a>
+                        <a class="link_right" href="{{ path('create_observation', {'id': taxrefv10.id}) }}"><i class="fa fa-pencil fright" aria-hidden="true" data-placement="bottom" data-toggle="tooltip" title="Saisir une observation"></i></a>
                     {% endif %}
                 </h3>
             </div>

@@ -10,11 +10,11 @@
             var map = new google.maps.Map(document.getElementById('mapView'), {
                 center: latlng,
                 zoom: 5,
-                mapTypeId: 'terrain',
+                matTypeId: google.maps.MapTypeId.ROADMAP,
                 streetViewControl: false,
                 mapTypeControl: false,
 
-                {% if is_granted("ROLE_SUPER_ADMIN", "ROLE_USER") %}
+                {% if is_granted("ROLE_SUPER_ADMIN", "ROLE_USERNAT") %}
                 draggable:true,
                 zoomControl: true,
                 mapTypeControl: true,
@@ -47,7 +47,57 @@
                             }
                         ]
                     },
-
+                    {
+                        "featureType": "road.highway",
+                        "stylers": [
+                            {
+                                "hue": "#FFC200"
+                            },
+                            {
+                                "saturation": -61.8
+                            },
+                            {
+                                "lightness": 45.599999999999994
+                            },
+                            {
+                                "gamma": 1
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road.arterial",
+                        "stylers": [
+                            {
+                                "hue": "#FF0300"
+                            },
+                            {
+                                "saturation": -100
+                            },
+                            {
+                                "lightness": 51.19999999999999
+                            },
+                            {
+                                "gamma": 1
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road.local",
+                        "stylers": [
+                            {
+                                "hue": "#FF0300"
+                            },
+                            {
+                                "saturation": -100
+                            },
+                            {
+                                "lightness": 52
+                            },
+                            {
+                                "gamma": 1
+                            }
+                        ]
+                    },
                     {
                         "featureType": "water",
                         "stylers": [
@@ -83,7 +133,6 @@
                         ]
                     }
                 ]
-
             });
             for (var ob in obs) {
                 var oms = new OverlappingMarkerSpiderfier(map);
@@ -98,17 +147,17 @@
 
                     };
 
-                    var contentString = 	'<p><strong>'+this.obs[ob].title+'</strong></p>' +
+                    var contentString = 	'<h1>'+this.obs[ob].title+'</h1>' +
                         '<p><strong>Latitude: </strong> : '+this.obs[ob].gpsLatitude+'</p>' +
                         '<p><strong>Longitude: </strong> : '+this.obs[ob].gpsLongitude+'</p>' +
-                        '<p><strong>Nom scient.: </strong> : '+this.obs[ob].espece.LbNom+'</p>' +
-                    '<p><strong>Description</strong> : '+this.obs[ob].description+'</p>' ;
+                        '<p><strong>Description</strong> : '+this.obs[ob].description+'</p>' ;
 
+                    {% if is_granted("ROLE_SUPER_ADMIN", "ROLE_USERNAT") %}
 
                     var infowindow = new google.maps.InfoWindow({
                         content: contentString
                     });
-
+                    {% endif %}
 
 
                     var marker = new google.maps.Marker(markerOptions);
@@ -124,23 +173,12 @@
                     imagePath: '{{ asset('images/gmap/m') }}'
                 });
 
-                {% if is_granted("ROLE_SUPER_ADMIN", "ROLE_USER") %}
-
-
                 google.maps.event.addListener(markerClusterer, 'clusterclick', function(cluster) {
                     map.fitBounds(cluster.getBounds());
                     if (map.getZoom() > 10) {
                         map.setZoom(10);
                     }
                 });
-                {% else %}
-                google.maps.event.addListener(markerClusterer, 'clusterclick', function(cluster) {
-                    map.fitBounds(cluster.getBounds());
-                    if (map.getZoom() > 5) {
-                        map.setZoom(5);
-                    }
-                });
-                {% endif %}
 
             }
         }

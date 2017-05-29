@@ -93,8 +93,11 @@
                             <tr><td class="bold_title">Nom de l'auteur</td><td>{{ observation.espece.LbAuteur }}</td></tr>
                             <tr><td class="bold_title">Nom vernaculaire français</td><td>{{ observation.espece.NomVern }}</td></tr>
                             <tr><td class="bold_title">Nom vernaculaire anglais</td><td>{{ observation.espece.NomVernEng }}</td></tr>
-                            <tr><td class="bold_title">Url INPN</td><td><a href="{{ observation.espece.url }}" target="_blank">Lien vers INPN</a></td></tr>
-
+                            {% if observation.espece.Url ==  NULL %}
+                                <tr><td>URL INPN</td><td>Pas d'Url pour cette espèce</td></tr>
+                            {% else %}
+                                <tr><td>URL INPN</td><td><a href="{{ observation.espece.Url }}" target="_blank">Lien vers INPN</a></td></tr>
+                            {% endif %}
                         </table>
                     </div>
                 </div>

@@ -56,9 +56,7 @@ class UserController extends Controller
             $userManager->deleteUser($user);
             $request->getSession()->getFlashBag()->add("success", "L'utilisateur " . $user->getUserName() . " à été supprimé.");
             $users = $userManager->findUsers();
-            return $this->render('UserBundle:User:users.html.twig', array(
-                'users' => $users,
-            ));
+            return $this->redirectToRoute('admin_users', array('page' => 1));
         }
         return $this->render('UserBundle:User:del_user.html.twig', array(
             'user' => $user,

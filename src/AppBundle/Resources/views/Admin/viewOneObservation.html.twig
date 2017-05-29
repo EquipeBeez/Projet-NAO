@@ -53,7 +53,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         Données INPN pour l'espèce "{{ observation.espece.lbNom }}"
-                        <a class="link_right" href="{{ path('admin_view_one_species', {'id': observation.espece.id}) }}"><i class="fa fa-eye fright" aria-hidden="true"></i></a>
+                        <a class="link_right" href="{{ path('admin_view_one_species', {'id': observation.espece.id}) }}"><i class="fa fa-eye fright" aria-hidden="true" data-placement="bottom" data-toggle="tooltip" title="Voir fiche espèce"></i></a>
                     </h3>
                 </div>
                 <div class="panel-body">
@@ -63,8 +63,11 @@
                         <tr><td class="bold_title">Nom de l'auteur</td><td>{{ observation.espece.lbAuteur }}</td></tr>
                         <tr><td class="bold_title">Nom vernaculaire français</td><td>{{ observation.espece.nomVern }}</td></tr>
                         <tr><td class="bold_title">Nom vernaculaire anglais</td><td>{{ observation.espece.nomVernEng }}</td></tr>
-                        <tr><td class="bold_title">Url INPN</td><td><a href="{{ observation.espece.url }}">Lien vers INPN</a></td></tr>
-
+                        {% if observation.espece.Url ==  NULL %}
+                            <tr><td>URL INPN</td><td>Pas d'Url pour cette espèce</td></tr>
+                        {% else %}
+                            <tr><td>URL INPN</td><td><a href="{{ observation.espece.Url }}" target="_blank">Lien vers INPN</a></td></tr>
+                        {% endif %}
                     </table>
                 </div>
             </div>
