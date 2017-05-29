@@ -14,10 +14,10 @@ class ObservationRepository extends EntityRepository
 
     public function findObsWithStatus($status)
     {
-        $qb = $this->createQueryBuilder('a');
-        $qb->where('a.status = :status')
+        $qb = $this->createQueryBuilder('observation');
+        $qb->where('observation.status = :status')
             ->setParameter('status', $status)
-            ->orderBy('a.dateObservation', 'DESC')
+            ->orderBy('observation.dateObservation', 'DESC')
         ;
         return $qb->getQuery();
     }
