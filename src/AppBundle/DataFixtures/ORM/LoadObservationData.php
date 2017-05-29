@@ -21,7 +21,7 @@ class LoadObservationData extends AbstractFixture implements OrderedFixtureInter
         $observation->setGpsLongitude(-4.425243);
         $observation->setDescription("Description");
         $observation->setStatus("validated");
-        $observation->setImage("imgDefaut.png");
+        $observation->setImage("imgDefaut.jpg");
 
         $espece = $manager->getRepository('AppBundle:Taxrefv10')->find(1209);
         $author = $manager->getRepository('UserBundle:User')->find(4);
@@ -42,7 +42,7 @@ class LoadObservationData extends AbstractFixture implements OrderedFixtureInter
         $observation->setGpsLongitude(-4.867217);
         $observation->setDescription("Description");
         $observation->setStatus("validated");
-        $observation->setImage("imgDefaut.png");
+        $observation->setImage("imgDefaut.jpg");
 
         $espece = $manager->getRepository('AppBundle:Taxrefv10')->find(2699);
         $author = $manager->getRepository('UserBundle:User')->find(4);
@@ -63,7 +63,7 @@ class LoadObservationData extends AbstractFixture implements OrderedFixtureInter
         $observation->setGpsLongitude(-4.852684);
         $observation->setDescription("Description");
         $observation->setStatus("validated");
-        $observation->setImage("imgDefaut.png");
+        $observation->setImage("imgDefaut.jpg");
 
         $espece = $manager->getRepository('AppBundle:Taxrefv10')->find(2699);
         $author = $manager->getRepository('UserBundle:User')->find(4);
@@ -84,7 +84,7 @@ class LoadObservationData extends AbstractFixture implements OrderedFixtureInter
         $observation->setGpsLongitude(-5.103005);
         $observation->setDescription("Description");
         $observation->setStatus("waiting");
-        $observation->setImage("imgDefaut.png");
+        $observation->setImage("imgDefaut.jpg");
 
         $espece = $manager->getRepository('AppBundle:Taxrefv10')->find(906);
         $author = $manager->getRepository('UserBundle:User')->find(4);
@@ -103,7 +103,7 @@ class LoadObservationData extends AbstractFixture implements OrderedFixtureInter
         $observation->setGpsLongitude(-4.426957);
         $observation->setDescription("Description");
         $observation->setStatus("waiting");
-        $observation->setImage("imgDefaut.png");
+        $observation->setImage("imgDefaut.jpg");
 
         $espece = $manager->getRepository('AppBundle:Taxrefv10')->find(3095);
         $author = $manager->getRepository('UserBundle:User')->find(4);
@@ -121,7 +121,7 @@ class LoadObservationData extends AbstractFixture implements OrderedFixtureInter
         $observation->setGpsLongitude(-4.425243);
         $observation->setDescription("Description");
         $observation->setStatus("rejected");
-        $observation->setImage("imgDefaut.png");
+        $observation->setImage("imgDefaut.jpg");
 
         $espece = $manager->getRepository('AppBundle:Taxrefv10')->find(1209);
         $author = $manager->getRepository('UserBundle:User')->find(4);
