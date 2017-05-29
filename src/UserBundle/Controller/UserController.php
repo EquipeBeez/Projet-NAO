@@ -2,6 +2,7 @@
 
 namespace UserBundle\Controller;
 
+use AppBundle\Entity\EmailNewsletter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -109,6 +110,32 @@ class UserController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $userManager->updateUser($user);
+            $em = $this->getDoctrine()->getManager();
+            $email = $user->getEmail();
+            $userEmail = $em->getRepository('AppBundle:EmailNewsletter')->findByEmail($email);
+            // Ajout de l'adresse mail de l'utilisateur dans la liste de la Newsletter
+            if ($user->getNewsletter() == true){
+                if ($userEmail == null){
+                    $emailNewsletter = new EmailNewsletter();
+                    $emailNewsletter->setEmail($email);
+                    // Salt Random
+                    $salt = $this->container->get('app.saltRandom')->randSalt(10);
+                    $emailCrypter = md5($salt.'desinscription'.$email);
+                    $emailNewsletter->setEmailCrypter($emailCrypter);
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($emailNewsletter);
+                    $em->flush();
+                }
+            }
+            // Retrait de l'adresse mail de l'utilisateur de la liste de la Newsletter
+            else{
+                if ($userEmail != null) {
+                    foreach ($userEmail as $value) {
+                        $em->remove($value);
+                    }
+                    $em->flush();
+                }
+            }
             $request->getSession()->getFlashBag()->add('success', 'Utilisateur a bien été modifié.');
             return $this->redirectToRoute('admin_users', array('page' => 1));
         }
