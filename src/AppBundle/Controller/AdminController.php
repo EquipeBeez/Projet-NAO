@@ -3,8 +3,7 @@
 namespace AppBundle\Controller;
 
 
-use AppBundle\Entity\Newsletter;
-use AppBundle\Form\NewsletterType;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;

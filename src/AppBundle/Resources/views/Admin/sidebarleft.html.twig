@@ -13,9 +13,9 @@
                     <a href="#" class="boutonmenu" type="button" data-toggle="collapse" data-target="#target1" data-parent="#comment">
                         <i class="fa fa-list" aria-hidden="true"></i>&nbsp Observations
                         <span style="padding-left: 10px;" class="fa fa-caret-down fright" aria-hidden="true"></span>
-                        <span class="label label-danger fright">{{ dashboard.loadDashboard.count_observation_reject }}</span>
-                        <span class="label label-warning fright">{{ dashboard.loadDashboard.count_observation_waiting }}</span>
-                        <span class="label label-success fright">{{ dashboard.loadDashboard.count_observation_valid }}</span>
+                        <span class="label label-danger fright hidden-sm hidden-md">{{ dashboard.loadDashboard.count_observation_reject }}</span>
+                        <span class="label label-warning fright hidden-sm hidden-md">{{ dashboard.loadDashboard.count_observation_waiting }}</span>
+                        <span class="label label-success fright hidden-sm hidden-md">{{ dashboard.loadDashboard.count_observation_valid }}</span>
                     </a>
                 </li>
                     <ul class="nav collapse menuli" data-parent="#comment" id="target1">
@@ -31,7 +31,7 @@
                     <a href="#" class="boutonmenu" type="button" data-toggle="collapse" data-target="#target2" ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp Newsletter <i class="fa fa-caret-down pull-right" aria-hidden="true"></i></a>
 
                 </li>
-            <ul class="nav collapse menuli" data-parent="" id="target2">
+            <ul class="nav collapse menuli" data-parent="#comment" id="target2">
                 <li><a href="{{ path('admin_newsletter') }}"><span style="padding-left: 25px;">Rédaction Newsletter</span></a></li>
                 <li><a href="{{ path('view_all_newsletter', { 'page': 1 }) }}"><span style="padding-left: 25px;">Liste Newsletter(s)</span></a></li>
                 {% if is_granted("ROLE_SUPER_ADMIN") %}

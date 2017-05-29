@@ -187,9 +187,9 @@ class NewsletterController extends Controller
         $em = $this->getDoctrine()->getManager();
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $em->getRepository('AppBundle:Newsletter')->findAll(), /* query NOT result */
+            $em->getRepository('AppBundle:Newsletter')->findAllNewsletterDesc(), /* query NOT result */
             $page/*page number*/,
-            5/*limit per page*/
+            3/*limit per page*/
         );
         return $this->render('AppBundle:Admin:viewAllNewsletter.html.twig', array(
             'pagination' => $pagination,

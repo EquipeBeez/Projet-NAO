@@ -10,4 +10,12 @@ namespace AppBundle\Repository;
  */
 class NewsletterRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function findAllNewsletterDesc()
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->orderBy('a.datePublished', 'DESC');
+        return $qb->getQuery()->getResult();
+    }
+
 }
