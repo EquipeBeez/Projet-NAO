@@ -43,8 +43,9 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="well content-block">
-                    <h3>L'association NAO</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce augue augue, blandit rutrum massa eu, molestie scelerisque magna. Duis ut mi id nisl convallis semper eget et magna. Donec finibus interdum odio, vel viverra neque porttitor ut. Aenean vitae diam sit amet nunc ultricies commodo. Pellentesque vitae augue suscipit, hendrerit massa vitae, pharetra nulla. Nullam nisl nisi, vehicula nec consequat sit amet, tempor maximus nisi. Aenean in sollicitudin dui. </p>
+                    <h3 style="text-align: center">L'association NAO</h3>
+                    <p>Notre association a pour mission de protéger les oiseaux et leur environnement, d’éduquer et sensibiliser le grand public ainsi que d’améliorer les connaissances sur l’avifaune.<br>
+                        A l’aide de son réseau national d’observateurs passionnés, l’association participe notamment à des activités telles le recensement d’oiseaux, le suivi des populations ou la participation à des programmes participatifs contribuant ainsi à l’étude de la biodiversité. </p>
                     <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#modalContact" >Contactez nous !</a>
                     <a class="btn btn-primary btn-sm" href="{{ path('learn_more') }}">En savoir plus</a>
                 </div>
@@ -52,8 +53,10 @@
 
             <div class="col-sm-6">
                 <div class="well content-block">
-                    <h3>La Newsletter</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce augue augue, blandit rutrum massa eu, molestie scelerisque magna. Duis ut mi id nisl convallis semper eget et magna. Donec finibus interdum odio, vel viverra neque porttitor ut. </p>
+                    <h3 style="text-align: center">La Newsletter</h3>
+                    <p>Approfondissez vos connaissances sur les oiseaux en suivant notre blog et en recevant les dernières actualités via notre newsletter.
+                        Echangez avec des passionnés et partez à la découverte de la diversité de l’avifaune.<br>
+                        N’hésitez pas, vous aussi, à participer et à partager vos commentaires, observations et photos d’oiseaux</p>
                     {{ form_start(formNews, {'action': path('inscription_newsletter')}) }}
 
                     {{ form_label(formNews.email, "Indiquez votre adresse e-mail", {'label_attr':{'class':''}}) }}
@@ -73,16 +76,21 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="well content-block">
-                    <h3>Particuliers / Passionnés</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce augue augue, blandit rutrum massa eu, molestie scelerisque magna. Duis ut mi id nisl convallis semper eget et magna. Donec finibus interdum odio, vel viverra neque porttitor ut. </p>
+                    <h3 style="text-align: center">Particuliers / Passionnés</h3>
+                    <p>Partez à la découverte des oiseaux et contribuez  à un vaste programme de sciences participatives visant à étudier les effets du climat, de l’urbanisation et de l’agriculture sur la biodiversité.<br>
+                        Passionnés ou simples curieux, enregistrez vos observations.<br>
+                        Vous récoltez ainsi des données indispensables pour les chercheurs.<br>
+                        <strong>Nous vous invitons à nous rejoindre !</strong> </p>
                     <a class="btn btn-primary btn-sm" href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
                 </div>
             </div>
 
             <div class="col-sm-6">
                 <div class="well content-block">
-                    <h3>Professionnels / Naturalistes</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce augue augue, blandit rutrum massa eu, molestie scelerisque magna. Duis ut mi id nisl convallis semper eget et magna. Donec finibus interdum odio, vel viverra neque porttitor ut. </p>
+                    <h3 style="text-align: center">Professionnels / Naturalistes</h3>
+                    <p>Participez au programme de sciences participatives de l’association Nos Amis les Oiseaux visant à étudier les effets du climat, de l’urbanisation et de l’agriculture sur la biodiversité.<br>
+                        Soutenez le programme en nous envoyant vos observations et en validant celles de nos bénévoles.<br>
+                        <strong>Nous vous invitons à nous rejoindre !</strong></p>
                     <a class="btn btn-primary btn-sm" href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
                 </div>
             </div>
