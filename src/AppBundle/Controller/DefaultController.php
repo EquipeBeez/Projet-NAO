@@ -196,7 +196,13 @@ class DefaultController extends Controller
             $species = $em->getRepository('AppBundle:Taxrefv10')->findOneById($id);
             $observation->setEspece($species);
         }
-        $observation->setStatus('waiting');
+        if ($this->container->get('security.authorization_checker')->isGranted('ROLE_USERNAT', $this->getUser()))
+        {
+            $observation->setStatus($this->getParameter('var_project')['status_obs_valid']);
+            $observation->setApprouvedBy($this->getUser());
+        } else {
+            $observation->setStatus($this->getParameter('var_project')['status_obs_waiting']);
+        }
         $observation->setAuthor($this->getUser());
         $form   = $this->get('form.factory')->create(ObservationFrontType::class, $observation);
         $form->handleRequest($request);
