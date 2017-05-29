@@ -163,10 +163,9 @@ class NewsletterController extends Controller
 
             // Affichage d'un message flash
             $request->getSession()->getFlashBag()->add('success', 'Newsletter publiée');
-            // Retour à la page newsletter
-            //return $this->redirectToRoute('admin_newsletter');
-            return $this->render('AppBundle:Admin:newsletter.html.twig', array(
-                'form' => $form->createView()));
+            // Retour au tableau de bord
+            return $this->redirectToRoute('admin');
+
         }
 
         return $this->render('AppBundle:Admin:newsletter.html.twig', array(
