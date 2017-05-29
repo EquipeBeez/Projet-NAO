@@ -207,6 +207,10 @@ class DefaultController extends Controller
         $form   = $this->get('form.factory')->create(ObservationFrontType::class, $observation);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($observation->getImage() == null)
+            {
+                $observation->setImage($this->getParameter('observation_image_default'));
+            }
             $em->persist($observation);
             $em->flush();
             $request->getSession()->getFlashBag()->add('success', 'Observation bien enregistrée.');

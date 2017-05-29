@@ -10,10 +10,8 @@
     <table class="table table-striped table-hover">
         <thead>
         <tr>
-
             <th nowrap class="hidden-xs hidden-sm">Image</th>
             <th nowrap>{{ knp_pagination_sortable(pagination, 'Titre' , 'observation.title') }}</th>
-
             <th nowrap>{{ knp_pagination_sortable(pagination, 'Date Obs.', 'observation.dateObservation') }}</th>
             <th nowrap>{{ knp_pagination_sortable(pagination, 'Espèce', 'observation.espece.LbNom') }}</th>
             <th nowrap>{{ knp_pagination_sortable(pagination, 'Nom Vern. Fr', 'observation.espece.NomVern') }}</th>
@@ -24,7 +22,7 @@
         {% for observation in pagination %}
             <tr {% if loop.index is odd %}class="color"{% endif %}>
                 <td class="hidden-xs hidden-sm"><img class="image_list" src="{{ asset('uploads/images/' ~ observation.image.filename) }}" title="{{ observation.espece.LbNom }}" alt="{{ observation.espece.LbNom }}" /></td>
-                <td class="mid">{{ observation.Title }}</td>
+                <td class="mid">{{ observation.title }}</td>
                 <td class="mid">{{ observation.dateObservation|date("d/m/Y") }}</td>
                 <td class="mid">{{ observation.espece.LbNom }}</td>
                 <td class="mid">{{ observation.espece.NomVern }}</td>
