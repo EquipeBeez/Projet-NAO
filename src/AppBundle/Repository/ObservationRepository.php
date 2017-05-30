@@ -12,11 +12,23 @@ class ObservationRepository extends EntityRepository
         return $qb;
     }
 
+
+    public function findObsWithAllStatus()
+    {
+        $qb = $this->createQueryBuilder('observation');
+        $qb ->join('observation.espece', 'espece')
+            ->join('observation.author', 'author')
+            ->orderBy('observation.dateObservation', 'DESC')
+        ;
+        return $qb->getQuery();
+    }
+
     public function findObsWithStatus($status)
     {
         $qb = $this->createQueryBuilder('observation');
         $qb->where('observation.status = :status')
             ->join('observation.espece', 'espece')
+            ->join('observation.author', 'author')
             ->setParameter('status', $status)
             ->orderBy('observation.dateObservation', 'DESC')
         ;

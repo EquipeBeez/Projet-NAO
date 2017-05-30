@@ -172,7 +172,7 @@ class AdminController extends Controller
 
         if ($status === null)
         {
-            $query = $em->getRepository('AppBundle:Observation')->getAll(); /* query NOT result */
+            $query = $em->getRepository('AppBundle:Observation')->findObsWithAllStatus(); /* query NOT result */
         }
         else
         {
@@ -186,6 +186,7 @@ class AdminController extends Controller
         );
         return $this->render('AppBundle:Admin:viewAllObservations.html.twig', array(
             'pagination' => $pagination,
+            'status' => $status,
         ));
     }
 

@@ -3,7 +3,9 @@
 {% block body %}
     <h2 class="center">Affichage de toutes les observations.</h2>
     <hr>
-    {{ render(controller('AppBundle:SearchAdmin:searchAdminObservationForm')) }}
+    {% if status == null %}
+        {{ render(controller('AppBundle:SearchAdmin:searchAdminObservationForm')) }}
+    {% endif %}
     <br>
     <div class="center">
         <p>Total observations : {{ pagination.getTotalItemCount }}</p>
@@ -16,9 +18,9 @@
         <tr class="fcenter">
             <th nowrap>{{ knp_pagination_sortable(pagination, 'Titre' , 'observation.title') }}</th>
             <th nowrap>{{ knp_pagination_sortable(pagination, 'Date', 'observation.dateObservation') }}</th>
-            <th nowrap>{{ knp_pagination_sortable(pagination, 'Espece', 'observation.espece.lbNom') }}</th>
+            <th nowrap>{{ knp_pagination_sortable(pagination, 'Espece', 'espece.LbNom') }}</th>
             <th nowrap>{{ knp_pagination_sortable(pagination, 'Status', 'observation.status') }}</th>
-            <th nowrap>{{ knp_pagination_sortable(pagination, 'Auteur', 'observation.author.username') }}</th>
+            <th nowrap>{{ knp_pagination_sortable(pagination, 'Auteur', 'author.username') }}</th>
             <th nowrap></th>
         </tr>
         </thead>
