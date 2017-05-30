@@ -186,6 +186,7 @@ class AdminController extends Controller
         );
         return $this->render('AppBundle:Admin:viewAllObservations.html.twig', array(
             'pagination' => $pagination,
+            'status' => $status,
         ));
     }
 
