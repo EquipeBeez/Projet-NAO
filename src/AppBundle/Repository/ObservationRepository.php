@@ -16,6 +16,7 @@ class ObservationRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('observation');
         $qb->where('observation.status = :status')
+            ->join('observation.espece', 'espece')
             ->setParameter('status', $status)
             ->orderBy('observation.dateObservation', 'DESC')
         ;
