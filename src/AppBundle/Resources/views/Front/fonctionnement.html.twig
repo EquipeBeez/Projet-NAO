@@ -1,0 +1,27 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block title %}En savoir plus{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+
+<div class="container">
+  <div class="well">
+      <section id="tree" class="wrapper style4 special">
+          <div class="inner">
+              <header class="major">
+                  <h3  style="text-align:center">Comment ça marche </h3>
+              </header>
+          </div>
+          <div class="gallery" style="text-align:center">
+              <img src="{{ asset('images/work1.png')}}" alt="observer les oiseaux" title="Observez les oiseaux" />
+              <img src="{{ asset('images/work2.png')}}" alt="enregistrez en ligne vos observations" title="Enregistrez vos données" />
+              <img src="{{ asset('images/work3.png')}}" alt="Validation par un naturaliste" title="Un professionnel valide votre observation" />
+
+          </div>
+      </section>
+    </div>
+  </div>
+</div>
+{% endblock %}

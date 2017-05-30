@@ -1,0 +1,30 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block title %}Fonctionnement{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/main.css')}}" />
+
+{% endblock %}
+
+{% block body %}
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+    <section id="tree" class="wrapper style4 special">
+        <div class="inner">
+            <header class="major">
+                <h3>Comment ça marche :</h3>
+            </header>
+        </div>
+        <div class="gallery">
+            <img src="{{ asset('images/work1.png')}}" alt="observer les oiseaux" title="Observez les oiseaux" />
+            <img src="{{ asset('images/work2.png')}}" alt="enregistrez en ligne vos observations" title="Enregistrez vos données" />
+            <img src="{{ asset('images/work3.png')}}" alt="Validation par un naturaliste" title="Un professionnel valide votre observation" />
+
+        </div>
+    </section>
+
+</div>
+
+{% endblock %}

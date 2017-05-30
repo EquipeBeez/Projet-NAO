@@ -236,6 +236,36 @@ class DefaultController extends Controller
 
     /**
      *
+     * @Route("/fonctionnement", name="fonctionnement")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Method({"GET", "POST"})
+     *
+     */
+    public function fonctionnementAction(Request $request)
+    {
+
+        return $this->render('AppBundle:Front:fonctionnement.html.twig');
+    }
+
+
+    /**
+     *
+     * @Route("/legalNotice", name="legal_notice")
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Method({"GET"})
+     *
+     */
+    public function legalNoticeAction()
+    {
+        return $this->render('AppBundle:Front:legalNotice.html.twig');
+    }
+
+
+
+
+    /**
+     *
      * @Route("/landing", name="landing")
      * @return \Symfony\Component\HttpFoundation\Response
      * @Method({"GET"})
@@ -399,17 +429,6 @@ class DefaultController extends Controller
         ));
     }
 
-    /**
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/sidebarsearch", name="side_bar_search")
-     * @Method({"GET"})
-     *
-     */
-    public function sideBarSearchAction()
-    {
-        return $this->render('AppBundle:Front:sideBarSearch.html.twig');
-    }
 
     /**
      *
