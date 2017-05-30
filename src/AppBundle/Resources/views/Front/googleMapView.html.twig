@@ -14,7 +14,8 @@
                 streetViewControl: false,
                 mapTypeControl: false,
 
-                {% if is_granted("ROLE_SUPER_ADMIN", "ROLE_USERNAT") %}
+                {% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") or is_granted("ROLE_USERNAT")
+                or is_granted("ROLE_MODERATEUR") %}
                 draggable:true,
                 zoomControl: true,
                 mapTypeControl: true,
@@ -152,8 +153,8 @@
                         '<p><strong>Longitude: </strong> : '+this.obs[ob].gpsLongitude+'</p>' +
                         '<p><strong>Description</strong> : '+this.obs[ob].description+'</p>' ;
 
-                    {% if is_granted("ROLE_SUPER_ADMIN", "ROLE_USERNAT") %}
-
+                        {% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") or is_granted("ROLE_USERNAT")
+                        or is_granted("ROLE_MODERATEUR") %}
                     var infowindow = new google.maps.InfoWindow({
                         content: contentString
                     });
@@ -172,13 +173,16 @@
                     maxZoom: 8, // maxZoom set when clustering will stop
                     imagePath: '{{ asset('images/gmap/m') }}'
                 });
-
+                {% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") or is_granted("ROLE_USERNAT")
+                or is_granted("ROLE_MODERATEUR") %}
                 google.maps.event.addListener(markerClusterer, 'clusterclick', function(cluster) {
                     map.fitBounds(cluster.getBounds());
                     if (map.getZoom() > 10) {
                         map.setZoom(10);
                     }
                 });
+                {% endif %}
+
 
             }
         }
