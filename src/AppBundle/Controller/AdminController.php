@@ -3,8 +3,10 @@
 namespace AppBundle\Controller;
 
 
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\ConfigurationType;
@@ -12,28 +14,33 @@ use AppBundle\Entity\Taxrefv10;
 use AppBundle\Form\Taxrefv10Type;
 use AppBundle\Entity\Observation;
 use AppBundle\Form\ObservationType;
+use AppBundle\Form\ObservationRejectType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+
 
 class AdminController extends Controller
 {
     /**
+     *
      * @Route("/admin", name="admin")
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Security("has_role('ROLE_USERNAT')")
+     * @Security("has_role('ROLE_USERNAT') or has_role('ROLE_MODERATEUR')")
+     * @Method({"GET"})
+     *
      */
     public function indexAction()
     {
-        $dashboard = $this->container->get('services.loadDashboard')->loadDashboard();
-        return $this->render('AppBundle:Admin:index.html.twig', array(
-            "dashboard" => $dashboard,
-        ));
+        return $this->render('AppBundle:Admin:index.html.twig');
     }
 
     /**
+     *
      * @Route("/admin/configuration", name="admin_configuration")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Security("has_role('ROLE_SUPER_ADMIN')")
+     * @Method({"GET", "POST"})
+     *
      */
     public function configurationAction(Request $request)
     {
@@ -53,16 +60,18 @@ class AdminController extends Controller
     }
 
     /**
+     *
      * @Route("/admin/viewallspecies/{page}", name="admin_view_all_species")
      * @param $page
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Security("has_role('ROLE_SUPER_ADMIN')")
+     * @Method({"GET"})
+     *
      */
     public function viewAllSpeciesAction($page)
     {
         $em = $this->getDoctrine()->getManager();
         $config = $this->container->get('services.loadconfig')->loadConfig();
-
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $em->getRepository('AppBundle:Taxrefv10')->getAll(), /* query NOT result */
@@ -75,10 +84,13 @@ class AdminController extends Controller
     }
 
     /**
+     *
      * @Route("/admin/viewonespecies/{id}", name="admin_view_one_species")
      * @param $taxrefv10
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Security("has_role('ROLE_SUPER_ADMIN')")
+     * @Security("has_role('ROLE_USERNAT')")
+     * @Method({"GET"})
+     *
      */
     public function viewOneSpeciesAction(Taxrefv10 $taxrefv10)
     {
@@ -91,11 +103,14 @@ class AdminController extends Controller
     }
 
     /**
+     *
      * @Route("/admin/delspecies/{id}", name="admin_del_species")
      * @param $taxrefv10
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Security("has_role('ROLE_SUPER_ADMIN')")
+     * @Method({"GET", "POST"})
+     *
      */
     public function delSpeciesAction(Taxrefv10 $taxrefv10, Request $request)
     {
@@ -115,11 +130,14 @@ class AdminController extends Controller
     }
 
     /**
+     *
      * @Route("/admin/editspecies/{id}", name="admin_edit_species")
      * @param Taxrefv10 $taxrefv10
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Security("has_role('ROLE_SUPER_ADMIN')")
+     * @Method({"GET", "POST"})
+     *
      */
     public function editSpeciesAction(Taxrefv10 $taxrefv10, Request $request)
     {
@@ -137,34 +155,49 @@ class AdminController extends Controller
         ));
     }
 
-
     /**
-     * @Route("/admin/viewallobservations/{page}", name="admin_view_all_observations")
+     *
+     * @Route("/admin/viewallobservations/{page}/{status}", name="admin_view_all_observations")
      * @param $page
+     * @param null $status
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @Security("has_role('ROLE_SUPER_ADMIN')")
+     * @Security("has_role('ROLE_USERNAT')")
+     * @Method({"GET"})
+     *
      */
-    public function viewAllObservationsAction($page)
+    public function viewAllObservationsAction($page, $status = null)
     {
         $em = $this->getDoctrine()->getManager();
         $config = $this->container->get('services.loadconfig')->loadConfig();
 
+        if ($status === null)
+        {
+            $query = $em->getRepository('AppBundle:Observation')->findObsWithAllStatus(); /* query NOT result */
+        }
+        else
+        {
+            $query = $em->getRepository('AppBundle:Observation')->findObsWithStatus($status); /* query NOT result */
+        }
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $em->getRepository('AppBundle:Observation')->getAll(), /* query NOT result */
+            $query,
             $page/*page number*/,
             25/*limit per page*/
         );
         return $this->render('AppBundle:Admin:viewAllObservations.html.twig', array(
             'pagination' => $pagination,
+            'status' => $status,
         ));
     }
 
     /**
+     *
      * @Route("/admin/viewoneobservation/{id}", name="admin_view_one_observation")
      * @param $observation
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Security("has_role('ROLE_SUPER_ADMIN')")
+     * @Security("has_role('ROLE_USERNAT')")
+     * @Method({"GET"})
+     *
      */
     public function viewOneObservationAction(Observation $observation)
     {
@@ -174,11 +207,14 @@ class AdminController extends Controller
     }
 
     /**
+     *
      * @Route("/admin/delobservation/{id}", name="admin_del_observation")
      * @param $observation
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Security("has_role('ROLE_SUPER_ADMIN')")
+     * @Method({"GET", "POST"})
+     *
      */
     public function delObservationAction(Observation $observation, Request $request)
     {
@@ -198,11 +234,14 @@ class AdminController extends Controller
     }
 
     /**
+     *
      * @Route("/admin/editobservation/{id}", name="admin_edit_observation")
      * @param $observation
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Security("has_role('ROLE_SUPER_ADMIN')")
+     * @Method({"GET", "POST"})
+     *
      */
     public function editObservationAction(Observation $observation, Request $request)
     {
@@ -220,6 +259,70 @@ class AdminController extends Controller
             return $this->redirectToRoute('admin_view_one_observation', array('id' => $observation->getId()));
         }
         return $this->render('AppBundle:Admin:editObservation.html.twig', array(
+            'observation' => $observation,
+            'form'   => $form->createView(),
+        ));
+    }
+
+
+    /**
+     * @Route("/admin/validobservation/{id}", name="admin_valid_observation")
+     * @param $observation
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @Security("has_role('ROLE_USERNAT')")
+     * @Method({"GET", "POST"})
+     *
+     */
+    public function validObservationAction(Observation $observation, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $oldImage = $observation->getImage()->getFilename();
+        $form = $this->get('form.factory')->create();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $observation->setStatus($this->getParameter('var_project')['status_obs_valid']);
+            $observation->setApprouvedBy($this->getUser());
+            $observation->setImage($oldImage);
+            $observation->setRejectMessage(null);
+            $em->flush();
+            $request->getSession()->getFlashBag()->add('success', "L'observation a bien été validée.");
+            return $this->redirectToRoute('admin_view_all_observations', array('page' => 1));
+        }
+        return $this->render('AppBundle:Admin:confirmValidObservation.html.twig', array(
+            'observation' => $observation,
+            'form'   => $form->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/admin/rejectobservation/{id}", name="admin_reject_observation")
+     * @param $observation
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @Security("has_role('ROLE_USERNAT')")
+     * @Method({"GET", "POST"})
+     *
+     */
+    public function rejectObservationAction(Observation $observation, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $oldImage = $observation->getImage()->getFilename();
+        $form = $this->get('form.factory')->create(ObservationRejectType::class, $observation);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $observation->setStatus($this->getParameter('var_project')['status_obs_rejeted']);
+            $observation->setApprouvedBy($this->getUser());
+            $observation->setImage($oldImage);
+            $em->flush();
+
+            // Envoi d'un Email à l'auteur de l'observation.
+            $this->container->get('app.sendEmail')->sendEmailReject($observation);
+
+            $request->getSession()->getFlashBag()->add('success', "L'observation a bien été rejetée.");
+            return $this->redirectToRoute('admin_view_all_observations', array('page' => 1));
+        }
+        return $this->render('AppBundle:Admin:confirmRejectObservation.html.twig', array(
             'observation' => $observation,
             'form'   => $form->createView(),
         ));

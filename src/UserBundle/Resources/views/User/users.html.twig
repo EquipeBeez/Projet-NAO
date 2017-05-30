@@ -1,9 +1,12 @@
 {% extends "AppBundle::layoutAdmin.html.twig" %}
 {% block title %}Gestion utilisateurs{% endblock %}
 {% block body %}
-    <h1>Gestion utilisateurs</h1>
-    <br />
-    <table class="table table-striped">
+
+    <h2 class="center">Gestion utilisateurs</h2>
+    <hr>
+    {{ render(controller('UserBundle:User:searchUserForm')) }}
+    <br>
+    <table class="table table-striped table-hover">
         <thead>
         <tr>
             <th>Id</th>
@@ -17,7 +20,7 @@
         </tr>
         </thead>
         <tbody>
-            {% for user in users %}
+            {% for user in pagination %}
                 <tr {% if loop.index is odd %}class="color"{% endif %}>
                     <td>{{ user.id }}</td>
                     <td>{{ user.email }}</td>
@@ -39,7 +42,7 @@
                     <td></td>
                     <td>
                         <p>
-                            <a href="{{ path('admin_edit_user', {'id': user.id}) }}" class="editionUser" ><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="{{ path('admin_edit_user', {'id': user.id}) }}" class="editionUser"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                             <a href="{{ path('admin_delete_user', {'username': user.username}) }}" class="deleteUser"><i class="fa fa-times" aria-hidden="true"></i></a>
                         </p>
                     </td>
@@ -47,6 +50,9 @@
             {% endfor %}
         </tbody>
     </table>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 
 
 {% endblock %}

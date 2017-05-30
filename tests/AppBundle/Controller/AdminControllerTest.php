@@ -49,7 +49,7 @@ class AdminControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/admin');
 
-        $this->assertEquals(1, $crawler->filter('h1:contains("Tableau de bord")')->count());
+        $this->assertEquals(1, $crawler->filter('h2:contains("Tableau de bord")')->count());
     }
 
     public function testLienUtilisateursDansAdministration()
@@ -77,7 +77,7 @@ class AdminControllerTest extends WebTestCase
 
         $crawler = $client->click($linkUtilisateur->link());
 
-        $this->assertEquals(1, $crawler->filter('h1:contains("Gestion utilisateurs")')->count());
+        $this->assertEquals(1, $crawler->filter('h2:contains("Gestion utilisateurs")')->count());
     }
 
     public function testLienConfigurationDansAdministration()
@@ -105,7 +105,7 @@ class AdminControllerTest extends WebTestCase
 
         $crawler = $client->click($linkConfiguration->link());
 
-        $this->assertEquals(1, $crawler->filter('h1:contains("Configuration du site")')->count());
+        $this->assertEquals(1, $crawler->filter('h2:contains("Configuration du site")')->count());
     }
 
     public function testLienEspeceDansAdministration()
@@ -133,7 +133,7 @@ class AdminControllerTest extends WebTestCase
 
         $crawler = $client->click($linkEspece->link());
 
-        $this->assertEquals(1, $crawler->filter('h1:contains("Affichage de toutes les espèces.")')->count());
+        $this->assertEquals(1, $crawler->filter('h2:contains("Affichage de toutes les espèces.")')->count());
     }
 
     public function testLienObservationsDansAdministration()
@@ -157,11 +157,11 @@ class AdminControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/admin');
 
-        $linkObservation = $crawler->filter('a:contains("Observations")');
+        $linkObservation = $crawler->filter('a:contains("Liste complete")');
 
         $crawler = $client->click($linkObservation->link());
 
-        $this->assertEquals(1, $crawler->filter('h1:contains("Affichage de toutes les observations.")')->count());
+        $this->assertEquals(1, $crawler->filter('h2:contains("Affichage de toutes les observations.")')->count());
     }
 
     public function testLienNewsletterDansAdministration()
@@ -185,11 +185,11 @@ class AdminControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/admin');
 
-        $linkNewsletter = $crawler->filter('a:contains("Newsletter")');
+        $linkNewsletter = $crawler->filter('a:contains("Rédaction Newsletter")');
 
         $crawler = $client->click($linkNewsletter->link());
 
-        $this->assertEquals(1, $crawler->filter('h1:contains("Rédaction Newsletter")')->count());
+        $this->assertEquals(1, $crawler->filter('h2:contains("Rédaction Newsletter")')->count());
     }
 
     public function testDesactiverUtilisateurJeannotDansAdministrationPuisEssayerDeSeReconnecter()
@@ -317,8 +317,6 @@ class AdminControllerTest extends WebTestCase
 
         $client->submit($form);
 
-        $client->followRedirects();
-
         $crawler = $client->request('GET', '/admin');
 
         $linkUtilisateur = $crawler->filter('a:contains("Utilisateurs")');
@@ -329,9 +327,7 @@ class AdminControllerTest extends WebTestCase
 
         $crawler = $client->click($linkEdition->link());
 
-        $client->followRedirects();
-
-        $this->assertEquals(1, $crawler->filter('h1:contains("Edition utilisateur")')->count());
+        $this->assertEquals(1, $crawler->filter('h2:contains("Edition utilisateur")')->count());
 
         $formEdit = $crawler->selectButton('Valider')->form();
 
@@ -344,9 +340,7 @@ class AdminControllerTest extends WebTestCase
 
         $crawler = $client->click($linkEdition->link());
 
-        $client->followRedirects();
-
-        $this->assertEquals(1, $crawler->filter('h1:contains("Edition utilisateur")')->count());
+        $this->assertEquals(1, $crawler->filter('h2:contains("Edition utilisateur")')->count());
 
         $formEdit = $crawler->selectButton('Valider')->form();
 
@@ -536,7 +530,7 @@ class AdminControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/admin');
 
-        $linkObservations = $crawler->filter('a:contains("Observations")');
+        $linkObservations = $crawler->filter('a:contains("Liste complete")');
 
         $crawler = $client->click($linkObservations->link());
 
@@ -577,6 +571,32 @@ class AdminControllerTest extends WebTestCase
         $crawler = $client->submit($form);
 
         $this->assertEquals(1, $crawler->filter('td:contains("Observation d\'un Chevalier stagnatile")')->count());
+
+    }
+    public function testLienListeNewsletter()
+    {
+
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/');
+
+
+        $client->followRedirects();
+
+        $linkConnexion = $crawler->filter('a:contains("Connexion")');
+
+        $crawler = $client->click($linkConnexion->link());
+
+        $form = $crawler->selectButton('_submit')->form();
+
+        $form['_username'] = 'admin';
+        $form['_password'] = 'admin';
+
+        $client->submit($form);
+
+        $crawler = $client->request('GET', '/admin/viewallnewsletter/1');
+
+        $this->assertEquals(1, $crawler->filter('h2:contains("Affichage de toutes les Newsletters publiées")')->count());
 
     }
 }

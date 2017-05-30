@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/css.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}" />
+    <link rel="icon" type="image/x-icon" href="{{asset ('images/favicon.ico')}}" />
+    <!--[if IE]><link rel="shortcut icon" type="image/x-icon" href="/{{asset ('images/favicon.ico')}}" /><![endif]-->
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
@@ -41,7 +43,7 @@
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
-
+    {{ tinymce_init() }}
 
 <script type="text/javascript">
     $(function () {
@@ -51,14 +53,18 @@
         });
     });
 </script>
+    <script src="https://code.jquery.com/jquery.min.js"></script>
 
 <script src="{{ asset('js/button_retour.js') }}"></script>
+    <script src="{{ asset('js/infobulle.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
-<script>
-    $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-</script>
+
+    <script>
+        $( ".boutonmenu" ).click(function() {
+            $(".menuli").collapse("hide");
+        });
+    </script>
 
 {% block javascript %} {% endblock %}
 

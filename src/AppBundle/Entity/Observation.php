@@ -23,7 +23,7 @@ class Observation
     private $approuvedBy;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Taxrefv10")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Taxrefv10", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
     private $espece;
@@ -97,16 +97,24 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Assert\NotBlank()
      */
     private $description;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="image", type="text", nullable=true)
+     * @ORM\Column(name="image", type="string", nullable=true)
      */
     private $image;
 
+
+    /**
+     * @var text
+     *
+     * @ORM\Column(name="rejectMessage", type="text", nullable=true)
+     */
+    private $rejectMessage;
 
 
     /**
@@ -382,4 +390,29 @@ class Observation
     {
         return $this->author;
     }
+
+    /**
+     * Set rejectMessage
+     *
+     * @param string $rejectMessage
+     *
+     * @return Observation
+     */
+    public function setRejectMessage($rejectMessage)
+    {
+        $this->rejectMessage = $rejectMessage;
+
+        return $this;
+    }
+
+    /**
+     * Get rejectMessage
+     *
+     * @return string
+     */
+    public function getRejectMessage()
+    {
+        return $this->rejectMessage;
+    }
 }
+

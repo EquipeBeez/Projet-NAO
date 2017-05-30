@@ -5,8 +5,7 @@ security:
 
     role_hierarchy:
         ROLE_USERNAT:     ROLE_USER
-        ROLE_MODERATEUR:  ROLE_USERNAT
-        ROLE_SUPER_ADMIN: ROLE_MODERATEUR
+        ROLE_SUPER_ADMIN: [ROLE_MODERATEUR, ROLE_USERNAT]
 
     providers:
         fos_userbundle:
@@ -31,4 +30,4 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, role: ROLE_USERNAT }
+        - { path: ^/admin, roles: [ROLE_USERNAT, ROLE_MODERATEUR] }

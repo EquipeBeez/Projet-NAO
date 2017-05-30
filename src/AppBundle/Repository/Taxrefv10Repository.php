@@ -17,4 +17,18 @@ class Taxrefv10Repository extends \Doctrine\ORM\EntityRepository
         return $qb;
     }
 
+    public function findSpeciesByLike($term)
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('s')
+            ->from('AppBundle:Taxrefv10', 's')
+            ->Where('s.LbNom LIKE :terms')
+            ->orWhere('s.LbAuteur LIKE :terms')
+            ->orWhere('s.NomVern LIKE :terms')
+            ->orWhere('s.Famille LIKE :terms')
+            ->orWhere('s.NomVernEng LIKE :terms')
+            ->setParameter('terms', '%' . $term .'%' );
+        return $qb->getQuery()->getResult();
+    }
+
 }

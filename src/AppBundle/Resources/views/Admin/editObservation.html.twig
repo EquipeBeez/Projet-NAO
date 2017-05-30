@@ -3,7 +3,7 @@
 {% block title %}Editer une observation{% endblock %}
 
 {% block body %}
-    <h2>Editer une observation</h2>
+    <h2 class="center">Editer une observation</h2><hr>
 
     <div class="well">
         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
@@ -68,7 +68,13 @@
                 {{ form_widget(form.status) }}
             </div>
         </div>
-
+        <div class="form-group">
+            {{ form_label(form.rejectMessage, "Description du rejet", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            {{ form_errors(form.rejectMessage) }}
+            <div class="col-sm-10">
+                {{ form_widget(form.rejectMessage, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
         <div class="form-group">
             {{ form_label(form.image, "Image", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
             {{ form_errors(form.image) }}

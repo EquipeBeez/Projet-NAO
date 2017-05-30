@@ -5,32 +5,118 @@
 {% block title %}Saisir une observation{% endblock %}
 
 {% block body %}
-
-    {% if observation.espece == null %}
-        {{ include("AppBundle:Front:incFormCreateObservationWithOutSpecies.html.twig") }}
-    {% else %}
-        {{ include("AppBundle:Front:incFormCreateObservationWithSpecies.html.twig") }}
-    {% endif %}
-
-
+    <div class="container">
+        <div class="row equal">
+            <div class="col-lg-7 col-xs-12 col-sm-12">
+                <div class="panel panel-primary panel-height">
+                    <div class="panel-heading">Saisir une observation</div>
+                    <div class="panel-body">
+                        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                        {{ form_errors(form) }}
+                        <div class="form-group">
+                            {{ form_label(form.title, "Titre", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                            {{ form_errors(form.title) }}
+                            <div class="col-sm-9">
+                                {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.dateObservation, "Date d'observation", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                            {{ form_errors(form.dateObservation) }}
+                            <div class="col-sm-9">
+                                <div class='input-group date'>
+                                    {{ form_widget(form.dateObservation, {'attr': {'class': 'form-control'}}) }}
+                                    <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.gpsLatitude, "GPS Latitude", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                            {{ form_errors(form.gpsLatitude) }}
+                            <div class="col-sm-9">
+                                {{ form_widget(form.gpsLatitude, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.gpsLongitude, "GPS Longitude", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                            {{ form_errors(form.gpsLongitude) }}
+                            <div class="col-sm-9">
+                                {{ form_widget(form.gpsLongitude, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.description, "Description", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                            {{ form_errors(form.description) }}
+                            <div class="col-sm-9">
+                                {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.image, "Image", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                            {{ form_errors(form.image) }}
+                            <div class="col-sm-9">
+                                {{ form_widget(form.image) }}
+                                <p><br>
+                                    {% if observation.image != null  %}
+                                        <img class="image_obs" src="{{ asset('uploads/images/' ~ observation.image) }}" title="{{ observation.image }}" alt="{{ observation.image }}" />
+                                    {% else %}
+                                        <img class="image_obs" src="{{ asset('uploads/images/imgDefaut.png') }}" title="Image par defaut" alt="Image par defaut" />
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <input type="submit" value="Valider" class="btn btn-success btn-sm" />
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-xs-12 col-sm-12">
+                <div class="panel panel-primary panel-height">
+                    <div class="panel-heading">Carte</div>
+                    <div class="panel-body" style="height: 100%">
+                        {{ render(controller('AppBundle:GoogleMap:googleMapForm')) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-sm-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">Données INPN pour l'espèce "{{ observation.espece.LbNom }}"</h6>
+                    </div>
+                    <div class="panel-body">
+                        <table style="width: 100%">
+                            <tr><td class="bold_title">Famille</td><td>{{ observation.espece.Famille }}</td></tr>
+                            <tr><td class="bold_title">Nom de l'espèce</td><td>{{ observation.espece.LbNom }}</td></tr>
+                            <tr><td class="bold_title">Nom de l'auteur</td><td>{{ observation.espece.LbAuteur }}</td></tr>
+                            <tr><td class="bold_title">Nom vernaculaire français</td><td>{{ observation.espece.NomVern }}</td></tr>
+                            <tr><td class="bold_title">Nom vernaculaire anglais</td><td>{{ observation.espece.NomVernEng }}</td></tr>
+                            {% if observation.espece.Url ==  NULL %}
+                                <tr><td>URL INPN</td><td>Pas d'Url pour cette espèce</td></tr>
+                            {% else %}
+                                <tr><td>URL INPN</td><td><a href="{{ observation.espece.Url }}" target="_blank">Lien vers INPN</a></td></tr>
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascript %}
-    <script>
-        boxes = $('.panel-height');
-        maxHeight = Math.max.apply(
-                Math, boxes.map(function() {
-                    return $(this).height();
-                }).get());
-        boxes.height(maxHeight);
-    </script>
-
     <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
     <script type="text/javascript">
         $(function () {
             $('.input-group.date').datetimepicker({
                 locale: "{{ app.request.locale }}",
+                maxDate: moment(),
                 format: 'DD/MM/YYYY'
             });
         });
