@@ -38,8 +38,14 @@ class ObservationRepository extends EntityRepository
         $qb = $this->_em->createQueryBuilder();
         $qb->select('o')
             ->from('AppBundle:Observation', 'o')
+            ->leftJoin('o.espece', 's')
+            ->leftJoin('o.author', 'a')
             ->Where('o.title LIKE :terms')
             ->orWhere('o.dateObservation LIKE :terms')
+            ->orWhere('s.LbNom LIKE :terms')
+            ->orWhere('s.NomVern LIKE :terms')
+            ->orWhere('a.name LIKE :terms')
+
 
             ->setParameter('terms', '%' . $term .'%' );
         return $qb->getQuery()->getResult();
