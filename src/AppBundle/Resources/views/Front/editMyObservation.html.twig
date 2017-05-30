@@ -1,5 +1,7 @@
 {% extends "AppBundle::layout.html.twig" %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" />
+{% endblock %}
 {% block title %}Editer une observation{% endblock %}
 
 {% block body %}
@@ -77,4 +79,16 @@
 
 
 {% block javascript %}
+
+    <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.input-group.date').datetimepicker({
+                locale: "{{ app.request.locale }}",
+                maxDate: moment(),
+                format: 'DD/MM/YYYY'
+            });
+        });
+    </script>
 {% endblock %}
