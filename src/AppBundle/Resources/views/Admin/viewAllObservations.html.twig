@@ -1,18 +1,13 @@
 {% extends "AppBundle::layoutAdmin.html.twig" %}
 {% block title %}Affiche toutes les observations{% endblock %}
 {% block body %}
-    <h2 class="center">Affichage de toutes les observations.</h2><hr>
+    <h2 class="center">Affichage de toutes les observations.</h2>
+    <hr>
+    {{ render(controller('AppBundle:SearchAdmin:searchAdminObservationForm')) }}
     <br>
     <div class="center">
         <p>Total observations : {{ pagination.getTotalItemCount }}</p>
-        <form class="form-inline">
-            <div class="form-group">
-                <div class="input-group">
-                    <input type="text" class="form-control" id="exampleInputAmount" placeholder="Recherche">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
-                </div>
-            </div>
-        </form>
+
     </div>
 
     <br>
@@ -54,6 +49,3 @@
         {{ knp_pagination_render(pagination) }}
     </div>
 {% endblock %}
-
-
-

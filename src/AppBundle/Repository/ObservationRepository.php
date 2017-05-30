@@ -33,4 +33,15 @@ class ObservationRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findObservationByLike($term)
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('o')
+            ->from('AppBundle:Observation', 'o')
+            ->Where('o.title LIKE :terms')
+            ->orWhere('o.dateObservation LIKE :terms')
+
+            ->setParameter('terms', '%' . $term .'%' );
+        return $qb->getQuery()->getResult();
+    }
 }

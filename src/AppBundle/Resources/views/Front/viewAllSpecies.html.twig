@@ -2,6 +2,8 @@
 {% block title %}Affiche toutes les espèces{% endblock %}
 {% block body %}
     <h2 class="center">Affichage des espèces.</h2>
+    <hr>
+    {{ render(controller('AppBundle:SearchFront:searchSpeciesForm')) }}
     <br>
     <div class="center">
         <p>Total d'espèces : {{ pagination.getTotalItemCount }}</p>
@@ -39,7 +41,3 @@
         {{ knp_pagination_render(pagination) }}
     </div>
 {% endblock %}
-
-
-
-
