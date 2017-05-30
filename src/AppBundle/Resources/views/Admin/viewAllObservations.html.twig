@@ -3,7 +3,9 @@
 {% block body %}
     <h2 class="center">Affichage de toutes les observations.</h2>
     <hr>
-    {{ render(controller('AppBundle:SearchAdmin:searchAdminObservationForm')) }}
+    {% if status == null %}
+        {{ render(controller('AppBundle:SearchAdmin:searchAdminObservationForm')) }}
+    {% endif %}
     <br>
     <div class="center">
         <p>Total observations : {{ pagination.getTotalItemCount }}</p>
