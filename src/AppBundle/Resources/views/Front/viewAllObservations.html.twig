@@ -2,6 +2,8 @@
 {% block title %}Affiche toutes les observations{% endblock %}
 {% block body %}
     <h2 class="center">Affichage des observations.</h2>
+    <hr>
+    {{ render(controller('AppBundle:SearchFront:searchObservationForm')) }}
     <br>
     <div class="center">
         <p>Total d'observations : {{ pagination.getTotalItemCount }}</p>
@@ -37,6 +39,3 @@
 
 
 {% endblock %}
-
-
-
