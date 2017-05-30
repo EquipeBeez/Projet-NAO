@@ -5,10 +5,9 @@
 {% block title %}Saisir une observation{% endblock %}
 
 {% block body %}
-
     <div class="container">
-        <div class="row">
-            <div class="col-lg-7 col-md-12 col-sm-12">
+        <div class="row equal">
+            <div class="col-lg-7 col-xs-12 col-sm-12">
                 <div class="panel panel-primary panel-height">
                     <div class="panel-heading">Saisir une observation</div>
                     <div class="panel-body">
@@ -73,14 +72,18 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-5 col-md-12 col-sm-12">
+            <div class="col-lg-5 col-xs-12 col-sm-12">
                 <div class="panel panel-primary panel-height">
                     <div class="panel-heading">Carte</div>
-                    <div class="panel-body">
+                    <div class="panel-body" style="height: 100%">
                         {{ render(controller('AppBundle:GoogleMap:googleMapForm')) }}
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
             <div class="col-lg-12 col-sm-12">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -104,19 +107,9 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
 
 {% block javascript %}
-    <script>
-        boxes = $('.panel-height');
-        maxHeight = Math.max.apply(
-            Math, boxes.map(function() {
-                return $(this).height();
-            }).get());
-        boxes.height(maxHeight);
-    </script>
-
     <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
     <script type="text/javascript">
