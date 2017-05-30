@@ -24,7 +24,7 @@ class AdminController extends Controller
      *
      * @Route("/admin", name="admin")
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Security("has_role('ROLE_USERNAT')")
+     * @Security("has_role('ROLE_USERNAT') or has_role('ROLE_MODERATEUR')")
      * @Method({"GET"})
      *
      */
