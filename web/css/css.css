@@ -122,3 +122,17 @@ h6.panel-title {
 .lienMenuNewsletter{
     padding-left: 25px;
 }
+
+
+/* Debut Hauteur des panels */
+.panel-height {
+    height: 98%;
+    width: 100%;
+}
+@media (min-width: 768px) {
+    .row.equal {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+/* Fin Hauteur des panels */
