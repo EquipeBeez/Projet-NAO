@@ -98,4 +98,15 @@
 
 
 {% block javascript %}
+    <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.input-group.date').datetimepicker({
+                locale: "{{ app.request.locale }}",
+                maxDate: moment(),
+                format: 'DD/MM/YYYY'
+            });
+        });
+    </script>
 {% endblock %}

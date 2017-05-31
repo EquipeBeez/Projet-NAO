@@ -3,129 +3,125 @@
 {% endblock %}
 {% block javascript %}
     <script>
-        function initMap() {
-            var latlng = new google.maps.LatLng(46.52863469527167, 2.43896484375);
-            var map = new google.maps.Map(document.getElementById('mapForm'),
 
-                {
+    function initMap() {
+        var latlng = new google.maps.LatLng(46.52863469527167, 2.43896484375);
 
-                    zoom:5,
-                    center: latlng,
-                    matTypeId: google.maps.MapTypeId.ROADMAP,
-                    streetViewControl: false,
-                    mapTypeControl: false,
-
-                    styles :[
-                        {
-                            "featureType": "landscape",
-                            "stylers": [
-                                {
-                                    "hue": "#FFBB00"
-                                },
-                                {
-                                    "saturation": 43.400000000000006
-                                },
-                                {
-                                    "lightness": 37.599999999999994
-                                },
-                                {
-                                    "gamma": 1
-                                }
-                            ]
-                        },
-            {
-                "featureType": "road.highway",
-                "stylers": [
-                {
-                    "hue": "#FFC200"
-                },
-                {
-                    "saturation": -61.8
-                },
-                {
-                    "lightness": 45.599999999999994
-                },
-                {
-                    "gamma": 1
-                }
-            ]
-            },
-            {
-                "featureType": "road.arterial",
-                "stylers": [
-                {
-                    "hue": "#FF0300"
-                },
-                {
-                    "saturation": -100
-                },
-                {
-                    "lightness": 51.19999999999999
-                },
-                {
-                    "gamma": 1
-                }
-            ]
-            },
-            {
-                "featureType": "road.local",
-                "stylers": [
-                {
-                    "hue": "#FF0300"
-                },
-                {
-                    "saturation": -100
-                },
-                {
-                    "lightness": 52
-                },
-                {
-                    "gamma": 1
-                }
-            ]
-            },
-            {
-                "featureType": "water",
-                "stylers": [
-                {
-                    "hue": "#0078FF"
-                },
-                {
-                    "saturation": -13.200000000000003
-                },
-                {
-                    "lightness": 2.4000000000000057
-                },
-                {
-                    "gamma": 1
-                }
-            ]
-            },
-            {
-                "featureType": "poi",
-                "stylers": [
-                {
-                    "hue": "#00FF6A"
-                },
-                {
-                    "saturation": -1.0989010989011234
-                },
-                {
-                    "lightness": 11.200000000000017
-                },
-                {
-                    "gamma": 1
-                }
-            ]
-            }
-        ]
-        });
+            var map = new google.maps.Map(document.getElementById('mapForm'), {
+              center: latlng,
+              matTypeId: google.maps.MapTypeId.terrain,
+              streetViewControl: false,
+              mapTypeControl: false,
+              zoom: 5,
+              styles: [
+                  {
+                      "featureType": "landscape",
+                      "stylers": [
+                          {
+                              "hue": "#FFBB00"
+                          },
+                          {
+                              "saturation": 43.400000000000006
+                          },
+                          {
+                              "lightness": 37.599999999999994
+                          },
+                          {
+                              "gamma": 1
+                          }
+                      ]
+                  },
+                  {
+                      "featureType": "road.highway",
+                      "stylers": [
+                          {
+                              "hue": "#FFC200"
+                          },
+                          {
+                              "saturation": -61.8
+                          },
+                          {
+                              "lightness": 45.599999999999994
+                          },
+                          {
+                              "gamma": 1
+                          }
+                      ]
+                  },
+                  {
+                      "featureType": "road.arterial",
+                      "stylers": [
+                          {
+                              "hue": "#FF0300"
+                          },
+                          {
+                              "saturation": -100
+                          },
+                          {
+                              "lightness": 51.19999999999999
+                          },
+                          {
+                              "gamma": 1
+                          }
+                      ]
+                  },
+                  {
+                      "featureType": "road.local",
+                      "stylers": [
+                          {
+                              "hue": "#FF0300"
+                          },
+                          {
+                              "saturation": -100
+                          },
+                          {
+                              "lightness": 52
+                          },
+                          {
+                              "gamma": 1
+                          }
+                      ]
+                  },
+                  {
+                      "featureType": "water",
+                      "stylers": [
+                          {
+                              "hue": "#0078FF"
+                          },
+                          {
+                              "saturation": -13.200000000000003
+                          },
+                          {
+                              "lightness": 2.4000000000000057
+                          },
+                          {
+                              "gamma": 1
+                          }
+                      ]
+                  },
+                  {
+                      "featureType": "poi",
+                      "stylers": [
+                          {
+                              "hue": "#00FF6A"
+                          },
+                          {
+                              "saturation": -1.0989010989011234
+                          },
+                          {
+                              "lightness": 11.200000000000017
+                          },
+                          {
+                              "gamma": 1
+                          }
+                      ]
+                  }
+              ]
+            });
 
             var image = '{{ asset('images/gmap/crow2.png') }}'
             var marker = new google.maps.Marker({
-
                 map: map,
-                title: 'Bougez ce curseur',
                 icon: image,
                 draggable: true,
                 position: latlng,
@@ -133,17 +129,58 @@
                 animation: google.maps.Animation.DROP,
             });
 
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = {
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude
+                };
 
-            google.maps.event.addListener(marker, 'drag', function () {
-                setPosition(marker);
-            });
-            function setPosition(marker) {
-                //retourne un objet de type lat lng
-                var pos = marker.getPosition();
-                $('#appbundle_observation_gpsLatitude').val(pos.lat());
-                $('#appbundle_observation_gpsLongitude').val(pos.lng());
+                marker.setPosition(pos);
+                marker.setContent('Location found.');
+                map.setCenter(pos);
+              }, function() {
+                handleLocationError(true, marker, map.getCenter());
+              });
+              google.maps.event.addListener(marker, 'drag', function () {
+                  setPosition(marker);
+              });
+              map.addListener('center_changed', function() {
+
+                window.setTimeout(function() {
+                  map.panTo(marker.getPosition());
+              }, 800);
+              });
+
+              function setPosition(marker) {
+                  //retourne un objet de type lat lng
+                  var pos = marker.getPosition();
+                  $('#appbundle_observation_gpsLatitude').val(pos.lat());
+                  $('#appbundle_observation_gpsLongitude').val(pos.lng());
+              }
+              google.maps.event.addListener(marker, 'click', function () {
+                  setPosition(marker);
+                  map.setZoom(10);
+                  map.setCenter(marker.getPosition());
+              });
+
+              function setPosition(marker) {
+                  //retourne un objet de type lat lng
+                  var pos = marker.getPosition();
+                  $('#appbundle_observation_gpsLatitude').val(pos.lat());
+                  $('#appbundle_observation_gpsLongitude').val(pos.lng());
+              }
+            } else {
+              handleLocationError(false, marker, map.getCenter());
             }
-        }
+          }
+
+          function handleLocationError(browserHasGeolocation, marker, pos) {
+            marker.setPosition(pos);
+            marker.setContent(browserHasGeolocation ?
+                                  'Error: The Geolocation service failed.' :
+                                  'Error: Your browser doesn\'t support geolocation.');
+          }
 
     </script>
 

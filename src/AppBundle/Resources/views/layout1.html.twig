@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="{{ asset(''~ config.loadConfig.theme ) }}" />
     <link rel="stylesheet" href="{{ asset('css/font-awesome-4.7.0/css/font-awesome.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/css.css') }}" />
-    <link rel="icon" type="image/x-icon" href="{{asset ('images/favicon.ico')}}" />
-    <!--[if IE]><link rel="shortcut icon" type="image/x-icon" href="/{{asset ('images/favicon.ico')}}" /><![endif]-->
+    <link rel="icon" type="image/x-icon" href="{{asset ('favicon.ico')}}" />
+    <!--[if IE]><link rel="shortcut icon" type="image/x-icon" href="/{{asset ('favicon.ico')}}" /><![endif]-->
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
@@ -36,14 +36,14 @@
                 {# Affichage du panel Newsletter dans la sidebar de droite #}
                 {{ render(controller('AppBundle:Newsletter:affichageNewsletterSideBar')) }}
                 {# Affichage du panel des dernières Observations dans la sidebar de droite #}
-                {{ render(controller('AppBundle:Default:sideBarLast')) }}
+                {{ render(controller('AppBundle:Nav:sideBarLast')) }}
             </div>
         </div>
 
 
 
     </div>
-    {{ render(controller('AppBundle:Default:modalContact')) }}
+    {{ render(controller('AppBundle:Nav:modalContact')) }}
     {{ include("AppBundle:Front:footer.html.twig") }}
 
     <script src="https://code.jquery.com/jquery.min.js"></script>

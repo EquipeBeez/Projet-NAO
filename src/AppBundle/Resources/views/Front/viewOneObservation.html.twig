@@ -5,67 +5,67 @@
 {% block stylesheets %}{% endblock %}
 
 {% block body %}
-        <div class="row">
-            <div class="container">
-            <div class="col-lg-6 col-md-12 col-sm-12">
-                <div class="panel panel-primary panel-height">
-                    <div class="panel-heading">Observation #{{ observation.id }}</div>
-                    <div class="panel-body">
-                        <div class="max_center">
-                            {% if observation.image != null  %}
-                                <img class="image_obs" src="{{ asset('uploads/images/' ~ observation.image.filename) }}" title="{{ observation.espece.lbNom }}" alt="{{ observation.espece.lbNom }}" />
-                            {% else %}
-                                <img class="image_obs" src="{{ asset('uploads/images/imgDefaut.png') }}" title="Image par defaut" alt="Image par defaut" />
-                            {% endif %}
+        <div class="container">
+            <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="panel panel-primary panel-height">
+                            <div class="panel-heading">Observation #{{ observation.id }}</div>
+                            <div class="panel-body">
+                                <div class="max_center">
+                                    {% if observation.image != null  %}
+                                        <img class="image_obs" src="{{ asset('uploads/images/' ~ observation.image.filename) }}" title="{{ observation.espece.lbNom }}" alt="{{ observation.espece.lbNom }}" />
+                                    {% else %}
+                                        <img class="image_obs" src="{{ asset('uploads/images/imgDefaut.png') }}" title="Image par defaut" alt="Image par defaut" />
+                                    {% endif %}
+                                </div>
+                                <hr>
+                                <div>
+                                    <table style="width: 100%">
+                                        <tr><td class="bold_title">Titre</td><td>{{ observation.title }}</td></tr>
+                                        <tr><td class="bold_title">Date de l'observation</td><td>{{ observation.dateObservation|date("d/m/Y") }}</td></tr>
+                                        <tr><td class="bold_title">Nom espèce</td><td>{{ observation.espece.lbNom }}</td></tr>
+                                        <tr><td class="bold_title">Commentaires</td><td>{{ observation.description }}</td></tr>
+                                    </table><br>
+                                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                    <a href="{{ path('view_my_observation', { 'page' : 1 }) }}" class="btn btn-primary btn-sm">Mes observations</a>
+                                    {% endif %}
+                                </div>
+                            </div>
                         </div>
-                        <hr>
-                        <div>
+                    </div>
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="panel panel-primary panel-height">
+                        <div class="panel-heading">Carte</div>
+                        <div class="panel-body">
+                            {{ render(controller('AppBundle:GoogleMap:googleMapView', {'listobs': observation})) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-sm-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h6 class="panel-title">
+                                Données INPN pour l'espèce "{{ observation.espece.lbNom }}"
+                                <a class="link_right" href="{{ path('view_one_species', {'id': observation.espece.id}) }}"><i class="fa fa-eye fright" aria-hidden="true" data-placement="bottom" data-toggle="tooltip" title="Voir fiche espèce"></i></a>
+                            </h6>
+                        </div>
+                        <div class="panel-body">
                             <table style="width: 100%">
-                                <tr><td class="bold_title">Titre</td><td>{{ observation.title }}</td></tr>
-                                <tr><td class="bold_title">Date de l'observation</td><td>{{ observation.dateObservation|date("d/m/Y") }}</td></tr>
-                                <tr><td class="bold_title">Nom espèce</td><td>{{ observation.espece.lbNom }}</td></tr>
-                                <tr><td class="bold_title">Commentaires</td><td>{{ observation.description }}</td></tr>
-                            </table><br>
-                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                            <a href="{{ path('view_my_observation', { 'page' : 1 }) }}" class="btn btn-primary btn-sm">Mes observations</a>
-                            {% endif %}
+                                <tr><td class="bold_title">Famille</td><td>{{ observation.espece.famille }}</td></tr>
+                                <tr><td class="bold_title">Nom de l'espèce</td><td>{{ observation.espece.lbNom }}</td></tr>
+                                <tr><td class="bold_title">Nom de l'auteur</td><td>{{ observation.espece.lbAuteur }}</td></tr>
+                                <tr><td class="bold_title">Nom vernaculaire français</td><td>{{ observation.espece.nomVern }}</td></tr>
+                                <tr><td class="bold_title">Nom vernaculaire anglais</td><td>{{ observation.espece.nomVernEng }}</td></tr>
+                                {% if observation.espece.Url ==  NULL %}
+                                    <tr><td>URL INPN</td><td>Pas d'Url pour cette espèce</td></tr>
+                                {% else %}
+                                    <tr><td>URL INPN</td><td><a href="{{ observation.espece.Url }}" target="_blank">Lien vers INPN</a></td></tr>
+                                {% endif %}
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-12 col-sm-12">
-                <div class="panel panel-primary panel-height">
-                    <div class="panel-heading">Carte</div>
-                    <div class="panel-body">
-                        {{ render(controller('AppBundle:GoogleMap:googleMapView', {'listobs': observation})) }}
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-12 col-sm-12">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h6 class="panel-title">
-                            Données INPN pour l'espèce "{{ observation.espece.lbNom }}"
-                            <a class="link_right" href="{{ path('view_one_species', {'id': observation.espece.id}) }}"><i class="fa fa-eye fright" aria-hidden="true" data-placement="bottom" data-toggle="tooltip" title="Voir fiche espèce"></i></a>
-                        </h6>
-                    </div>
-                    <div class="panel-body">
-                        <table style="width: 100%">
-                            <tr><td class="bold_title">Famille</td><td>{{ observation.espece.famille }}</td></tr>
-                            <tr><td class="bold_title">Nom de l'espèce</td><td>{{ observation.espece.lbNom }}</td></tr>
-                            <tr><td class="bold_title">Nom de l'auteur</td><td>{{ observation.espece.lbAuteur }}</td></tr>
-                            <tr><td class="bold_title">Nom vernaculaire français</td><td>{{ observation.espece.nomVern }}</td></tr>
-                            <tr><td class="bold_title">Nom vernaculaire anglais</td><td>{{ observation.espece.nomVernEng }}</td></tr>
-                            {% if observation.espece.Url ==  NULL %}
-                                <tr><td>URL INPN</td><td>Pas d'Url pour cette espèce</td></tr>
-                            {% else %}
-                                <tr><td>URL INPN</td><td><a href="{{ observation.espece.Url }}" target="_blank">Lien vers INPN</a></td></tr>
-                            {% endif %}
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
         </div>
 
 {% endblock %}

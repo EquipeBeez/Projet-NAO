@@ -3,17 +3,10 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\SearchSpeciesType;
 use AppBundle\Form\SearchObservationType;
-use AppBundle\Entity\Taxrefv10;
-use AppBundle\Form\ObservationFrontType;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class SearchFrontController extends Controller
 {
@@ -88,9 +81,6 @@ class SearchFrontController extends Controller
           $page/*page number*/,
           25/*limit per page*/
       );
-      return $this->render('AppBundle:Front:viewAllObservations.html.twig', array(
-          'pagination' => $pagination,
-      ));
       return $this->render('AppBundle:Front:viewAllObservations.html.twig', array(
           'pagination' => $pagination,
       ));

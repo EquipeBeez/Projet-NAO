@@ -401,7 +401,7 @@ class FrontControllerTest extends WebTestCase
 
         $this->assertEquals(1, $crawler->filter('h2:contains("Affichage de touts les inscrits à la newsletter.")')->count());
 
-        $linkDesinscription = $crawler->filter('a:contains("Désinscription")')->eq(2);
+        $linkDesinscription = $crawler->filter('a:contains("Désinscription")')->eq(0);
 
         $crawler = $client->click($linkDesinscription->link());
 
