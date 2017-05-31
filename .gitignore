@@ -1,4 +1,14 @@
 /var/*
+!/var/cache
+/var/cache/*
+!var/cache/.gitkeep
+!/var/logs
+/var/logs/*
+!var/logs/.gitkeep
+!/var/sessions
+/var/sessions/*
+!var/sessions/.gitkeep
+!var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
 /web/config.php
@@ -11,4 +21,4 @@ composer.phar
 /web/images/Thumbs.db
 *.php~
 web/uploads/images/dd3c63088ea01bde8cb765bd3ca6b67b.jpeg
-/web/config.php
+
