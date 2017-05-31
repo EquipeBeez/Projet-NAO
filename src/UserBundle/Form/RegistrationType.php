@@ -21,9 +21,6 @@ class RegistrationType extends AbstractType
     public function getParent()
     {
         return 'FOS\UserBundle\Form\Type\RegistrationFormType';
-
-        // Or for Symfony < 2.8
-
     }
 
     public function getBlockPrefix()
