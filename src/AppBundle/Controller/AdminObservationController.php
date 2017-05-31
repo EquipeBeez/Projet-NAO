@@ -10,8 +10,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Observation;
-use AppBundle\Form\ObservationType;
-use AppBundle\Form\ObservationRejectType;
+use AppBundle\Form\Type\ObservationType;
+use AppBundle\Form\Type\ObservationRejectType;
 
 
 
