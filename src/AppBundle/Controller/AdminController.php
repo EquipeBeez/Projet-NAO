@@ -68,7 +68,6 @@ class AdminController extends Controller
     public function viewAllSpeciesAction($page)
     {
         $em = $this->getDoctrine()->getManager();
-        $config = $this->container->get('services.loadconfig')->loadConfig();
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $em->getRepository('AppBundle:Taxrefv10')->getAll(), /* query NOT result */
