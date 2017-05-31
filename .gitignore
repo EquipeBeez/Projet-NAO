@@ -11,7 +11,7 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
-/web/config.php
+
 /.idea/
 composer.phar
 /app/config/parameters.yml
