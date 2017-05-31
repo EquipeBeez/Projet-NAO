@@ -8,7 +8,7 @@ imports:
 parameters:
     locale: fr
     uploads_images_directory: '%kernel.root_dir%/../web/uploads/images'
-        observation_image_default: 'imgDefaut.png'
+    observation_image_default: 'imgDefaut.png'
 
     var_project:
         status_obs_waiting: waiting
