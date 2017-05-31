@@ -4,18 +4,38 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Entity\Contact;
+use AppBundle\Entity\EmailNewsletter;
+use AppBundle\Form\Type\EmailNewsletterType;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use AppBundle\Form\ContactType;
+use AppBundle\Form\Type\ContactType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 
-class NavController extends Controller
+class FrontController extends Controller
 {
+    /**
+     * @Route("/", name="homepage")
+     */
+    public function indexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $listLastObservations = $em->getRepository('AppBundle:Observation')->findLastObservations(3);
+
+        $emailNewsletter = new EmailNewsletter();
+        // On crée le formulaire
+        $formNewsletter = $this->createForm(EmailNewsletterType::class, $emailNewsletter);
+
+
+        return $this->render('AppBundle:Front:index.html.twig', array(
+            'listLastObservations' => $listLastObservations,
+            'formNews' => $formNewsletter->createView()
+        ));
+    }
     /**
      *
      * @Route("/learnmore", name="learn_more")
