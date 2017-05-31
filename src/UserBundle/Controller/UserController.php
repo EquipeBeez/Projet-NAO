@@ -30,7 +30,7 @@ class UserController extends Controller
         $userManager = $this->container->get('fos_user.user_manager');
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $users = $userManager->findUsers(), /* query NOT result */
+            $userManager->findUsers(), /* query NOT result */
             $page/*page number*/,
             25/*limit per page*/
         );
@@ -58,7 +58,6 @@ class UserController extends Controller
             $userManager = $this->container->get('fos_user.user_manager');
             $userManager->deleteUser($user);
             $request->getSession()->getFlashBag()->add("success", "L'utilisateur " . $user->getUserName() . " à été supprimé.");
-            $users = $userManager->findUsers();
             return $this->redirectToRoute('admin_users', array('page' => 1));
         }
         return $this->render('UserBundle:User:del_user.html.twig', array(
