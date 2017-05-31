@@ -9,9 +9,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User as User;
-use UserBundle\Form\AdminEditProfileType;
-use UserBundle\Form\UserType;
-use UserBundle\Form\SearchType;
+use UserBundle\Form\Type\AdminEditProfileType;
+use UserBundle\Form\Type\UserType;
+use UserBundle\Form\Type\SearchType;
 
 class UserController extends Controller
 {
@@ -22,6 +22,7 @@ class UserController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @Security("has_role('ROLE_SUPER_ADMIN')")
      * @param $page
+     * @Method({"GET"})
      *
      */
     public function usersAction($page)
@@ -45,6 +46,7 @@ class UserController extends Controller
      * @param $user
      * @param Request $request
      * @Security("has_role('ROLE_SUPER_ADMIN')")
+     * @Method({"GET", "POST"})
      *
      */
     public function deleteUserAction(User $user, Request $request)
@@ -73,6 +75,7 @@ class UserController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws AccessDeniedException
+     * @Method({"GET", "POST"})
      *
      */
     public function activateUserAction($username, Request $request)
@@ -97,6 +100,7 @@ class UserController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws AccessDeniedException
+     * @Method({"GET", "POST"})
      *
      */
     public function editUserAction(User $user, Request $request)
@@ -149,6 +153,7 @@ class UserController extends Controller
      * @Route("/admin/searchuserform", name="admin_search_user_form")
      * @Security("has_role('ROLE_SUPER_ADMIN')")
      * @return \Symfony\Component\HttpFoundation\Response
+     * @Method({"GET"})
      *
      */
     public function searchUserFormAction()
@@ -166,6 +171,7 @@ class UserController extends Controller
      * @param Request $request
      * @param $page
      * @return \Symfony\Component\HttpFoundation\Response
+     * @Method({"GET", "POST"})
      *
      */
     public function searchUserResultAction(Request $request, $page)
