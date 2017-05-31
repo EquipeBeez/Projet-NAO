@@ -74,9 +74,9 @@ class RegistrationController extends Controller
                 $email = $user->getEmail();
                 $userEmail = $em->getRepository('AppBundle:EmailNewsletter')->findByEmail($email);
                 // Ajout de l'adresse mail de l'utilisateur dans la liste de la Newsletter
-                if ($user->getNewsletter() == true){
+                if ($user->getNewsletter() === true){
 
-                    if ($userEmail == null){
+                    if ($userEmail === null){
                         $emailNewsletter = new EmailNewsletter();
                         $emailNewsletter->setEmail($email);
 
@@ -94,7 +94,7 @@ class RegistrationController extends Controller
                 // Retrait de l'adresse mail de l'utilisateur de la liste de la Newsletter
                 else{
 
-                    if ($userEmail != null) {
+                    if ($userEmail !== null) {
                         foreach ($userEmail as $value) {
                             $em->remove($value);
                         }

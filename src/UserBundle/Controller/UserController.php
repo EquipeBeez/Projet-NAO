@@ -79,7 +79,7 @@ class UserController extends Controller
     {
         $userManager = $this->container->get('fos_user.user_manager');
         $user = $userManager->findUserByUsername($username);
-        if ($user->isEnabled() == true) {
+        if ($user->isEnabled() === true) {
             $user = $this->get('fos_user.util.user_manipulator')->deactivate($username);
             $request->getSession()->getFlashBag()->add('success', 'Utilisateur a bien été désactivé.');
         } else {
@@ -114,8 +114,8 @@ class UserController extends Controller
             $email = $user->getEmail();
             $userEmail = $em->getRepository('AppBundle:EmailNewsletter')->findByEmail($email);
             // Ajout de l'adresse mail de l'utilisateur dans la liste de la Newsletter
-            if ($user->getNewsletter() == true){
-                if ($userEmail == null){
+            if ($user->getNewsletter() === true){
+                if ($userEmail === null){
                     $emailNewsletter = new EmailNewsletter();
                     $emailNewsletter->setEmail($email);
                     // Salt Random
@@ -129,7 +129,7 @@ class UserController extends Controller
             }
             // Retrait de l'adresse mail de l'utilisateur de la liste de la Newsletter
             else{
-                if ($userEmail != null) {
+                if ($userEmail !== null) {
                     foreach ($userEmail as $value) {
                         $em->remove($value);
                     }

@@ -94,7 +94,7 @@ class NewsletterController extends Controller
         $em = $this->getDoctrine()->getManager();
         $emailNewsletter = $em->getRepository('AppBundle:EmailNewsletter')->findByEmailCrypter($emailCrypter);
 
-        if ($emailNewsletter != null) {
+        if ($emailNewsletter !== null) {
             // Affichage d'un message flash
             $request->getSession()->getFlashBag()->add('success', 'Vous êtes bien désinscrit de notre Newsletter');
 
@@ -105,7 +105,7 @@ class NewsletterController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $user = $em->getRepository('UserBundle:User')->findByEmail($email);
-            if ($user != null) {
+            if ($user !== null) {
                 foreach ($user as $value) {
                     $value->setNewsletter(false);
                 }
@@ -231,7 +231,7 @@ class NewsletterController extends Controller
         $em = $this->getDoctrine()->getManager();
         $emailNewsletter = $em->getRepository('AppBundle:EmailNewsletter')->findByEmailCrypter($emailCrypter);
 
-        if ($emailNewsletter != null) {
+        if ($emailNewsletter !== null) {
             // Affichage d'un message flash
             $request->getSession()->getFlashBag()->add('success', 'L\'utilisateur est bien désinscrit de notre Newsletter');
 
@@ -242,7 +242,7 @@ class NewsletterController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $user = $em->getRepository('UserBundle:User')->findByEmail($email);
-            if ($user != null) {
+            if ($user !== null) {
                 foreach ($user as $value) {
                     $value->setNewsletter(false);
                 }
