@@ -3,8 +3,8 @@
             <li><hr></li>
             <li><a href="{{ path('admin') }}"><i class="fa fa-dashboard" aria-hidden="true"></i>&nbsp Tableau de bord</a></li>
             {% if is_granted("ROLE_SUPER_ADMIN") %}
-                <li><a href="{{ path('admin_users', {'page': 1}) }}"><i class="fa fa-users" aria-hidden="true"></i>&nbsp Utilisateurs</a></li>
                 <li><a href="{{ path('admin_configuration') }}"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp Configuration</a></li>
+                <li><a href="{{ path('admin_users', {'page': 1}) }}"><i class="fa fa-users" aria-hidden="true"></i>&nbsp Utilisateurs</a></li>
                 <li><a href="{{ path('admin_view_all_species', {'page': 1}) }}"><i class="fa fa-list" aria-hidden="true"></i>&nbsp Les espèces</a></li>
             {% endif %}
 
@@ -52,15 +52,3 @@
                 {% endif %}
             </li>
         </ul>
-
-
-
-
-
-
-
-
-
-
-
-
