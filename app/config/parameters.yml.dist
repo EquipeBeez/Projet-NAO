@@ -17,3 +17,12 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            qzmlhbvekljfdbhvlkqdsjuufhbvlqjskdf
+
+
+    uploads_images_directory: '%kernel.root_dir%/../web/uploads/images'
+    observation_image_default: 'imgDefaut.png'
+
+    var_project:
+        status_obs_waiting: waiting
+        status_obs_valid: validated
+        status_obs_rejeted: rejected
