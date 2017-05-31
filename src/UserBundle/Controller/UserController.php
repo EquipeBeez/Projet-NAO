@@ -9,7 +9,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User as User;
-use UserBundle\Form\AdminEditProfileType;
 use UserBundle\Form\UserType;
 use UserBundle\Form\SearchType;
 
