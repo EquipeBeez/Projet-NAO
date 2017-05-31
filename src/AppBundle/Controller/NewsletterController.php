@@ -6,8 +6,8 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\EmailNewsletter;
 use AppBundle\Entity\Newsletter;
-use AppBundle\Form\EmailNewsletterType;
-use AppBundle\Form\NewsletterType;
+use AppBundle\Form\Type\EmailNewsletterType;
+use AppBundle\Form\Type\NewsletterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;

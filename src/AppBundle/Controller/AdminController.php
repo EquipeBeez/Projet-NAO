@@ -9,9 +9,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\ConfigurationType;
+use AppBundle\Form\Type\ConfigurationType;
 use AppBundle\Entity\Taxrefv10;
-use AppBundle\Form\Taxrefv10Type;
+use AppBundle\Form\Type\Taxrefv10Type;
 
 
 
