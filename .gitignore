@@ -13,12 +13,12 @@
 /web/bundles/
 
 /.idea/
-composer.phar
+/composer.phar
 /app/config/parameters.yml
 /app/config/parameters.yml.serveur
 
 /web/uploads/images/Thumbs.db
 /web/images/Thumbs.db
 *.php~
-web/uploads/images/dd3c63088ea01bde8cb765bd3ca6b67b.jpeg
+/web/uploads/images/dd3c63088ea01bde8cb765bd3ca6b67b.jpeg
 
