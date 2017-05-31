@@ -3,19 +3,22 @@
 namespace AppBundle\Services;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class LoadDashboard
 {
 
     private $em;
+    private $container;
     private $dashboard = array();
 
     /**
      * @param EntityManagerInterface $em
      */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, ContainerInterface $container)
     {
         $this->em = $em;
+        $this->container = $container;
     }
 
 
