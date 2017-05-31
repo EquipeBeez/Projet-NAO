@@ -415,4 +415,3 @@ class Observation
         return $this->rejectMessage;
     }
 }
-
