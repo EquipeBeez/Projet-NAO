@@ -30,8 +30,6 @@ class AdminObservationController extends Controller
     public function viewAllObservationsAction($page, $status = null)
     {
         $em = $this->getDoctrine()->getManager();
-        $config = $this->container->get('services.loadconfig')->loadConfig();
-
         if ($status === null)
         {
             $query = $em->getRepository('AppBundle:Observation')->findObsWithAllStatus(); /* query NOT result */
