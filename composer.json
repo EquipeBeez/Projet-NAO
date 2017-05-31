@@ -1,6 +1,6 @@
 {
-    "name": "truknet/projetNAO",
-    "desciption": "Projet Nos Amis les Animaux",
+    "name": "truknet/projet-nao",
+    "description": "Projet Nos Amis les Animaux",
     "license": "proprietary",
     "type": "project",
     "autoload": {

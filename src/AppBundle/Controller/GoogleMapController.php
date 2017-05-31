@@ -8,18 +8,13 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Contact;
+
 use AppBundle\Entity\Taxrefv10;
 use AppBundle\Entity\Observation;
-use AppBundle\Form\ObservationFrontType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use AppBundle\Form\ContactType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 
 
 class GoogleMapController extends Controller

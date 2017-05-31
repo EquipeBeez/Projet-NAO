@@ -88,7 +88,7 @@ class NewsletterController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Method({"GET", "POST"})
      */
-    public function desinscriptionNewsletter(Request $request, $emailCrypter)
+    public function desinscriptionNewsletterAction(Request $request, $emailCrypter)
     {
 
         $em = $this->getDoctrine()->getManager();
@@ -225,7 +225,7 @@ class NewsletterController extends Controller
      * @Security("has_role('ROLE_SUPER_ADMIN')")
      * @Method({"GET", "POST"})
      */
-    public function adminDesinscriptionNewsletter(Request $request, $emailCrypter)
+    public function adminDesinscriptionNewsletterAction(Request $request, $emailCrypter)
     {
 
         $em = $this->getDoctrine()->getManager();

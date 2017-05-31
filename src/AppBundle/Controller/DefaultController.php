@@ -164,7 +164,7 @@ class DefaultController extends Controller
      * @Method({"GET", "POST"})
      *
      */
-    public function validChoiceSpecies(Request $request)
+    public function validChoiceSpeciesAction(Request $request)
     {
         if ($request->getMethod() == 'POST')
         {
@@ -463,9 +463,6 @@ class DefaultController extends Controller
                 'form' => $form->createView()
             ));
         }
-        /*return $this->render('AppBundle:Front:sideBarNewsletter.html.twig', array(
-            'form' => $form->createView(),
-        ));*/
     }
 
     /**

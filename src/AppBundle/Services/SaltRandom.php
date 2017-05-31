@@ -17,4 +17,3 @@ class SaltRandom
         return $str;
     }
 }
-
