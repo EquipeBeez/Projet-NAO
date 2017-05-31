@@ -186,7 +186,7 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $observation = new Observation();
-        if ($id != null)
+        if ($id !== null)
         {
             $species = $em->getRepository('AppBundle:Taxrefv10')->findOneById($id);
             $observation->setEspece($species);
@@ -202,7 +202,7 @@ class DefaultController extends Controller
         $form   = $this->get('form.factory')->create(ObservationFrontType::class, $observation);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($observation->getImage() == null)
+            if ($observation->getImage() === null)
             {
                 $observation->setImage($this->getParameter('observation_image_default'));
             }
