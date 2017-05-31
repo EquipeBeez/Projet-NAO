@@ -1,6 +1,7 @@
 /var/*
 /vendor/
 /web/bundles/
+/web/config.php
 /.idea/
 composer.phar
 composer.lock
