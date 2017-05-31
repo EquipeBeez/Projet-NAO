@@ -36,14 +36,14 @@
                 {# Affichage du panel Newsletter dans la sidebar de droite #}
                 {{ render(controller('AppBundle:Newsletter:affichageNewsletterSideBar')) }}
                 {# Affichage du panel des dernières Observations dans la sidebar de droite #}
-                {{ render(controller('AppBundle:Default:sideBarLast')) }}
+                {{ render(controller('AppBundle:Nav:sideBarLast')) }}
             </div>
         </div>
 
 
 
     </div>
-    {{ render(controller('AppBundle:Default:modalContact')) }}
+    {{ render(controller('AppBundle:Nav:modalContact')) }}
     {{ include("AppBundle:Front:footer.html.twig") }}
 
     <script src="https://code.jquery.com/jquery.min.js"></script>

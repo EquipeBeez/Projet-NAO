@@ -55,6 +55,7 @@
             <div>
                 <input class="btn btn-sm btn-primary" type="submit" id="boutonInscription" value="Créer votre compte" />
             </div>
+            {{ form_end(form)}}
             <p class="change_link">	Déjà membre ?
                 <a href="{{ path('fos_user_security_login') }}"> Connexion </a>
             </p>
