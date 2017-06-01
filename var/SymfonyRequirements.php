@@ -23,7 +23,6 @@
  * ************** CAUTION **************
  */
 
-
 /**
  * Represents a single PHP requirement, e.g. an installed extension.
  * It can be a mandatory requirement or an optional recommendation.
