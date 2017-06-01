@@ -64,4 +64,20 @@ class ObservationRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+    public function findObservationByLikeWithoutStatus($term)
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('o')
+            ->from('AppBundle:Observation', 'o')
+            ->join('o.espece', 'e')
+            ->join('o.author', 'a')
+            ->Where('o.title LIKE :terms')
+            ->orWhere('o.dateObservation LIKE :terms')
+            ->orWhere('e.LbNom LIKE :terms')
+            ->orWhere('e.NomVern LIKE :terms')
+            ->orWhere('a.name LIKE :terms')
+            ->setParameter('terms', '%' . $term .'%' );
+
+        return $qb->getQuery()->getResult();
+    }
 }

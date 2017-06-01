@@ -31,21 +31,23 @@ class SearchAdminController extends Controller
    * @Route("/admin/searchObservationResult/{page}", name="admin_search_observation_result")
    * @param Request $request
    * @param $page
+   * @param null $status
    * @return \Symfony\Component\HttpFoundation\Response
    *
    */
-  public function searchAdminObservationResultAction(Request $request, $page)
+  public function searchAdminObservationResultAction(Request $request, $page, $status = null)
   {
       $term = $request->get('appbundle_search_observation')['fieldsearch'];
       $em = $this->getDoctrine()->getManager();
       $paginator  = $this->get('knp_paginator');
       $pagination = $paginator->paginate(
-          $em->getRepository('AppBundle:Observation')->findObservationByLike($term), /* query NOT result */
+          $em->getRepository('AppBundle:Observation')->findObservationByLikeWithoutStatus($term), /* query NOT result */
           $page/*page number*/,
           25/*limit per page*/
       );
       return $this->render('AppBundle:Admin:viewAllObservations.html.twig', array(
           'pagination' => $pagination,
+          'status' => $status,
       ));
 
   }
