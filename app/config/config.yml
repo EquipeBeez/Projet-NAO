@@ -49,17 +49,14 @@ twig:
 # Doctrine Configuration
 doctrine:
     dbal:
-        default_connection: default
-            connections:
-                default:
-                    server_version: 5.6
-                    driver:   pdo_mysql
-                    host:     "%database_host%"
-                    port:     "%database_port%"
-                    dbname:   "%database_name%"
-                    user:     "%database_user%"
-                    password: "%database_password%"
-                    charset:  UTF8
+        default_connection:       default
+        connections:
+            default:
+                dbname:           Symfony
+                user:             root
+                password:         null
+                host:             localhost
+                server_version:   5.6
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/../var/data/data.sqlite"
