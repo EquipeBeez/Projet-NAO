@@ -9,9 +9,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\ConfigurationType;
+use AppBundle\Form\Type\ConfigurationType;
 use AppBundle\Entity\Taxrefv10;
-use AppBundle\Form\Taxrefv10Type;
+use AppBundle\Form\Type\Taxrefv10Type;
 
 
 
@@ -68,7 +68,6 @@ class AdminController extends Controller
     public function viewAllSpeciesAction($page)
     {
         $em = $this->getDoctrine()->getManager();
-        $config = $this->container->get('services.loadconfig')->loadConfig();
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $em->getRepository('AppBundle:Taxrefv10')->getAll(), /* query NOT result */

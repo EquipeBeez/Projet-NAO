@@ -10,8 +10,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Observation;
-use AppBundle\Form\ObservationType;
-use AppBundle\Form\ObservationRejectType;
+use AppBundle\Form\Type\ObservationType;
+use AppBundle\Form\Type\ObservationRejectType;
 
 
 
@@ -30,8 +30,6 @@ class AdminObservationController extends Controller
     public function viewAllObservationsAction($page, $status = null)
     {
         $em = $this->getDoctrine()->getManager();
-        $config = $this->container->get('services.loadconfig')->loadConfig();
-
         if ($status === null)
         {
             $query = $em->getRepository('AppBundle:Observation')->findObsWithAllStatus(); /* query NOT result */

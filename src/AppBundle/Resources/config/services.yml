@@ -8,7 +8,7 @@ services:
         class: AppBundle\Services\LoadDashboard
         arguments:
             - "@doctrine.orm.entity_manager"
-            - "@service_container"
+            - "%var_project%"
 
     app.sendEmail:
         class: AppBundle\Services\SendEmail

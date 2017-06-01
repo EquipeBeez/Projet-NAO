@@ -1,21 +1,19 @@
 <?php
 
-namespace AppBundle\Form;
+namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class NewsletterType extends AbstractType
+class EmailNewsletterType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('title')
-            ->add('content');
+        $builder->add('email');
     }
     
     /**
@@ -24,7 +22,7 @@ class NewsletterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Newsletter'
+            'data_class' => 'AppBundle\Entity\EmailNewsletter'
         ));
     }
 
@@ -33,7 +31,7 @@ class NewsletterType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_newsletter';
+        return 'appbundle_emailnewsletter';
     }
 
 

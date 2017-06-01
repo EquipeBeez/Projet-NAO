@@ -3,11 +3,9 @@
 namespace AppBundle\Controller;
 
 
-use AppBundle\Entity\EmailNewsletter;
 use AppBundle\Entity\Taxrefv10;
 use AppBundle\Entity\Observation;
-use AppBundle\Form\EmailNewsletterType;
-use AppBundle\Form\ObservationFrontType;
+use AppBundle\Form\Type\ObservationFrontType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,26 +17,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 
-class DefaultController extends Controller
+class ObservationAndSpeciesController extends Controller
 {
-    /**
-     * @Route("/", name="homepage")
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $listLastObservations = $em->getRepository('AppBundle:Observation')->findLastObservations(3);
-
-        $emailNewsletter = new EmailNewsletter();
-        // On crée le formulaire
-        $formNewsletter = $this->createForm(EmailNewsletterType::class, $emailNewsletter);
-
-
-        return $this->render('AppBundle:Front:index.html.twig', array(
-            'listLastObservations' => $listLastObservations,
-            'formNews' => $formNewsletter->createView()
-        ));
-    }
 
     /**
      *

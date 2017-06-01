@@ -6,8 +6,8 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\EmailNewsletter;
 use AppBundle\Entity\Newsletter;
-use AppBundle\Form\EmailNewsletterType;
-use AppBundle\Form\NewsletterType;
+use AppBundle\Form\Type\EmailNewsletterType;
+use AppBundle\Form\Type\NewsletterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -92,31 +92,20 @@ class NewsletterController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();
-        $emailNewsletter = $em->getRepository('AppBundle:EmailNewsletter')->findByEmailCrypter($emailCrypter);
+        $emailNewsletter = $em->getRepository('AppBundle:EmailNewsletter')->findOneBy(array('emailCrypter' => $emailCrypter));
 
         if ($emailNewsletter !== null) {
             // Affichage d'un message flash
             $request->getSession()->getFlashBag()->add('success', 'Vous êtes bien désinscrit de notre Newsletter');
 
-            foreach ($emailNewsletter as $value) {
-                $email= $value->getEmail();
-            }
+            $email= $emailNewsletter->getEmail();
 
-
-            $em = $this->getDoctrine()->getManager();
-            $user = $em->getRepository('UserBundle:User')->findByEmail($email);
+            $user = $em->getRepository('UserBundle:User')->findOneBy(array('email' => $email));
             if ($user !== null) {
-                foreach ($user as $value) {
-                    $value->setNewsletter(false);
-                }
-
+                    $user->setNewsletter(false);
             }
             // Sauvegarder en Base de données
-            $em = $this->getDoctrine()->getManager();
-            foreach ($emailNewsletter as $value) {
-                $em->remove($value);
-            }
-
+            $em->remove($emailNewsletter);
             $em->flush();
 
             // Retour à la page d'accueil
@@ -229,31 +218,20 @@ class NewsletterController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();
-        $emailNewsletter = $em->getRepository('AppBundle:EmailNewsletter')->findByEmailCrypter($emailCrypter);
+        $emailNewsletter = $em->getRepository('AppBundle:EmailNewsletter')->findOneBy(array('emailCrypter' => $emailCrypter));
 
         if ($emailNewsletter !== null) {
             // Affichage d'un message flash
             $request->getSession()->getFlashBag()->add('success', 'L\'utilisateur est bien désinscrit de notre Newsletter');
 
-            foreach ($emailNewsletter as $value) {
-                $email= $value->getEmail();
-            }
+            $email = $emailNewsletter->getEmail();
 
-
-            $em = $this->getDoctrine()->getManager();
-            $user = $em->getRepository('UserBundle:User')->findByEmail($email);
+            $user = $em->getRepository('UserBundle:User')->findOneBy(array('email' => $email));
             if ($user !== null) {
-                foreach ($user as $value) {
-                    $value->setNewsletter(false);
-                }
-
+                    $user->setNewsletter(false);
             }
             // Sauvegarder en Base de données
-            $em = $this->getDoctrine()->getManager();
-            foreach ($emailNewsletter as $value) {
-                $em->remove($value);
-            }
-
+            $em->remove($emailNewsletter);
             $em->flush();
 
             // Retour à la liste des inscrits

@@ -1,13 +1,13 @@
 <?php
 
-namespace AppBundle\Form;
+namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
-class SearchSpeciesType extends AbstractType
+class SearchObservationType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -23,7 +23,7 @@ class SearchSpeciesType extends AbstractType
 
     public function getBlockPrefix()
     {
-        return 'appbundle_search_species';
+        return 'appbundle_search_observation';
     }
 
     // For Symfony 2.x

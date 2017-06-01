@@ -3,9 +3,7 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Contact;
-use AppBundle\Entity\EmailNewsletter;
 use AppBundle\Entity\Observation;
-use UserBundle\Entity\User;
 use Symfony\Component\Templating\EngineInterface;
 
 class SendEmail
