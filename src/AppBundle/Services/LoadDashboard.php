@@ -2,19 +2,23 @@
 namespace AppBundle\Services;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class LoadDashboard
 {
     private $em;
+    private $container;
     private $dashboard = array();
 
     /**
      * @param EntityManagerInterface $em
      */
+
     public function __construct(EntityManagerInterface $em, $var_project)
     {
         $this->em = $em;
         $this->var_project = $var_project;
+
     }
 
 
