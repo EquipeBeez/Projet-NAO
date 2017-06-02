@@ -171,7 +171,7 @@ class ObservationAndSpeciesController extends Controller
             $species = $em->getRepository('AppBundle:Taxrefv10')->findOneById($id);
             $observation->setEspece($species);
         }
-        if ($this->container->get('security.authorization_checker')->isGranted('ROLE_USERNAT', $this->getUser()))
+        if ($this->container->get('security.authorization_checker')->isGranted(['ROLE_USERNAT','ROLE_SUPER_ADMIN'], $this->getUser()))
         {
             $observation->setStatus($this->getParameter('var_project')['status_obs_valid']);
             $observation->setApprouvedBy($this->getUser());
