@@ -16,6 +16,7 @@ class SearchAdminController extends Controller
    *
    * @Route("/admin/searchObservationForm", name="admin_search_observation_form")
    * @return \Symfony\Component\HttpFoundation\Response
+   * @Method({"GET"})
    *
    */
   public function searchAdminObservationFormAction()
@@ -33,6 +34,7 @@ class SearchAdminController extends Controller
    * @param $page
    * @param null $status
    * @return \Symfony\Component\HttpFoundation\Response
+   * @Method({"GET", "POST"})
    *
    */
   public function searchAdminObservationResultAction(Request $request, $page, $status = null)
@@ -56,6 +58,7 @@ class SearchAdminController extends Controller
    *
    * @Route("/admin/searchSpeciesForm", name="admin_search_species_form")
    * @return \Symfony\Component\HttpFoundation\Response
+   * @Method({"GET", "POST"})
    *
    */
   public function searchAdminSpeciesFormAction()
@@ -72,6 +75,7 @@ class SearchAdminController extends Controller
    * @param Request $request
    * @param $page
    * @return \Symfony\Component\HttpFoundation\Response
+   * @Method({"GET", "POST"})
    *
    */
   public function searchAdminSpeciesResultAction(Request $request, $page)

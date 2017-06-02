@@ -203,6 +203,7 @@ class ObservationAndSpeciesController extends Controller
      * @Route("/viewmyobservation/{page}", name="view_my_observation")
      * @param $page
      * @return Response
+     * @Method({"GET", "POST"})
      */
     public function viewMyObservationAction($page)
     {
@@ -232,6 +233,7 @@ class ObservationAndSpeciesController extends Controller
      * @param Observation $observation
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @Method({"GET", "POST"})
      */
     public function deleteMyObservationAction(Observation $observation, Request $request)
     {
@@ -265,6 +267,7 @@ class ObservationAndSpeciesController extends Controller
      * @param Observation $observation
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @Method({"GET", "POST"})
      */
     public function editMyObservationAction(Observation $observation, Request $request)
     {

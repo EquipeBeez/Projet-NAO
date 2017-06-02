@@ -16,6 +16,7 @@ class SearchFrontController extends Controller
    *
    * @Route("/searchSpeciesForm", name="search_species_form")
    * @return \Symfony\Component\HttpFoundation\Response
+   * @Method({"GET", "POST"})
    *
    */
   public function searchSpeciesFormAction()
@@ -32,6 +33,7 @@ class SearchFrontController extends Controller
    * @param Request $request
    * @param $page
    * @return \Symfony\Component\HttpFoundation\Response
+   * @Method({"GET", "POST"})
    *
    */
   public function searchSpeciesResultAction(Request $request, $page)
@@ -53,6 +55,7 @@ class SearchFrontController extends Controller
    *
    * @Route("/searchObservationForm", name="search_observation_form")
    * @return \Symfony\Component\HttpFoundation\Response
+   * @Method({"GET", "POST"})
    *
    */
   public function searchObservationFormAction()
@@ -69,6 +72,7 @@ class SearchFrontController extends Controller
    * @param Request $request
    * @param $page
    * @return \Symfony\Component\HttpFoundation\Response
+   * @Method({"GET", "POST"})
    *
    */
   public function searchObservationResultAction(Request $request, $page)
