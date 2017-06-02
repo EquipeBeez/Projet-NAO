@@ -168,6 +168,11 @@
                 marker.addListener('click', function() {
                     infowindow.open(map, marker);
                 });
+                map.addListener('center_changed', function() {
+                    window.setTimeout(function() {
+                        map.panTo(marker.getPosition());
+                    }, 800);
+                });
 
                 var markerClusterer = new MarkerClusterer(map, markers, {
                     maxZoom: 8, // maxZoom set when clustering will stop
