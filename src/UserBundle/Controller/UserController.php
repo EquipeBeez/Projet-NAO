@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User as User;
 use UserBundle\Form\UserType;
 use UserBundle\Form\SearchType;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 
 class UserController extends Controller
 {
