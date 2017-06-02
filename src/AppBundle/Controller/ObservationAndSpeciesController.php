@@ -188,6 +188,7 @@ class ObservationAndSpeciesController extends Controller
             }
             $em->persist($observation);
             $em->flush();
+
             $request->getSession()->getFlashBag()->add('success', 'Observation bien enregistrée.');
             return $this->redirectToRoute('view_one_observation', array('id' => $observation->getId()));
         }
