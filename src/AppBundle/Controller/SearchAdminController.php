@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\Type\SearchSpeciesType;
@@ -17,6 +19,7 @@ class SearchAdminController extends Controller
    * @Route("/admin/searchObservationForm", name="admin_search_observation_form")
    * @return \Symfony\Component\HttpFoundation\Response
    * @Method({"GET"})
+   * @Security("has_role('ROLE_USERNAT')")
    *
    */
   public function searchAdminObservationFormAction()
@@ -35,6 +38,7 @@ class SearchAdminController extends Controller
    * @param null $status
    * @return \Symfony\Component\HttpFoundation\Response
    * @Method({"GET", "POST"})
+   * @Security("has_role('ROLE_USERNAT')")
    *
    */
   public function searchAdminObservationResultAction(Request $request, $page, $status = null)
@@ -59,6 +63,7 @@ class SearchAdminController extends Controller
    * @Route("/admin/searchSpeciesForm", name="admin_search_species_form")
    * @return \Symfony\Component\HttpFoundation\Response
    * @Method({"GET", "POST"})
+   * @Security("has_role('ROLE_USERNAT')")
    *
    */
   public function searchAdminSpeciesFormAction()
@@ -76,6 +81,7 @@ class SearchAdminController extends Controller
    * @param $page
    * @return \Symfony\Component\HttpFoundation\Response
    * @Method({"GET", "POST"})
+   * @Security("has_role('ROLE_USERNAT')")
    *
    */
   public function searchAdminSpeciesResultAction(Request $request, $page)
