@@ -34,7 +34,7 @@ class SearchFrontController extends Controller
    * @param Request $request
    * @param $page
    * @return \Symfony\Component\HttpFoundation\Response
-   * @Method({"POST"})
+   * @Method({"GET","POST"})
    *
    */
   public function searchSpeciesResultAction(Request $request, $page)
@@ -73,7 +73,7 @@ class SearchFrontController extends Controller
    * @param Request $request
    * @param $page
    * @return \Symfony\Component\HttpFoundation\Response
-   * @Method({"POST"})
+   * @Method({"GET","POST"})
    *
    */
   public function searchObservationResultAction(Request $request, $page)
