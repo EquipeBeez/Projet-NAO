@@ -20,6 +20,7 @@ class FrontController extends Controller
 {
     /**
      * @Route("/", name="homepage")
+     * @Method({"GET", "POST"})
      */
     public function indexAction()
     {
@@ -58,10 +59,8 @@ class FrontController extends Controller
      */
     public function fonctionnementAction()
     {
-
         return $this->render('AppBundle:Front:fonctionnement.html.twig');
     }
-
 
     /**
      *
@@ -74,10 +73,12 @@ class FrontController extends Controller
     {
         return $this->render('AppBundle:Front:legalNotice.html.twig');
     }
+
     /**
      *
      * @Route("/landing", name="landing")
      * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
      * @Method({"GET"})
      *
      */

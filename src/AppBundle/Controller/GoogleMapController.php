@@ -47,6 +47,7 @@ class GoogleMapController extends Controller
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/googleMapForm", name="google_map_form")
+     * @Method({"GET", "POST"})
      */
     public function googleMapFormAction()
     {
