@@ -37,7 +37,7 @@ class SearchAdminController extends Controller
    * @param $page
    * @param null $status
    * @return \Symfony\Component\HttpFoundation\Response
-   * @Method({"GET", "POST"})
+   * @Method({"GET"})
    * @Security("has_role('ROLE_USERNAT')")
    *
    */
@@ -62,7 +62,7 @@ class SearchAdminController extends Controller
    *
    * @Route("/admin/searchSpeciesForm", name="admin_search_species_form")
    * @return \Symfony\Component\HttpFoundation\Response
-   * @Method({"GET", "POST"})
+   * @Method({"GET"})
    * @Security("has_role('ROLE_USERNAT')")
    *
    */
@@ -80,7 +80,7 @@ class SearchAdminController extends Controller
    * @param Request $request
    * @param $page
    * @return \Symfony\Component\HttpFoundation\Response
-   * @Method({"GET", "POST"})
+   * @Method({"GET"})
    * @Security("has_role('ROLE_USERNAT')")
    *
    */

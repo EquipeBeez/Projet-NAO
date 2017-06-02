@@ -169,7 +169,7 @@ class UserController extends Controller
      * @param Request $request
      * @param $page
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Method({"GET", "POST"})
+     * @Method({"GET"})
      *
      */
     public function searchUserResultAction(Request $request, $page)

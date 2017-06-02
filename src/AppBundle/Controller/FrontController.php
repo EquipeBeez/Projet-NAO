@@ -20,7 +20,7 @@ class FrontController extends Controller
 {
     /**
      * @Route("/", name="homepage")
-     * @Method({"GET", "POST"})
+     * @Method({"GET"})
      */
     public function indexAction()
     {
