@@ -148,6 +148,7 @@
 
                     };
 
+
                     var contentString = 	'<h1>'+this.obs[ob].title+'</h1>' +
                         '<p><strong>Latitude: </strong> : '+this.obs[ob].gpsLatitude+'</p>' +
                         '<p><strong>Longitude: </strong> : '+this.obs[ob].gpsLongitude+'</p>' +
@@ -167,6 +168,12 @@
                 }
                 marker.addListener('click', function() {
                     infowindow.open(map, marker);
+                });
+
+                map.addListener('center_changed', function() {
+                    window.setTimeout(function() {
+                        map.panTo(marker.getPosition());
+                    }, 800);
                 });
 
                 var markerClusterer = new MarkerClusterer(map, markers, {
