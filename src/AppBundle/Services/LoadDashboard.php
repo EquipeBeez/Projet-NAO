@@ -37,3 +37,4 @@ class LoadDashboard
         return $this->dashboard;
     }
 }
+
