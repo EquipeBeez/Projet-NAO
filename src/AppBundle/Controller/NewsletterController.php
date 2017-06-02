@@ -244,40 +244,4 @@ class NewsletterController extends Controller
             throw new NotFoundHttpException("La page demandée n'existe pas");
         }
     }
-    /**
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @param Request $request
-     * @Route("/sidebarnewsletter", name="side_bar_newsletter")
-     * @Method({"POST"})
-     *
-     */
-    public function sideBarNewsletterAction(Request $request)
-    {
-        $emailNewsletter = new EmailNewsletter();
-        // On crée le formulaire
-        $form = $this->createForm(EmailNewsletterType::class, $emailNewsletter);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Affichage d'un message flash
-
-            $request->getSession()->getFlashBag()->add('success', 'Vous êtes désormais inscrit à notre Newsletter');
-
-            // Sauvegarder en Base de données
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($emailNewsletter);
-            $em->flush();
-
-            // Retour à la page d'accueil
-            $em = $this->getDoctrine()->getManager();
-            $listLastObservations = $em->getRepository('AppBundle:Observation')->findLastObservations(3);
-
-            return $this->render('AppBundle:Front:index.html.twig', array(
-                'listLastObservations' => $listLastObservations,
-                'form' => $form->createView()
-            ));
-        }
-    }
-
 }
