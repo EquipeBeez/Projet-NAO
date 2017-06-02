@@ -249,7 +249,7 @@ class NewsletterController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @param Request $request
      * @Route("/sidebarnewsletter", name="side_bar_newsletter")
-     * @Method({"GET"})
+     * @Method({"POST"})
      *
      */
     public function sideBarNewsletterAction(Request $request)
