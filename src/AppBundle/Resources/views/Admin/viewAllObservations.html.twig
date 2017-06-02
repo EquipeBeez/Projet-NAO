@@ -17,7 +17,7 @@
         <thead>
         <tr class="fcenter">
             <th nowrap>{{ knp_pagination_sortable(pagination, 'Titre' , 'observation.title') }}</th>
-            <th nowrap>{{ knp_pagination_sortable(pagination, 'Date', 'observation.dateObservation') }}</th>
+            <th nowrap>{{ knp_pagination_sortable(pagination, 'Date', 'observation.dateObservation|date("d/m/Y")') }}</th>
             <th nowrap>{{ knp_pagination_sortable(pagination, 'Espece', 'espece.LbNom') }}</th>
             <th nowrap>{{ knp_pagination_sortable(pagination, 'Status', 'observation.status') }}</th>
             <th nowrap>{{ knp_pagination_sortable(pagination, 'Auteur', 'author.username') }}</th>
