@@ -21,7 +21,6 @@ class LoadDashboard
 
     }
 
-
     public function loadDashboard()
     {
         $this->dashboard = array(
