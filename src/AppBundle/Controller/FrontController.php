@@ -147,7 +147,7 @@ class FrontController extends Controller
     public function sideBarLastAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $listLastObservations = $em->getRepository('AppBundle:Observation')->findLastObservations(10);
+        $listLastObservations = $em->getRepository('AppBundle:Observation')->findLastObservations(3);
         return $this->render('AppBundle:Front:sideBarLast.html.twig', array(
             'listLastObservations' => $listLastObservations
         ));
