@@ -17,7 +17,6 @@ class LoadDashboard
         $this->var_project = $var_project;
     }
 
-
     public function loadDashboard()
     {
         $this->dashboard = array(
