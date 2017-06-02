@@ -49,16 +49,16 @@ class ObservationRepository extends EntityRepository
     public function findObservationByLike($term)
     {
         $qb = $this->_em->createQueryBuilder();
-        $qb->select('o')
-            ->from('AppBundle:Observation', 'o')
-            ->join('o.espece', 'e')
-            ->join('o.author', 'a')
-            ->Where('o.title LIKE :terms')
-            ->orWhere('o.dateObservation LIKE :terms')
-            ->orWhere('e.LbNom LIKE :terms')
-            ->orWhere('e.NomVern LIKE :terms')
-            ->orWhere('a.name LIKE :terms')
-            ->andWhere('o.status = :status')
+        $qb->select('observation')
+            ->from('AppBundle:Observation', 'observation')
+            ->join('observation.espece', 'espece')
+            ->join('observation.author', 'author')
+            ->Where('observation.title LIKE :terms')
+            ->orWhere('observation.dateObservation LIKE :terms')
+            ->orWhere('espece.LbNom LIKE :terms')
+            ->orWhere('espece.NomVern LIKE :terms')
+            ->orWhere('author.name LIKE :terms')
+            ->andWhere('observation.status = :status')
             ->setParameter('terms', '%' . $term .'%' )
             ->setParameter('status', 'validated' );
 
@@ -67,15 +67,15 @@ class ObservationRepository extends EntityRepository
     public function findObservationByLikeWithoutStatus($term)
     {
         $qb = $this->_em->createQueryBuilder();
-        $qb->select('o')
-            ->from('AppBundle:Observation', 'o')
-            ->join('o.espece', 'e')
-            ->join('o.author', 'a')
-            ->Where('o.title LIKE :terms')
-            ->orWhere('o.dateObservation LIKE :terms')
-            ->orWhere('e.LbNom LIKE :terms')
-            ->orWhere('e.NomVern LIKE :terms')
-            ->orWhere('a.name LIKE :terms')
+        $qb->select('observation')
+            ->from('AppBundle:Observation', 'observation')
+            ->join('observation.espece', 'espece')
+            ->join('observation.author', 'author')
+            ->Where('observation.title LIKE :terms')
+            ->orWhere('observation.dateObservation LIKE :terms')
+            ->orWhere('espece.LbNom LIKE :terms')
+            ->orWhere('espece.NomVern LIKE :terms')
+            ->orWhere('author.name LIKE :terms')
             ->setParameter('terms', '%' . $term .'%' );
 
         return $qb->getQuery()->getResult();

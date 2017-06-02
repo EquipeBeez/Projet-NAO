@@ -73,7 +73,7 @@ class SearchFrontController extends Controller
    * @param Request $request
    * @param $page
    * @return \Symfony\Component\HttpFoundation\Response
-   * @Method({"GET"})
+   * @Method({"GET", "POST"})
    *
    */
   public function searchObservationResultAction(Request $request, $page)
