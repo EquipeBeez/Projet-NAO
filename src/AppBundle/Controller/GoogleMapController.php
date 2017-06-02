@@ -12,7 +12,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Taxrefv10;
 use AppBundle\Entity\Observation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 

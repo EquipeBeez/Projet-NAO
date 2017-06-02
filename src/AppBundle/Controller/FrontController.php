@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Contact;
 use AppBundle\Entity\EmailNewsletter;
 use AppBundle\Form\Type\EmailNewsletterType;
@@ -11,9 +13,7 @@ use FOS\UserBundle\FOSUserEvents;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 use AppBundle\Form\Type\ContactType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 
 class FrontController extends Controller
@@ -52,9 +52,8 @@ class FrontController extends Controller
     /**
      *
      * @Route("/fonctionnement", name="fonctionnement")
-     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Method({"GET", "POST"})
+     * @Method({"GET"})
      *
      */
     public function fonctionnementAction()
