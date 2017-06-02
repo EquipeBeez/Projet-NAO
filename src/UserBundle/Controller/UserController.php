@@ -104,6 +104,7 @@ class UserController extends Controller
      */
     public function editUserAction(User $user, Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $userManager = $this->container->get('fos_user.user_manager');
         $user = $userManager->findUserBy(array('id' => $user->getId()));
         if (!is_object($user)) {
@@ -113,9 +114,8 @@ class UserController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $userManager->updateUser($user);
-            $em = $this->getDoctrine()->getManager();
             $email = $user->getEmail();
-            $userEmail = $em->getRepository('AppBundle:EmailNewsletter')->findByEmail($email);
+            $userEmail = $em->getRepository('AppBundle:EmailNewsletter')->findOneBy(array('email' => $email));
             // Ajout de l'adresse mail de l'utilisateur dans la liste de la Newsletter
             if ($user->getNewsletter() === true){
                 if ($userEmail === null){
@@ -125,7 +125,6 @@ class UserController extends Controller
                     $salt = $this->container->get('app.saltRandom')->randSalt(10);
                     $emailCrypter = md5($salt.'desinscription'.$email);
                     $emailNewsletter->setEmailCrypter($emailCrypter);
-                    $em = $this->getDoctrine()->getManager();
                     $em->persist($emailNewsletter);
                     $em->flush();
                 }
@@ -133,9 +132,7 @@ class UserController extends Controller
             // Retrait de l'adresse mail de l'utilisateur de la liste de la Newsletter
             else{
                 if ($userEmail !== null) {
-                    foreach ($userEmail as $value) {
-                        $em->remove($value);
-                    }
+                    $em->remove($userEmail);
                     $em->flush();
                 }
             }

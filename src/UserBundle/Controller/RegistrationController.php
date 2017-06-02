@@ -68,11 +68,10 @@ class RegistrationController extends Controller
             if ($form->isValid()) {
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
-
-                $userManager->updateUser($user);
                 $em = $this->getDoctrine()->getManager();
+                $userManager->updateUser($user);
                 $email = $user->getEmail();
-                $userEmail = $em->getRepository('AppBundle:EmailNewsletter')->findByEmail($email);
+                $userEmail = $em->getRepository('AppBundle:EmailNewsletter')->findOneBy(array('email' => $email));
                 // Ajout de l'adresse mail de l'utilisateur dans la liste de la Newsletter
                 if ($user->getNewsletter() === true){
 
@@ -86,7 +85,6 @@ class RegistrationController extends Controller
                         $emailCrypter = md5($salt.'desinscription'.$email);
                         $emailNewsletter->setEmailCrypter($emailCrypter);
 
-                        $em = $this->getDoctrine()->getManager();
                         $em->persist($emailNewsletter);
                         $em->flush();
                     }
@@ -95,9 +93,7 @@ class RegistrationController extends Controller
                 else{
 
                     if ($userEmail !== null) {
-                        foreach ($userEmail as $value) {
-                            $em->remove($value);
-                        }
+                        $em->remove($userEmail);
                         $em->flush();
                     }
                 }
