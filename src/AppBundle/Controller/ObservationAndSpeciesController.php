@@ -106,7 +106,7 @@ class ObservationAndSpeciesController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Security("has_role('ROLE_USER')")
-     * @Method({"GET", "POST"})
+     * @Method({"GET"})
      *
      */
     public function choiceSpeciesAction()
@@ -203,7 +203,7 @@ class ObservationAndSpeciesController extends Controller
      * @Route("/viewmyobservation/{page}", name="view_my_observation")
      * @param $page
      * @return Response
-     * @Method({"GET", "POST"})
+     * @Method({"GET"})
      */
     public function viewMyObservationAction($page)
     {
