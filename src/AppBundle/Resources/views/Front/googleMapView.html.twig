@@ -3,7 +3,7 @@
 {% endblock %}
 {% block javascript %}
     <script>
-        var obs = {{ (listObservations|raw) }};
+        var obs = {{ (listObservations|html) }};
         function initMap() {
 
             var latlng = new google.maps.LatLng(46.52863469527167, 2.43896484375);
