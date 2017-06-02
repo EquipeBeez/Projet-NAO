@@ -83,14 +83,14 @@ class ProfileController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var $userManager UserManagerInterface */
             $userManager = $this->get('fos_user.user_manager');
-
+            $em = $this->getDoctrine()->getManager();
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_SUCCESS, $event);
 
             $userManager->updateUser($user);
-            $em = $this->getDoctrine()->getManager();
+
             $email = $user->getEmail();
-            $userEmail = $em->getRepository('AppBundle:EmailNewsletter')->findByEmail($email);
+            $userEmail = $em->getRepository('AppBundle:EmailNewsletter')->findOneBy(array('email' => $email));
             // Ajout de l'adresse mail de l'utilisateur dans la liste de la Newsletter
             if ($user->getNewsletter() === true){
 
@@ -103,18 +103,15 @@ class ProfileController extends Controller
 
                     $emailCrypter = md5($salt.'desinscription'.$email);
                     $emailNewsletter->setEmailCrypter($emailCrypter);
-                    $em = $this->getDoctrine()->getManager();
+
                     $em->persist($emailNewsletter);
                     $em->flush();
                 }
             }
             // Retrait de l'adresse mail de l'utilisateur de la liste de la Newsletter
             else{
-
                 if ($userEmail !== null) {
-                    foreach ($userEmail as $value) {
-                        $em->remove($value);
-                    }
+                    $em->remove($userEmail);
                     $em->flush();
                 }
             }
