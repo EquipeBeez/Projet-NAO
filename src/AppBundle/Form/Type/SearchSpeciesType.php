@@ -18,6 +18,7 @@ class SearchSpeciesType extends AbstractType
             ->add('fieldsearch', TextType::class, array(
                 'attr' => array(
                     'placeholder' => 'Recherche (Taper un mot ici)',
+                    'class' => 'rechercheEspece',
                 )));
     }
 
