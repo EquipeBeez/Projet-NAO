@@ -18,3 +18,9 @@ services:
 
     app.saltRandom:
             class: AppBundle\Services\SaltRandom
+
+    services.insDesNewsletter:
+        class: AppBundle\Services\InsDesNewsletter
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@app.saltRandom"
