@@ -10,4 +10,13 @@ namespace AppBundle\Repository;
  */
 class EmailNewsletterRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findRegisteredByLike($term)
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('n')
+            ->from('AppBundle:EmailNewsletter', 'n')
+            ->Where('n.email LIKE :terms')
+            ->setParameter('terms', '%' . $term .'%' );
+        return $qb->getQuery()->getResult();
+    }
 }
