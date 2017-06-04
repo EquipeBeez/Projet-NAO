@@ -62,7 +62,7 @@ class ObservationRepository extends EntityRepository
             ->setParameter('terms', '%' . $term .'%' )
             ->setParameter('status', 'validated' );
 
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery();
     }
     public function findObservationByLikeWithoutStatus($term)
     {
@@ -78,6 +78,6 @@ class ObservationRepository extends EntityRepository
             ->orWhere('author.name LIKE :terms')
             ->setParameter('terms', '%' . $term .'%' );
 
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery();
     }
 }

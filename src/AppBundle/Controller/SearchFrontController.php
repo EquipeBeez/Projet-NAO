@@ -99,15 +99,16 @@ class SearchFrontController extends Controller
   {
 
       $em = $this->getDoctrine()->getManager();
+      $query = $em->getRepository('AppBundle:Observation')->findObservationByLike($term);
       $paginator  = $this->get('knp_paginator');
       $pagination = $paginator->paginate(
-          $em->getRepository('AppBundle:Observation')->findObservationByLike($term), /* query NOT result */
+          $query, /* query NOT result */
           $page/*page number*/,
           25/*limit per page*/
       );
       return $this->render('AppBundle:Front:viewAllObservations.html.twig', array(
           'pagination' => $pagination,
-          'term' => $term,
+
       ));
   }
 
