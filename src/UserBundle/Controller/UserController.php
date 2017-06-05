@@ -2,7 +2,6 @@
 
 namespace UserBundle\Controller;
 
-use AppBundle\Entity\EmailNewsletter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -11,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User as User;
 use UserBundle\Form\UserType;
 use UserBundle\Form\SearchType;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 
 class UserController extends Controller
 {
@@ -112,32 +112,7 @@ class UserController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $userManager->updateUser($user);
-            $em = $this->getDoctrine()->getManager();
-            $email = $user->getEmail();
-            $userEmail = $em->getRepository('AppBundle:EmailNewsletter')->findByEmail($email);
-            // Ajout de l'adresse mail de l'utilisateur dans la liste de la Newsletter
-            if ($user->getNewsletter() === true){
-                if ($userEmail === null){
-                    $emailNewsletter = new EmailNewsletter();
-                    $emailNewsletter->setEmail($email);
-                    // Salt Random
-                    $salt = $this->container->get('app.saltRandom')->randSalt(10);
-                    $emailCrypter = md5($salt.'desinscription'.$email);
-                    $emailNewsletter->setEmailCrypter($emailCrypter);
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($emailNewsletter);
-                    $em->flush();
-                }
-            }
-            // Retrait de l'adresse mail de l'utilisateur de la liste de la Newsletter
-            else{
-                if ($userEmail !== null) {
-                    foreach ($userEmail as $value) {
-                        $em->remove($value);
-                    }
-                    $em->flush();
-                }
-            }
+            $this->container->get('services.insDesNewsletter')->insDesNewsletter($user);
             $request->getSession()->getFlashBag()->add('success', 'Utilisateur a bien été modifié.');
             return $this->redirectToRoute('admin_users', array('page' => 1));
         }
@@ -151,12 +126,21 @@ class UserController extends Controller
      * @Route("/admin/searchuserform", name="admin_search_user_form")
      * @Security("has_role('ROLE_SUPER_ADMIN')")
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Method({"GET"})
+     * @param Request $request
+     * @Method({"GET","POST"})
      *
      */
-    public function searchUserFormAction()
+    public function searchUserFormAction(Request $request)
     {
         $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted()){
+            $term = $request->get('userbundle_search')['fieldsearch'];
+
+            return $this->redirectToRoute('admin_search_user_result', array(
+                'term' => $term,
+                'page' => 1 ));
+        }
         return $this->render('UserBundle:User:search.html.twig', array(
             'form' => $form->createView()
         ));
@@ -164,17 +148,16 @@ class UserController extends Controller
 
     /**
      *
-     * @Route("/admin/searchuserresult/{page}", name="admin_search_user_result")
+     * @Route("/admin/searchuserresult/{term}/{page}", name="admin_search_user_result")
      * @Security("has_role('ROLE_SUPER_ADMIN')")
      * @param Request $request
      * @param $page
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Method({"GET", "POST"})
+     * @Method({"GET"})
      *
      */
-    public function searchUserResultAction(Request $request, $page)
+    public function searchUserResultAction($term, $page)
     {
-        $term = $request->get('userbundle_search')['fieldsearch'];
         $em = $this->getDoctrine()->getManager();
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(

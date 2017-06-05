@@ -38,7 +38,7 @@
 {% block javascript %}
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-        var listetest = {{ arraySpecies|raw }};
+        var listetest = {{ arraySpecies|html }};
         $('#form_species').val(null);
         $('#form_id').val(null);
 

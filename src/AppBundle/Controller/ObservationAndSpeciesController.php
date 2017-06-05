@@ -3,15 +3,15 @@
 namespace AppBundle\Controller;
 
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Taxrefv10;
 use AppBundle\Entity\Observation;
 use AppBundle\Form\Type\ObservationFrontType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -106,7 +106,7 @@ class ObservationAndSpeciesController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Security("has_role('ROLE_USER')")
-     * @Method({"GET", "POST"})
+     * @Method({"GET"})
      *
      */
     public function choiceSpeciesAction()
@@ -171,7 +171,7 @@ class ObservationAndSpeciesController extends Controller
             $species = $em->getRepository('AppBundle:Taxrefv10')->findOneById($id);
             $observation->setEspece($species);
         }
-        if ($this->container->get('security.authorization_checker')->isGranted('ROLE_USERNAT', $this->getUser()))
+        if ($this->container->get('security.authorization_checker')->isGranted(['ROLE_USERNAT','ROLE_SUPER_ADMIN'], $this->getUser()))
         {
             $observation->setStatus($this->getParameter('var_project')['status_obs_valid']);
             $observation->setApprouvedBy($this->getUser());
@@ -188,6 +188,7 @@ class ObservationAndSpeciesController extends Controller
             }
             $em->persist($observation);
             $em->flush();
+
             $request->getSession()->getFlashBag()->add('success', 'Observation bien enregistrée.');
             return $this->redirectToRoute('view_one_observation', array('id' => $observation->getId()));
         }
@@ -203,6 +204,7 @@ class ObservationAndSpeciesController extends Controller
      * @Route("/viewmyobservation/{page}", name="view_my_observation")
      * @param $page
      * @return Response
+     * @Method({"GET"})
      */
     public function viewMyObservationAction($page)
     {
@@ -232,6 +234,7 @@ class ObservationAndSpeciesController extends Controller
      * @param Observation $observation
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @Method({"GET", "POST"})
      */
     public function deleteMyObservationAction(Observation $observation, Request $request)
     {
@@ -265,6 +268,7 @@ class ObservationAndSpeciesController extends Controller
      * @param Observation $observation
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @Method({"GET", "POST"})
      */
     public function editMyObservationAction(Observation $observation, Request $request)
     {

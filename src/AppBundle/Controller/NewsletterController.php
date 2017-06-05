@@ -3,14 +3,13 @@
 namespace AppBundle\Controller;
 
 
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\EmailNewsletter;
 use AppBundle\Entity\Newsletter;
 use AppBundle\Form\Type\EmailNewsletterType;
 use AppBundle\Form\Type\NewsletterType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -67,6 +66,7 @@ class NewsletterController extends Controller
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/affichagenewsletter", name="affichage_newsletter")
+     * @Method({"GET"})
      */
     public function affichageNewsletterSideBarAction()
     {
@@ -244,39 +244,4 @@ class NewsletterController extends Controller
             throw new NotFoundHttpException("La page demandée n'existe pas");
         }
     }
-    /**
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @param Request $request
-     * @Route("/sidebarnewsletter", name="side_bar_newsletter")
-     *
-     */
-    public function sideBarNewsletterAction(Request $request)
-    {
-        $emailNewsletter = new EmailNewsletter();
-        // On crée le formulaire
-        $form = $this->createForm(EmailNewsletterType::class, $emailNewsletter);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Affichage d'un message flash
-
-            $request->getSession()->getFlashBag()->add('success', 'Vous êtes désormais inscrit à notre Newsletter');
-
-            // Sauvegarder en Base de données
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($emailNewsletter);
-            $em->flush();
-
-            // Retour à la page d'accueil
-            $em = $this->getDoctrine()->getManager();
-            $listLastObservations = $em->getRepository('AppBundle:Observation')->findLastObservations(3);
-
-            return $this->render('AppBundle:Front:index.html.twig', array(
-                'listLastObservations' => $listLastObservations,
-                'form' => $form->createView()
-            ));
-        }
-    }
-
 }

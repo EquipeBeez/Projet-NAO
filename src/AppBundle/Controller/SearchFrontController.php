@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\Type\SearchSpeciesType;
@@ -16,27 +17,37 @@ class SearchFrontController extends Controller
    *
    * @Route("/searchSpeciesForm", name="search_species_form")
    * @return \Symfony\Component\HttpFoundation\Response
+   * @param Request $request
+   * @Method({"GET","POST"})
    *
    */
-  public function searchSpeciesFormAction()
+  public function searchSpeciesFormAction(Request $request)
   {
       $form = $this->createForm(SearchSpeciesType::class);
+      $form->handleRequest($request);
+      if ($form->isSubmitted()){
+          $term = $request->get('appbundle_search_species')['fieldsearch'];
+
+          return $this->redirectToRoute('search_species_result', array(
+              'term' => $term,
+              'page' => 1 ));
+      }
       return $this->render('AppBundle:Front:searchSpecies.html.twig', array(
           'form' => $form->createView()
       ));
   }
 
-  /**
-   *
-   * @Route("/searchSpeciesResult/{page}", name="search_species_result")
-   * @param Request $request
-   * @param $page
-   * @return \Symfony\Component\HttpFoundation\Response
-   *
-   */
-  public function searchSpeciesResultAction(Request $request, $page)
+    /**
+     * @Route("/searchSpeciesResult/{term}/{page}", name="search_species_result")
+     * @param $term
+     * @param $page
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Method({"GET"})
+     *
+     */
+  public function searchSpeciesResultAction($term, $page)
   {
-      $term = $request->get('appbundle_search_species')['fieldsearch'];
+
       $em = $this->getDoctrine()->getManager();
       $paginator  = $this->get('knp_paginator');
       $pagination = $paginator->paginate(
@@ -46,6 +57,7 @@ class SearchFrontController extends Controller
       );
       return $this->render('AppBundle:Front:viewAllSpecies.html.twig', array(
           'pagination' => $pagination,
+          'term' => $term,
       ));
   }
 
@@ -53,36 +65,50 @@ class SearchFrontController extends Controller
    *
    * @Route("/searchObservationForm", name="search_observation_form")
    * @return \Symfony\Component\HttpFoundation\Response
+   * @param Request $request
+   * @Method({"GET","POST"})
    *
    */
-  public function searchObservationFormAction()
+  public function searchObservationFormAction(Request $request)
   {
       $form = $this->createForm(SearchObservationType::class);
+      $form->handleRequest($request);
+      if ($form->isSubmitted()){
+          $term = $request->get('appbundle_search_observation')['fieldsearch'];
+
+          return $this->redirectToRoute('search_observation_result', array(
+              'term' => $term,
+              'page' => 1 ));
+      }
       return $this->render('AppBundle:Front:searchObservation.html.twig', array(
           'form' => $form->createView()
       ));
+
   }
 
   /**
    *
-   * @Route("/searchObservationResult/{page}", name="search_observation_result")
-   * @param Request $request
+   * @Route("/searchObservationResult/{term}/{page}", name="search_observation_result")
+   * @param $term
    * @param $page
    * @return \Symfony\Component\HttpFoundation\Response
+   * @Method({"GET"})
    *
    */
-  public function searchObservationResultAction(Request $request, $page)
+  public function searchObservationResultAction($term, $page)
   {
-      $term = $request->get('appbundle_search_observation')['fieldsearch'];
+
       $em = $this->getDoctrine()->getManager();
+      $query = $em->getRepository('AppBundle:Observation')->findObservationByLike($term);
       $paginator  = $this->get('knp_paginator');
       $pagination = $paginator->paginate(
-          $em->getRepository('AppBundle:Observation')->findObservationByLike($term), /* query NOT result */
+          $query, /* query NOT result */
           $page/*page number*/,
           25/*limit per page*/
       );
       return $this->render('AppBundle:Front:viewAllObservations.html.twig', array(
           'pagination' => $pagination,
+
       ));
   }
 

@@ -399,13 +399,13 @@ class FrontControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/admin/viewallregistered/1');
 
-        $this->assertEquals(1, $crawler->filter('h2:contains("Affichage de touts les inscrits à la newsletter.")')->count());
+        $this->assertEquals(1, $crawler->filter('h2:contains("Affichage de tous les inscrits à la newsletter.")')->count());
 
         $linkDesinscription = $crawler->filter('a:contains("Désinscription")')->eq(0);
 
         $crawler = $client->click($linkDesinscription->link());
 
-        $this->assertEquals(1, $crawler->filter('h2:contains("Affichage de touts les inscrits à la newsletter.")')->count());
+        $this->assertEquals(1, $crawler->filter('h2:contains("Affichage de tous les inscrits à la newsletter.")')->count());
 
 
     }

@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
-class SearchSpeciesType extends AbstractType
+class SearchRegisteredType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -18,13 +18,12 @@ class SearchSpeciesType extends AbstractType
             ->add('fieldsearch', TextType::class, array(
                 'attr' => array(
                     'placeholder' => 'Recherche (Taper un mot ici)',
-                    'class' => 'rechercheEspece',
                 )));
     }
 
     public function getBlockPrefix()
     {
-        return 'appbundle_search_species';
+        return 'appbundle_search_registered';
     }
 
     // For Symfony 2.x
@@ -34,3 +33,4 @@ class SearchSpeciesType extends AbstractType
     }
 
 }
+

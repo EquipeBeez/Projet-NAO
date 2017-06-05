@@ -12,7 +12,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Taxrefv10;
 use AppBundle\Entity\Observation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 
@@ -47,6 +47,7 @@ class GoogleMapController extends Controller
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/googleMapForm", name="google_map_form")
+     * @Method({"GET"})
      */
     public function googleMapFormAction()
     {

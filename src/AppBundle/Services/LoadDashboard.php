@@ -2,12 +2,10 @@
 namespace AppBundle\Services;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class LoadDashboard
 {
     private $em;
-    private $container;
     private $dashboard = array();
 
     /**
@@ -20,7 +18,6 @@ class LoadDashboard
         $this->var_project = $var_project;
 
     }
-
 
     public function loadDashboard()
     {
@@ -38,3 +35,4 @@ class LoadDashboard
         return $this->dashboard;
     }
 }
+
