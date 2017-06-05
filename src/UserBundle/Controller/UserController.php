@@ -103,7 +103,6 @@ class UserController extends Controller
      */
     public function editUserAction(User $user, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
         $userManager = $this->container->get('fos_user.user_manager');
         $user = $userManager->findUserBy(array('id' => $user->getId()));
         if (!is_object($user)) {

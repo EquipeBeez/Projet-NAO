@@ -24,7 +24,7 @@ class InsDesNewsletter
     /**
      * @param $user
      */
-    public function insDesNewsletter($user)
+    public function insDesNewsletter(User $user)
     {
 
         $email = $user->getEmail();
