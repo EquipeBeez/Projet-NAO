@@ -2,6 +2,7 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\EmailNewsletter;
+use UserBundle\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 
 
